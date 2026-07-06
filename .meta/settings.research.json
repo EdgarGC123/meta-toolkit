@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "description": "Research permissions — layer on top of settings.template.json for toolkits that need web search, web fetching, or external documentation access.",
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "WebFetch",
+      "Bash(curl *)",
+
+      "Skill(research)",
+      "Skill(update-config)",
+
+      "WebFetch(domain:www.anthropic.com)",
+      "WebFetch(domain:docs.anthropic.com)",
+      "WebFetch(domain:claude.com)",
+      "WebFetch(domain:www.microsoft.com)",
+      "WebFetch(domain:www.google.com)",
+      "WebFetch(domain:developer.mozilla.org)",
+      "WebFetch(domain:stackoverflow.com)",
+      "WebFetch(domain:github.com)"
+    ]
+  }
+}

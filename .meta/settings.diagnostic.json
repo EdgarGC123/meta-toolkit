@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "description": "Diagnostic permissions — layer on top of settings.template.json for sessions requiring deep environment inspection, infrastructure debugging, or system diagnostics.",
+  "permissions": {
+    "allow": [
+      "Bash(ping -c*)",
+      "Bash(ps aux*)",
+      "Bash(top -l 1*)",
+      "Bash(pgrep*)",
+      "Bash(df *)",
+      "Bash(du *)",
+      "Bash(dig *)",
+      "Bash(nslookup *)",
+      "Bash(host *)",
+      "Bash(uname*)",
+
+      "Bash(node --version*)",
+      "Bash(npm --version*)",
+      "Bash(npm list*)",
+      "Bash(npm view*)",
+
+      "Bash(tar -tzf*)",
+      "Bash(tar -tzvf*)",
+      "Bash(unzip -l*)",
+      "Bash(zipinfo*)",
+
+      "Bash(yq *)",
+      "Bash(xmllint *)",
+      "Bash(jest --listTests*)",
+
+      "Bash(pytest --collect-only*)",
+      "Bash(sed -n*)",
+      "Bash(env | grep *)",
+      "Bash(printenv *)",
+      "Bash(echo $*)",
+      "Bash(aws sts get-caller-identity*)",
+      "Bash(aws lambda list-functions*)",
+      "Bash(az account show*)",
+      "Bash(az account list*)",
+      "Bash(az group list*)",
+      "Bash(az resource list*)",
+      "Bash(az functionapp list*)",
+      "Bash(az storage account list*)"
+    ]
+  }
+}

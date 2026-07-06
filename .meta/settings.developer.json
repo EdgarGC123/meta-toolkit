@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "description": "Developer permissions — layer on top of settings.template.json for toolkits involving custom code, Azure/AWS deployments, or Python development.",
+  "permissions": {
+    "allow": [
+      "Bash(git add*)",
+      "Bash(git commit*)",
+      "Bash(git push*)",
+
+      "Bash(python -c *)",
+      "Bash(python3 -c *)",
+      "Bash(python3 *)",
+      "Bash(python -m json.tool*)",
+      "Bash(python3 -m json.tool*)",
+      "Bash(pip list*)",
+      "Bash(pip show*)",
+      "Bash(pip install*)",
+      "Bash(pip3 install*)",
+      "Bash(python --version*)",
+      "Bash(python3 --version*)",
+      "Bash(pip --version*)",
+      "Bash(poetry --version*)",
+      "Bash(pytest*)",
+      "Bash(pytest --version*)",
+      "Bash(pytest --collect-only*)",
+      "Bash(black --version*)",
+      "Bash(black *.py*)",
+      "Bash(mypy --version*)",
+      "Bash(mypy *.py*)",
+
+      "Bash(az --version*)",
+      "Bash(az account show*)",
+      "Bash(az account list*)",
+      "Bash(az group list*)",
+      "Bash(az resource list*)",
+      "Bash(az storage *)",
+      "Bash(az storage account list*)",
+      "Bash(az functionapp *)",
+      "Bash(az functionapp list*)",
+      "Bash(az servicebus *)",
+      "Bash(az keyvault *)",
+
+      "Bash(aws --version*)",
+      "Bash(aws sts get-caller-identity*)",
+      "Bash(aws s3 ls*)",
+      "Bash(aws lambda list-functions*)",
+      "Bash(aws bedrock*)",
+
+      "Bash(mkdir *)",
+      "Bash(cp *)",
+      "Bash(mv *)",
+      "Bash(touch *)"
+    ]
+  }
+}

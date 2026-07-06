@@ -1,0 +1,10 @@
+# Machine-specific Claude Code settings — never commit
+.claude/settings.local.json
+
+# macOS
+.DS_Store
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
