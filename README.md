@@ -174,6 +174,10 @@ These three skills work in sequence: `/brief` to orient, `/research` to investig
 - Stubs surface in CLAUDE.md every session
 - Expand any stub by describing the need — the toolkit grows to meet it
 
+### Always removed
+
+- **`.git/`** — the entire git directory is wiped. No commit history, no remote connections, no ties back to the accelerator repo. The generated toolkit is a clean directory. Run `git init` when you're ready to start your own repository.
+
 ---
 
 ## Adaptive Discovery

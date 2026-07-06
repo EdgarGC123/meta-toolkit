@@ -51,8 +51,6 @@
       "Bash(printf *)"
     ],
     "deny": [
-      "Edit(~/**)",
-      "Write(~/**)",
       "Bash(rm ..*)",
       "Bash(rm -rf ..*)",
       "Bash(rm ~*)",

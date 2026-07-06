@@ -31,8 +31,6 @@
       "WebFetch(domain:docs.anthropic.com)"
     ],
     "deny": [
-      "Edit(~/**)",
-      "Write(~/**)",
       "Bash(sudo *)",
       "Bash(rm -rf /)",
       "Bash(rm -rf /*)",

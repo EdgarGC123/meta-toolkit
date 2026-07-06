@@ -13,6 +13,14 @@ Every toolkit gets this regardless of purpose. Covers day-one essentials: file n
 
 **Use for**: Any toolkit. This is always the starting point.
 
+### How out-of-project access is handled
+
+The base template uses `Read(/**)`, `Edit(/**)`, and `Write(/**)` in the allow list. In project settings, the `/` anchor resolves to the **project root** — so these rules silently allow all file operations inside the toolkit directory without prompting.
+
+**For anything outside the project root**: there is intentionally no explicit deny rule for `~/**` or external paths. Instead, those operations fall through to a permission prompt — Claude Code will ask once per command pattern, and if approved it adds the rule to `settings.local.json`. This avoids false positives on symlinked paths (e.g. OneDrive, network drives) that might resolve as home-relative even when they are logically inside the project.
+
+**Rule of thumb for deny rules**: only explicitly deny things you want blocked with no prompt whatsoever — system-destructive commands, sudo, force pushes to protected branches. For everything else, let the prompt handle it. Overly broad deny rules (like `Edit(~/**)`) can block legitimate in-project operations on machines where the project lives under a path that resolves as home-relative.
+
 ### `settings.research.json` — Research layer
 Adds web access: `WebSearch`, `WebFetch`, `curl`, common research domains, and research-focused Skills (`research`, `update-config`).
 
