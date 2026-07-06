@@ -6,7 +6,7 @@ The toolkit generation process is adaptive. Phase 1 determines what questions ar
 
 ## Meta Library Map — What's Available to Pull From
 
-Before generating anything, understand what the accelerator provides. Every file in `.meta/` is a potential input to generation. Read this map at the start of Phase 0 and use it throughout Phases 4 and 7.
+Before generating anything, understand what the generator provides. Every file in `.meta/` is a potential input to generation. Read this map at the start of Phase 0 and use it throughout Phases 4 and 7.
 
 ### Always copied into every generated toolkit
 | Resource | Source | Destination |
@@ -52,7 +52,7 @@ Before generating anything, understand what the accelerator provides. Every file
 ## Phase 0: Pre-Flight
 
 Before starting, silently verify:
-- Working directory contains the accelerator structure (`.meta/`, `.claude/skills/start-here/`)
+- Working directory contains the generator structure (`.meta/`, `.claude/skills/start-here/`)
 - If not: hard stop — "This skill must be run from the ai-toolkit-accelerator directory."
 
 **Immediately kick off the git detach subagent in the background** — do this before announcing anything to the user. The subagent runs concurrently while the discovery conversation proceeds and the user never waits for it.
@@ -88,7 +88,7 @@ Do not wait or retry during the conversation. At Phase 8, verify the state yours
 - If `.git` still exists: attempt `rm -rf .git` once yourself. Re-verify with `ls -la .git`.
   - If now gone: include the SUCCESS note above.
   - If still present: include this warning in the completion message instead:
-> "⚠️ Git detach incomplete — .git still exists in this directory. Your toolkit is otherwise ready, but it remains connected to the accelerator's remote repository. Run `rm -rf .git` manually, then `git init` to start fresh."
+> "⚠️ Git detach incomplete — .git still exists in this directory. Your toolkit is otherwise ready, but it remains connected to the generator's remote repository. Run `rm -rf .git` manually, then `git init` to start fresh."
 
 Announce in one line: "Starting toolkit generation. I'll ask a short set of discovery questions, then go deeper based on what you share."
 
@@ -293,7 +293,7 @@ Create all files. Reference PROMPTS.md for progress messaging format. Use the Me
 Resolve the subagent outcome from Phase 0 per the handling rules defined there. Determine which completion note applies (success line or warning). Do not skip this even if the conversation ran long — the git state check is a single `ls -la .git` command.
 
 **Step 2 — Delete scaffolding:**
-- `bootstrap.py` and `bootstrap.py.backup` (if present from older versions of the accelerator)
+- `bootstrap.py` and `bootstrap.py.backup` (if present from older versions of the generator)
 - `.claude/skills/start-here/` (this skill — it has done its job)
 - `.meta/` directory (all guides, base-skills source templates, accumulation folders)
 - `START_HERE.md`
@@ -335,8 +335,8 @@ When ready, describe the need in a new session. The process will:
 
 ## Reference
 
-- See `DESIGN_PHILOSOPHY.md` in the AI Toolkit Accelerator for design rationale
-- See `.meta/` guides in the accelerator if still available
+- See `DESIGN_PHILOSOPHY.md` in the AI Toolkit Generator for design rationale
+- See `.meta/` guides in the generator if still available
 ```
 
 Keep stub filenames short and descriptive: `testing.md`, `delivery-platform.md`, `track-structure.md`, `integrations.md` — whatever names the topic clearly.

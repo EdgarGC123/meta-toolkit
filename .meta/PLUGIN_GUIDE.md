@@ -388,7 +388,7 @@ plugin/
 
 1. Create plugin following this guide
 2. Test thoroughly
-3. Add to `.meta/plugins/` in the accelerator
+3. Add to `.meta/plugins/` in the generator
 4. `/start-here` will detect it automatically on the next toolkit generation
 5. Users can select it during discovery
 

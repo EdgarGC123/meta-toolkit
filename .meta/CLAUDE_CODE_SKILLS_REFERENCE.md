@@ -93,7 +93,7 @@ Claude Code checks these locations in order:
 ```markdown
 ---
 description: Generate a custom AI toolkit by analyzing your workflow and creating comprehensive documentation
-when_to_use: Use when ready to transform the accelerator into your custom toolkit
+when_to_use: Use when ready to transform the generator into your custom toolkit
 ---
 
 # Start Here - Toolkit Bootstrap Skill
@@ -104,7 +104,7 @@ when_to_use: Use when ready to transform the accelerator into your custom toolki
 
 ## What This Does
 
-This skill transforms the AI Toolkit Accelerator into your custom toolkit by:
+This skill transforms the AI Toolkit Generator into your custom toolkit by:
 1. Analyzing your workflow description
 2. Recommending appropriate structure
 3. Asking clarifying questions

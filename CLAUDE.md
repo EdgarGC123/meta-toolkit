@@ -1,12 +1,12 @@
-# Claude Code Session Guide — AI Toolkit Accelerator
+# Claude Code Session Guide — AI Toolkit Generator
 
-This is the session guide for working **on the accelerator itself** — maintaining it, extending it, and generating new toolkits from it. It is not a generated toolkit session guide.
+This is the session guide for working **on the generator itself** — maintaining it, extending it, and generating new toolkits from it. It is not a generated toolkit session guide.
 
 ---
 
 ## What This Repo Is
 
-The AI Toolkit Accelerator is a scaffolding system. When you run `/start-here`, it generates a custom toolkit for a specific engagement or workflow, then deletes itself from that copy. The original accelerator remains untouched as your source library.
+The AI Toolkit Generator is a scaffolding system. When you run `/start-here`, it generates a custom toolkit for a specific engagement or workflow, then deletes itself from that copy. The original generator remains untouched as your source library.
 
 ---
 
@@ -30,11 +30,11 @@ The AI Toolkit Accelerator is a scaffolding system. When you run `/start-here`, 
 
 ## Folder Rename Rule
 
-If any folder in this accelerator is renamed, update path references in this file and in `.claude/skills/start-here/PHASES.md` in the same session.
+If any folder in this generator is renamed, update path references in this file and in `.claude/skills/start-here/PHASES.md` in the same session.
 
 ---
 
-## Working on the Accelerator
+## Working on the Generator
 
 **Adding a new base skill** (one that ships into every generated toolkit):
 1. Build and test the skill under `.meta/base-skills/[skill-name]/`
@@ -52,14 +52,14 @@ If any folder in this accelerator is renamed, update path references in this fil
 - Edit `.meta/base-skills/brief/SKILL.md` for session orientation behavior
 
 **Generating a new toolkit**:
-- Copy this accelerator to a new directory, open it in Claude Code, run `/start-here`
+- Copy this generator to a new directory, open it in Claude Code, run `/start-here`
 
 ---
 
 ## What NOT to Do Here
 
 - Do not run `/brief` — there are no `docs/ACTION_ITEMS.md` or `docs/PROJECT_CONTEXT.md` here
-- Do not run `/research` or `/solution-writer` — those are toolkit-operational skills with no applicable context in the accelerator itself
+- Do not run `/research` or `/solution-writer` — those are toolkit-operational skills with no applicable context in the generator itself
 - Do not modify `.meta/` files in a generated toolkit copy — changes there affect only that copy and will be deleted with `.meta/` after generation
 
 ---

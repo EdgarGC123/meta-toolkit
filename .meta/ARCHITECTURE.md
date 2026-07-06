@@ -1,6 +1,6 @@
 # Meta-Toolkit Architecture
 
-This document explains how the AI Toolkit Accelerator works as a **scaffolding system**.
+This document explains how the AI Toolkit Generator works as a **scaffolding system**.
 
 ---
 
@@ -16,7 +16,7 @@ This IS a **generator** that builds custom toolkits through an adaptive discover
 ai-toolkit-accelerator/          # Meta-toolkit (scaffolding)
 ├── README.md                    # Explains meta-toolkit
 ├── DESIGN_PHILOSOPHY.md         # Design rationale — persists after generation
-├── .claude/skills/start-here/   # Only executable skill on the accelerator
+├── .claude/skills/start-here/   # Only executable skill on the generator
 └── .meta/                       # All reference material + source templates
     ├── base-skills/             # Copied into every generated toolkit's .claude/skills/
     │   ├── brief/               # → /brief
@@ -290,13 +290,13 @@ User might need:
 
 **`.meta/base-skills/`** = Toolkit operational skills (source templates)
 - Skills that belong in every generated toolkit: `/brief`, `/research`, `/solution-writer`
-- Not useful on the accelerator itself — they read project files that don't exist here
+- Not useful on the generator itself — they read project files that don't exist here
 - Copied into a generated toolkit's `.claude/skills/` automatically at generation time
 - After copying, they become live `/skill-name` commands in the generated toolkit
 
 **`.claude/skills/`** = Executable commands (live, invokable now)
 - Claude Code scans this folder and makes each subfolder a `/skill-name` command
-- On the accelerator: only `/start-here` lives here
+- On the generator: only `/start-here` lives here
 - On a generated toolkit: `/brief`, `/research`, `/solution-writer`, and any others selected
 
 **Discovery Rule**: Claude Code only finds skills in `.claude/skills/` (or `~/.claude/skills/` for personal). Skills in `.meta/` are invisible to Claude Code until copied.
@@ -532,7 +532,7 @@ Within solution docs, internal-only sections are flagged:
 ```
 .archive/
   [track-name]/                     # Graduated planning docs
-  accelerator-dev-notes/            # Session artifacts from toolkit setup
+  old-dev-notes/            # Session artifacts from toolkit setup
   [other-category]/
 ```
 

@@ -1,12 +1,12 @@
-# Design Philosophy — AI Toolkit Accelerator
+# Design Philosophy — AI Toolkit Generator
 
-This document explains what is embedded in this accelerator, why it was built the way it was, and what intellectual foundation each piece rests on. It is not a usage guide — the README covers that. This is for anyone who wants to understand the system deeply enough to extend it, evaluate it, or explain it to someone else.
+This document explains what is embedded in this generator, why it was built the way it was, and what intellectual foundation each piece rests on. It is not a usage guide — the README covers that. This is for anyone who wants to understand the system deeply enough to extend it, evaluate it, or explain it to someone else.
 
 ---
 
-## What This Accelerator Is Harnessed By
+## What This Generator Is Harnessed By
 
-The accelerator is built for **AI-assisted client engagement work** — specifically the kind of work where a small team uses Claude to accelerate discovery, documentation, analysis, and delivery across a multi-week or multi-month project.
+The generator is built for **AI-assisted client engagement work** — specifically the kind of work where a small team uses Claude to accelerate discovery, documentation, analysis, and delivery across a multi-week or multi-month project.
 
 That context shapes every design decision here. The patterns embedded are not general AI productivity tips. They are answers to specific failure modes observed when AI is used in high-stakes, collaborative, client-facing work:
 
@@ -17,7 +17,7 @@ That context shapes every design decision here. The patterns embedded are not ge
 - Deliverables that mix internal debate with client-facing content
 - Codebases generated without architecture conventions that end up unmaintainable
 
-Every section of this document traces to one of those failure modes and explains what the accelerator does about it.
+Every section of this document traces to one of those failure modes and explains what the generator does about it.
 
 ---
 
@@ -113,7 +113,7 @@ A skill is self-sufficient when it works correctly even if the user has never re
 
 ### Prompts as composable artifacts
 
-The shift this accelerator encodes: stop treating prompts as one-off chat interactions and start treating them as reusable artifacts that any developer can invoke and get consistent, repeatable results. A prompt is production-ready when it has defined success criteria, defined guardrails, a verification step, and a feedback loop.
+The shift this generator encodes: stop treating prompts as one-off chat interactions and start treating them as reusable artifacts that any developer can invoke and get consistent, repeatable results. A prompt is production-ready when it has defined success criteria, defined guardrails, a verification step, and a feedback loop.
 
 ### Never write prompts by hand
 
@@ -129,7 +129,7 @@ Before the first spec or agent run on any code-based engagement, define layer se
 
 ### Agentic workflow patterns
 
-The accelerator documents five reusable agentic patterns that any developer can use as starting points rather than designing from scratch: TDD/Red-Green, Spec Flow, Bug Fix Workflow, Coverage Gap Fill, and Backlog Generation Flow. Each has a defined success criterion and a verify-before-continue step. The core principle across all of them: define what "done" looks like and what you do not want before a single agent runs.
+The generator documents five reusable agentic patterns that any developer can use as starting points rather than designing from scratch: TDD/Red-Green, Spec Flow, Bug Fix Workflow, Coverage Gap Fill, and Backlog Generation Flow. Each has a defined success criterion and a verify-before-continue step. The core principle across all of them: define what "done" looks like and what you do not want before a single agent runs.
 
 ---
 
@@ -171,7 +171,7 @@ When meeting notes reference a transcript, reference it by date or topic — nev
 
 ## What This Is Not
 
-This accelerator is not a general-purpose AI productivity framework. It does not try to cover every possible way someone might use an AI assistant. It covers a specific problem well: structured, collaborative, client-facing AI-assisted work where quality, consistency, and reproducibility matter.
+This generator is not a general-purpose AI productivity framework. It does not try to cover every possible way someone might use an AI assistant. It covers a specific problem well: structured, collaborative, client-facing AI-assisted work where quality, consistency, and reproducibility matter.
 
 If you are using it for something simpler — a personal workflow, a one-person project, a quick prototype — many of these patterns are overkill. Use what applies and ignore what does not. The patterns are modular by design.
 
@@ -179,5 +179,5 @@ If you are using it for something simpler — a personal workflow, a one-person 
 
 **Version**: 1.0
 **Last Updated**: 2026-07-03
-**Maintained by**: Accelerator contributors
-**Applies to**: All toolkits generated from this accelerator
+**Maintained by**: Generator contributors
+**Applies to**: All toolkits generated from this generator

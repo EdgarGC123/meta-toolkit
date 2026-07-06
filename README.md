@@ -1,4 +1,4 @@
-# AI Toolkit Accelerator
+# AI Toolkit Generator
 
 **A scaffolding system for building systematic AI-assisted workflows**
 
@@ -23,7 +23,7 @@ Claude guides you through an adaptive discovery conversation and generates your 
 **Generates custom toolkits** tailored to your workflow through an adaptive discovery conversation:
 
 ```bash
-# 1. Clone the accelerator
+# 1. Clone the generator
 git clone https://github.com/[repo]/ai-toolkit-accelerator my-toolkit
 cd my-toolkit
 
@@ -42,7 +42,7 @@ cd my-toolkit
 - Scaffolding automatically deleted — clean toolkit remains
 - Git history and remote connection removed — ready for `git init` as your own repo
 
-**Want to keep a local copy of the accelerator alongside your toolkit?**
+**Want to keep a local copy of the generator alongside your toolkit?**
 Clone once, then copy before running `/start-here`:
 ```bash
 git clone https://github.com/[repo]/ai-toolkit-accelerator
@@ -65,7 +65,7 @@ ai-toolkit-accelerator/
 ├── DESIGN_PHILOSOPHY.md          [What's baked in and why]
 ├── .claude/
 │   └── skills/
-│       └── start-here/           [The only executable skill on the accelerator]
+│       └── start-here/           [The only executable skill on the generator]
 └── .meta/                        [All reference material — deleted after generation]
     ├── ARCHITECTURE.md
     ├── AGENTIC_PATTERNS.md
@@ -123,7 +123,7 @@ my-toolkit/
 
 ## Skills Baked Into Every Generated Toolkit
 
-Every toolkit generated from this accelerator receives three skills, copied from `.meta/base-skills/` into the toolkit's `.claude/skills/` at generation time. These are toolkit-operational skills — they have no purpose on the accelerator itself.
+Every toolkit generated from this generator receives three skills, copied from `.meta/base-skills/` into the toolkit's `.claude/skills/` at generation time. These are toolkit-operational skills — they have no purpose on the generator itself.
 
 ### `/brief`
 Session orientation. Reads `docs/ACTION_ITEMS.md`, `docs/PROJECT_CONTEXT.md`, and the latest meeting notes, then gives a concise status summary before asking what to work on. Run at the start of every session.
@@ -176,7 +176,7 @@ These three skills work in sequence: `/brief` to orient, `/research` to investig
 
 ### Always removed
 
-- **`.git/`** — the entire git directory is wiped. No commit history, no remote connections, no ties back to the accelerator repo. The generated toolkit is a clean directory. Run `git init` when you're ready to start your own repository.
+- **`.git/`** — the entire git directory is wiped. No commit history, no remote connections, no ties back to the generator repo. The generated toolkit is a clean directory. Run `git init` when you're ready to start your own repository.
 
 ---
 
@@ -239,7 +239,7 @@ The generation conversation asks what the toolkit needs access to and builds `se
 
 ### `.claude/` — The Execution Layer
 
-The folder Claude Code watches automatically. Skills here are executable as `/skill-name` commands. On the accelerator itself, only one skill lives here: `/start-here`. The other operational skills (`/brief`, `/research`, `/solution-writer`) live in `.meta/base-skills/` and get copied into every generated toolkit's `.claude/skills/` at generation time — they're toolkit tools, not accelerator tools.
+The folder Claude Code watches automatically. Skills here are executable as `/skill-name` commands. On the generator itself, only one skill lives here: `/start-here`. The other operational skills (`/brief`, `/research`, `/solution-writer`) live in `.meta/base-skills/` and get copied into every generated toolkit's `.claude/skills/` at generation time — they're toolkit tools, not generator tools.
 
 ---
 
@@ -265,7 +265,7 @@ The folder Claude Code watches automatically. Skills here are executable as `/sk
 
 ## Examples of Generated Toolkits
 
-**After using this accelerator, you might have**:
+**After using this generator, you might have**:
 
 ```
 ~/toolkits/
@@ -280,7 +280,7 @@ The folder Claude Code watches automatically. Skills here are executable as `/sk
 - Custom to its purpose
 - Clean (no scaffolding)
 - Ready to use immediately
-- Can reference shared plugins/skills from `.meta/` in the accelerator
+- Can reference shared plugins/skills from `.meta/` in the generator
 
 ---
 
@@ -303,12 +303,12 @@ cd my-toolkit
 The toolkit grows with you:
 - New requirement surfaces → describe it, `/toolkit-advisor` integrates it
 - Deferred stub becomes real → describe the need, the toolkit adds the component
-- Reusable pattern emerges → extract as skill, add to the accelerator
+- Reusable pattern emerges → extract as skill, add to the generator
 
-### 3. Add to the Accelerator
+### 3. Add to the Generator
 
 ```bash
-# Back to the accelerator
+# Back to the generator
 cd ../ai-toolkit-accelerator
 
 # Add discovered patterns to .meta/plugins/, .meta/skills/, or .meta/templates/
@@ -388,7 +388,7 @@ Your generated toolkit is ready when:
 ## Getting Started
 
 1. Read [START_HERE.md](START_HERE.md) to understand what to expect
-2. Copy this accelerator to a new directory
+2. Copy this generator to a new directory
 3. Open in Claude Code
 4. Type `/start-here`
 5. Answer the discovery questions

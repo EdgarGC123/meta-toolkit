@@ -1,6 +1,6 @@
 # AI Behavior Guidelines
 
-**Purpose**: Standard behavioral rules for AI assistants using toolkits generated from this accelerator.
+**Purpose**: Standard behavioral rules for AI assistants using toolkits generated from this generator.
 
 **Status**: These guidelines are automatically included in all generated toolkits.
 
@@ -789,4 +789,4 @@ These guidelines can be relaxed when:
 
 **Version**: 2.3  
 **Last Updated**: 2026-07-03  
-**Applies To**: All toolkits generated from this accelerator
+**Applies To**: All toolkits generated from this generator

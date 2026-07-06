@@ -1,10 +1,10 @@
 ---
-description: Generate a custom AI toolkit by guiding an adaptive discovery conversation, then creating comprehensive documentation. Use when ready to transform the accelerator into your custom toolkit.
+description: Generate a custom AI toolkit by guiding an adaptive discovery conversation, then creating comprehensive documentation. Use when ready to transform the generator into your custom toolkit.
 ---
 
 # Start Here — Toolkit Bootstrap
 
-**Purpose**: Transform the AI Toolkit Accelerator into a custom toolkit through adaptive discovery. Not a fixed wizard — a conversation that follows the context you provide.
+**Purpose**: Transform the AI Toolkit Generator into a custom toolkit through adaptive discovery. Not a fixed wizard — a conversation that follows the context you provide.
 
 ---
 

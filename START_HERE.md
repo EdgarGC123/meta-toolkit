@@ -1,6 +1,6 @@
 # Start Here
 
-**Welcome to the AI Toolkit Accelerator.**
+**Welcome to the AI Toolkit Generator.**
 
 This generates a custom AI workflow toolkit tailored to your specific needs through an adaptive discovery conversation — not a fixed wizard.
 
