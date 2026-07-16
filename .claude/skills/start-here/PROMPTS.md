@@ -193,6 +193,8 @@ Cleaning up scaffolding...
 ✓ Removed bootstrap artifacts
 ✓ Removed .meta/
 ✓ Removed start-here skill
+✓ Removed DESIGN_PHILOSOPHY.md
+✓ Removed START_HERE.md
 ```
 
 ---
@@ -220,16 +222,16 @@ NEXT STEPS:
 To modify this toolkit later: /toolkit-advisor
 To expand a deferred topic: describe the need in a new session
 
-[Git detach — include exactly one of the following, never both:]
+[Git detach — include exactly one of the following based on the rm -rf .git result in Step 1:]
 
-[If SUCCESS:]
+[If .git was successfully removed:]
   Git history and remote connection removed. This toolkit is clean —
   run `git init` when you're ready to start your own repository.
 
-[If FAILED after all retry attempts:]
+[If .git still exists after removal attempt:]
   ⚠️ Git detach incomplete — .git still exists in this directory.
   Your toolkit is otherwise ready, but it remains connected to the
-  accelerator's remote repository. Run `rm -rf .git` manually,
+  generator's remote repository. Run `rm -rf .git` manually,
   then `git init` to start fresh.
 ```
 

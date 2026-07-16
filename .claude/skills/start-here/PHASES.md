@@ -55,40 +55,7 @@ Before starting, silently verify:
 - Working directory contains the generator structure (`.meta/`, `.claude/skills/start-here/`)
 - If not: hard stop — "This skill must be run from the ai-toolkit-accelerator directory."
 
-**Immediately kick off the git detach subagent in the background** — do this before announcing anything to the user. The subagent runs concurrently while the discovery conversation proceeds and the user never waits for it.
-
-Subagent instructions (pass verbatim — do not paraphrase or expand):
-
-```
-You have one job: remove the .git directory from the current working directory.
-
-Steps:
-1. Run: rm -rf .git
-2. Verify .git no longer exists by running: ls -la .git
-3. If verification confirms .git is gone: return the single word SUCCESS
-4. If .git did not exist to begin with: return the single word SUCCESS
-5. If rm fails or .git still exists after removal: return FAILED followed by the error or ls output
-```
-
-Subagent configuration:
-- `allowed-tools: Bash(rm -rf .git), Bash(ls *)` — no other tools
-- `context: fork` — isolated context, does not affect main conversation
-
-**How to handle the subagent result in Phase 8:**
-
-When Phase 8 runs, check whether the subagent returned a result:
-
-**Case 1 — Subagent returned SUCCESS:**
-Include this line in the completion message (natural, not alarming):
-> "Git history and remote connection removed. This toolkit is clean — run `git init` when you're ready to start your own repository."
-
-**Case 2 — Subagent returned FAILED or no result was received:**
-Do not wait or retry during the conversation. At Phase 8, verify the state yourself by running `ls -la .git` directly.
-- If `.git` is gone: treat as SUCCESS and include the note above.
-- If `.git` still exists: attempt `rm -rf .git` once yourself. Re-verify with `ls -la .git`.
-  - If now gone: include the SUCCESS note above.
-  - If still present: include this warning in the completion message instead:
-> "⚠️ Git detach incomplete — .git still exists in this directory. Your toolkit is otherwise ready, but it remains connected to the generator's remote repository. Run `rm -rf .git` manually, then `git init` to start fresh."
+**Git detach runs in Phase 8, not here.** Background subagents cannot request approval for destructive operations — rm -rf .git would fail silently in a forked context. The removal runs inline in the main conversation during Phase 8 cleanup. The generator runs in `auto` mode (`defaultMode: auto` in `.claude/settings.json`) so cleanup commands execute without prompting the user.
 
 Announce in one line: "Starting toolkit generation. I'll ask a short set of discovery questions, then go deeper based on what you share."
 
@@ -289,14 +256,24 @@ Create all files. Reference PROMPTS.md for progress messaging format. Use the Me
 
 ## Phase 8: Clean Up and Close
 
-**Step 1 — Check git detach result** (before anything else):
-Resolve the subagent outcome from Phase 0 per the handling rules defined there. Determine which completion note applies (success line or warning). Do not skip this even if the conversation ran long — the git state check is a single `ls -la .git` command.
+**Step 1 — Git detach (inline, main conversation):**
+
+Run directly — do not use a subagent. The generator runs in `auto` mode so this executes without prompting.
+
+```bash
+rm -rf .git
+```
+
+Verify with `ls -la .git`:
+- If `.git` is gone: success — include this in the completion message: "Git history and remote connection removed. This toolkit is clean — run `git init` when you're ready to start your own repository."
+- If `.git` still exists: include this warning instead: "⚠️ Git detach incomplete — .git still exists. Run `rm -rf .git` manually, then `git init` to start fresh."
 
 **Step 2 — Delete scaffolding:**
 - `bootstrap.py` and `bootstrap.py.backup` (if present from older versions of the generator)
 - `.claude/skills/start-here/` (this skill — it has done its job)
 - `.meta/` directory (all guides, base-skills source templates, accumulation folders)
 - `START_HERE.md`
+- `DESIGN_PHILOSOPHY.md` (generator design rationale — not relevant to the generated toolkit)
 
 The generated toolkit's `.claude/skills/` now contains only the base skills copied during generation (brief, research, solution-writer). The `.meta/` deletion does not affect them — they were already copied to their destination.
 

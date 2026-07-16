@@ -1,11 +1,13 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
-  "description": "Accelerator project settings \u2014 committed with the repo. Grants permissions needed to run /start-here, including git detach on generation.",
+  "description": "Generator project settings \u2014 committed with the repo. Grants permissions needed to run /start-here, including git detach on generation.",
   "permissions": {
     "allow": [
       "Read(/**)",
       "Edit(/**)",
       "Write(/**)",
+      "Edit(.git/**)",
+      "Edit(.claude/**)",
       "Bash(ls *)",
       "Bash(find *)",
       "Bash(grep *)",
@@ -13,12 +15,11 @@
       "Bash(stat *)",
       "Bash(mv *)",
       "Bash(cp *)",
+      "Bash(rm *)",
+      "Bash(rm -f *)",
+      "Bash(rm -rf *)",
       "Bash(mkdir *)",
-      "Bash(rm -rf .git)",
-      "Bash(rm -rf .meta*)",
-      "Bash(rm -rf .claude/skills/start-here*)",
-      "Bash(rm START_HERE.md)",
-      "Bash(rm bootstrap.py*)",
+      "Bash(mkdir -p *)",
       "Bash(git status*)",
       "Bash(git log*)",
       "Bash(git remote*)",
@@ -37,8 +38,8 @@
       "Bash(rm -rf ~)",
       "Bash(rm -rf ~/*)",
       "Bash(rm -rf /System*)",
-      "Bash(rm -rf /Library*)",
-      "Bash(rm -rf /Users/*)"
+      "Bash(rm -rf /Library*)"
     ]
-  }
+  },
+  "defaultMode": "auto"
 }

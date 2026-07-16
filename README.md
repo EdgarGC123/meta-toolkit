@@ -16,6 +16,8 @@ Claude guides you through an adaptive discovery conversation and generates your 
 
 **First time?** See [START_HERE.md](START_HERE.md) for what to expect.
 
+> **Note**: On first open, Claude Code will show a workspace trust dialog listing pre-approved permissions from `.claude/settings.json`. Select "Yes, I trust this folder" — these permissions are required for generation to complete without interruption. The generator runs in `auto` mode, meaning tool calls are approved automatically based on safety checks rather than prompting you for each one.
+
 ---
 
 ## What This Does
@@ -176,7 +178,10 @@ These three skills work in sequence: `/brief` to orient, `/research` to investig
 
 ### Always removed
 
-- **`.git/`** — the entire git directory is wiped. No commit history, no remote connections, no ties back to the generator repo. The generated toolkit is a clean directory. Run `git init` when you're ready to start your own repository.
+- **`.git/`** — the entire git directory is wiped. No commit history, no remote connections, no ties back to the generator repo. Run `git init` when you're ready to start your own repository.
+- **`.meta/`** — all generator guides, templates, and base-skill sources (already copied to their destinations)
+- **`.claude/skills/start-here/`** — the generation skill, its job is done
+- **`START_HERE.md`** and **`DESIGN_PHILOSOPHY.md`** — generator artifacts, not relevant to the generated toolkit
 
 ---
 

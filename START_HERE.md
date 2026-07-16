@@ -14,7 +14,9 @@ cd my-toolkit
 /start-here
 ```
 
-Claude will guide you through a short intake, then branch into the questions that are actually relevant for your use case. The moment you run `/start-here`, a background process removes the git history and remote connection — so by the time generation completes, the toolkit is a clean slate ready for `git init` as your own repository.
+Claude will guide you through a short intake, then branch into the questions that are actually relevant for your use case. Generation runs in `auto` mode — tool calls are approved automatically so the process completes without interrupting you for permission confirmations.
+
+On first open, Claude Code shows a workspace trust dialog. Select **"Yes, I trust this folder"** — this activates the pre-approved permissions in `.claude/settings.json` that allow generation to run cleanly. Avoid spaces in the folder name when cloning or copying.
 
 ---
 
@@ -50,7 +52,7 @@ The process opens with a few discovery questions — who this is for, what "done
 - Expand any stub by describing the need — the process runs the same discovery questions and integrates the component
 
 ### Cleanup (automatic)
-After generation, all scaffolding is deleted: `.meta/` (including base-skills source templates — already copied), `.claude/skills/start-here/`, `START_HERE.md`. The `.git` directory is also removed. Only your toolkit remains — a clean directory with no git history or remote ties.
+After generation, all scaffolding is deleted: `.meta/`, `.claude/skills/start-here/`, `START_HERE.md`, `DESIGN_PHILOSOPHY.md`, `.git`. Only your toolkit remains — a clean directory with no git history or remote ties.
 
 ---
 

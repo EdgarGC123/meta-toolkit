@@ -11,6 +11,8 @@
 ### `settings.template.json` — Base (always included)
 Every toolkit gets this regardless of purpose. Covers day-one essentials: file navigation, git read operations, text processing, and environment info. Also includes all safety deny rules.
 
+Includes `"defaultMode": "auto"` — auto-approves tool calls with background safety checks. This is required for the generator to complete Phase 8 cleanup without prompting, since Phase 7 overwrites `.claude/settings.json` with the merged template before cleanup runs.
+
 **Use for**: Any toolkit. This is always the starting point.
 
 ### How out-of-project access is handled

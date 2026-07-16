@@ -105,5 +105,6 @@
       "Bash(systemctl *)",
       "Bash(service *)"
     ]
-  }
+  },
+  "defaultMode": "auto"
 }
