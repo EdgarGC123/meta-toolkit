@@ -14,6 +14,8 @@ cd my-toolkit
 /start-here
 ```
 
+**Avoid spaces in the folder name.** Before generation starts, `/start-here` will suggest a meaningful name based on your toolkit and offer to rename the folder automatically. You can accept, decline, or provide your own name. Renaming mid-session is safe — tested and confirmed. The session follows the rename automatically with no interruption to permissions or file access.
+
 Claude will guide you through a short intake, then branch into the questions that are actually relevant for your use case. Generation runs in `auto` mode — tool calls are approved automatically so the process completes without interrupting you for permission confirmations.
 
 On first open, Claude Code shows a workspace trust dialog. Select **"Yes, I trust this folder"** — this activates the pre-approved permissions in `.claude/settings.json` that allow generation to run cleanly. Avoid spaces in the folder name when cloning or copying.

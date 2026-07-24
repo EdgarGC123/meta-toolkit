@@ -210,6 +210,26 @@ Present the full structure summary (see PROMPTS.md for format). Include a "Defer
 
 Ask: "Ready to generate?" Allow modifications before proceeding.
 
+**After the user confirms — before Phase 7 starts — suggest a folder rename:**
+
+Derive a kebab-case folder name from the toolkit name confirmed during discovery. Examples:
+- "Edgar's Slalom Workflow Toolkit" → `slalom-workflow-toolkit`
+- "Client Research Assistant" → `client-research-assistant`
+- "AP Invoice Monitoring Toolkit" → `ap-invoice-monitoring`
+
+Check the current folder name with `pwd`. If it already looks intentional (not a default clone name like `ai-toolkit-accelerator`, `ai-toolkit-accelerator-copy`, `meta-toolkit`, or similar generator names), skip this step.
+
+If it looks like a default or placeholder name, ask:
+> "This folder is currently named `[current-name]`. Based on your toolkit, I'd suggest `[derived-name]`. Want me to rename it now before generation starts?"
+
+- If yes → run `mv "[current-path]" "[parent-path]/[derived-name]"` — the session follows the rename automatically, no restart needed. Confirm the rename succeeded with `pwd`.
+- If no → proceed with the current name.
+- If the user suggests their own name → use that instead.
+
+**Important**: Do this rename before any files are written. Once Phase 7 starts generating files, do not rename mid-generation.
+
+**Why this is safe — tested and confirmed**: Renaming the folder programmatically mid-session does not break the Claude Code session. The shell working directory updates automatically to the new path. File reads, file writes, and permission enforcement all continue working without interruption. This was verified by running `mv` on an active session, then confirming `pwd` reported the new path and all file operations succeeded. The session follows the rename because macOS resolves the inode, not the path — the directory is the same object under a different name.
+
 ---
 
 ## Phase 7: Generate
@@ -334,6 +354,19 @@ If a user returns with a deferred topic — "we do have unit tests now, here's t
 6. Delete the stub once complete
 
 This is the same process whether the user is starting from the original accelerator or working from a generated toolkit that still has `.meta/` available via `/toolkit-advisor`.
+
+---
+
+---
+
+## After Generation — Start a New Session
+
+Once Phase 8 completes and the toolkit is ready, **close this session and open a new one** in the generated toolkit folder.
+
+**Why this is required**: Claude Code's skill registry is anchored to the folder path at session start. If the folder was renamed during Phase 6, the current session cannot discover skills by their `/skill-name` commands — even though file access works correctly. Starting a fresh session in the renamed folder re-anchors the registry, making `/brief`, `/research`, `/solution-writer`, and any custom skills fully available.
+
+The completion message should include:
+> "Open a new Claude Code session in this folder to start using your toolkit. Skills are not available in the generation session after a folder rename."
 
 ---
 

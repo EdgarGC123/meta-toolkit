@@ -163,6 +163,26 @@ Ready to generate?
 
 If user says no: ask what to change, make adjustments, re-confirm.
 
+After the user confirms, suggest a folder rename if the current name looks like a default clone name:
+
+```
+One more thing before we start — this folder is currently named `[current-folder-name]`.
+Based on your toolkit, I'd suggest renaming it to `[derived-kebab-name]`.
+
+Want me to rename it now? (Yes / No / Use a different name)
+```
+
+[If yes or custom name provided:]
+```
+Renaming to [new-name]...
+✓ Folder renamed — continuing with generation.
+```
+
+[If no:]
+```
+Keeping current name — starting generation.
+```
+
 ---
 
 ## Generation Progress (Phase 7)
@@ -215,9 +235,14 @@ DEFERRED (visible in CLAUDE.md, expandable when ready):
   [List of stub topics]
 
 NEXT STEPS:
-  1. Run /brief to orient the first session
-  2. Review workflow/WORKFLOW.md to verify the phase design
-  3. Fill in docs/PROJECT_CONTEXT.md and docs/ACTION_ITEMS.md
+  1. Close this session and open a new one in this folder
+  2. Run /brief to orient your first real session
+  3. Review workflow/WORKFLOW.md to verify the phase design
+  4. Fill in docs/PROJECT_CONTEXT.md and docs/ACTION_ITEMS.md
+
+⚠️  Start a new session before running any skills. If this folder was renamed
+    during generation, the current session's skill registry is anchored to the
+    old path — /brief and other skills won't be discoverable until you reopen.
 
 To modify this toolkit later: /toolkit-advisor
 To expand a deferred topic: describe the need in a new session

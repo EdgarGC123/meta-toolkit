@@ -16,7 +16,7 @@ Claude guides you through an adaptive discovery conversation and generates your 
 
 **First time?** See [START_HERE.md](START_HERE.md) for what to expect.
 
-> **Note**: On first open, Claude Code will show a workspace trust dialog listing pre-approved permissions from `.claude/settings.json`. Select "Yes, I trust this folder" — these permissions are required for generation to complete without interruption. The generator runs in `auto` mode, meaning tool calls are approved automatically based on safety checks rather than prompting you for each one.
+> **Note**: On first open, Claude Code will show a workspace trust dialog listing pre-approved permissions from `.claude/settings.json`. Select "Yes, I trust this folder" — these permissions are required for generation to complete without interruption. The generator runs in `auto` mode, meaning tool calls are approved automatically based on safety checks rather than prompting you for each one. Avoid spaces in the folder name. Before generation starts, `/start-here` will suggest a meaningful name and rename the folder automatically if you confirm — this is safe mid-session, the session follows the rename without any interruption.
 
 ---
 

@@ -75,6 +75,14 @@ Working documents that are done graduate to `.archive/` rather than being delete
 
 Folder renames happen on every engagement as scope evolves. Without an explicit rule, path references in `CLAUDE.md` and the `/brief` skill go stale silently and misdirect future sessions. The rule is: if a folder is renamed, update all path references in `CLAUDE.md` and `.claude/skills/brief/SKILL.md` in the same session, treating them like code dependencies.
 
+### Programmatic folder rename during generation
+
+The generator renames the project folder as part of Phase 6 — after the user confirms the toolkit structure but before any files are written. It derives a meaningful kebab-case name from the toolkit description and runs `mv` directly in the active session.
+
+This is safe for file operations because Claude Code sessions follow a folder rename automatically. The shell working directory updates to the new path, file reads and writes continue without interruption, and permission enforcement is unaffected. This was empirically verified: `mv` was run on a live session, `pwd` immediately reported the new path, and all subsequent file operations succeeded. The session follows the rename because the operating system resolves the inode, not the path string — the directory is the same object under a new name.
+
+One caveat: **Claude Code's skill registry is anchored at session start**. After a rename, `/skill-name` commands from the renamed folder are not discoverable in the same session. This is why the completion message always instructs the user to close the generation session and open a fresh one — the new session anchors to the correct path and all skills become available immediately.
+
 ### ACTION_ITEMS archiving
 
 As an engagement progresses, `ACTION_ITEMS.md` accumulates. When it grows past ~30 items, completed sections should be archived to `.archive/` rather than left to accumulate. Active items stay visible; history is preserved.
