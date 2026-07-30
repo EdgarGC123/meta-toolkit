@@ -239,7 +239,13 @@ Will this toolkit include code that needs testing?
 If yes:
 - Which test framework? (pytest / Jest / xUnit / JUnit / other)
 - Where do tests live relative to source?
-- Unit only, or also integration / E2E?
+
+Surface all three test tiers explicitly — do not skip any tier silently:
+- Unit tests: most common starting point. Ask: framework? coverage threshold? naming conventions?
+- Integration tests: does the team write them? In what scenarios? Defer if unconfirmed.
+- E2E tests: does the team use Playwright, Cypress, or similar? Often deferred for new toolkits.
+
+For each tier not yet confirmed: defer as stub. Do not skip it entirely — a surfaced stub is better than a missing tier discovered mid-engagement.
 ```
 
 If the answer is "not sure yet" — defer as stub. The stub will reference this guide and surface the same questions when the user is ready.

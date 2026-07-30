@@ -36,7 +36,7 @@ The process opens with a few discovery questions — who this is for, what "done
 - `CLAUDE.md` — session guide, run `/brief` at the start of every session
 - `workflow/WORKFLOW.md` — your phases with detailed guidance
 - `workflow/CONFIG.md` — toolkit settings
-- `AI_BEHAVIOR_GUIDELINES.md` — behavioral rules for all agents
+- `AI-BEHAVIOR-GUIDELINES.md` — behavioral rules for all agents
 - `README.md` and `GETTING_STARTED.md`
 - `.claude/skills/` — `/brief` (session orientation), `/research` (technical research), `/solution-writer` (planning + client docs)
 - `docs/ACTION_ITEMS.md`, `docs/PROJECT_CONTEXT.md`, `reference/meetings/MEETING_NOTES_SUMMARY.md`

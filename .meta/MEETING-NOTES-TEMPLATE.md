@@ -1,12 +1,12 @@
 # Meeting Notes Template
 
-**When to use**: Reference this when setting up `reference/meetings/MEETING_NOTES_SUMMARY.md` in a new toolkit, or when adding a new entry to an existing one.
+**When to use**: Reference this when setting up `reference/meetings/MEETING-NOTES-SUMMARY.md` in a new toolkit, or when adding a new entry to an existing one.
 
-**Location**: `reference/meetings/MEETING_NOTES_SUMMARY.md` — all meetings consolidated in a single file, newest entry at the top.
+**Location**: `reference/meetings/MEETING-NOTES-SUMMARY.md` — all meetings consolidated in a single file, newest entry at the top.
 
 ---
 
-## File Header (use once, at the top of MEETING_NOTES_SUMMARY.md)
+## File Header (use once, at the top of MEETING-NOTES-SUMMARY.md)
 
 ```markdown
 # Meeting Notes Summary
@@ -73,7 +73,7 @@ During a session, suggest a Granola prompt when:
 - Something needs to be verified against a transcript before acting on it
 - Two people remember a past agreement differently
 
-Do not suggest Granola prompts for routine lookups or when the answer is already in `MEETING_NOTES_SUMMARY.md`.
+Do not suggest Granola prompts for routine lookups or when the answer is already in `MEETING-NOTES-SUMMARY.md`.
 
 **Example Granola prompt suggestions**:
 

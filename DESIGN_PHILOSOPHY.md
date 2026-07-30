@@ -23,7 +23,7 @@ Every section of this document traces to one of those failure modes and explains
 
 ## Layer 1: Behavioral Discipline
 
-The most fundamental layer is `AI_BEHAVIOR_GUIDELINES.md`, which ships into every generated toolkit. It is not a list of tips. It is a behavioral contract that every agent using the toolkit operates under.
+The most fundamental layer is `AI-BEHAVIOR-GUIDELINES.md`, which ships into every generated toolkit. It is not a list of tips. It is a behavioral contract that every agent using the toolkit operates under.
 
 ### Communication brevity by default
 

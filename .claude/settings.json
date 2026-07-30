@@ -29,7 +29,10 @@
       "Bash(curl *)",
       "WebFetch(domain:code.claude.com)",
       "WebFetch(domain:platform.claude.com)",
-      "WebFetch(domain:docs.anthropic.com)"
+      "WebFetch(domain:docs.anthropic.com)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Bash(pwd*)"
     ],
     "deny": [
       "Bash(sudo *)",

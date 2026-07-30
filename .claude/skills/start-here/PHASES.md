@@ -11,7 +11,7 @@ Before generating anything, understand what the generator provides. Every file i
 ### Always copied into every generated toolkit
 | Resource | Source | Destination |
 |---|---|---|
-| `AI_BEHAVIOR_GUIDELINES.md` | `.meta/AI_BEHAVIOR_GUIDELINES.md` | toolkit root |
+| `AI-BEHAVIOR-GUIDELINES.md` | `.meta/AI-BEHAVIOR-GUIDELINES.md` | toolkit root |
 | Base permission layer | `.meta/settings.template.json` | `.claude/settings.json` (as starting point) |
 | `/brief` skill | `.meta/base-skills/brief/` | `.claude/skills/brief/` |
 | `/research` skill | `.meta/base-skills/research/` | `.claude/skills/research/` |
@@ -31,19 +31,19 @@ Before generating anything, understand what the generator provides. Every file i
 | Resource | Use during generation |
 |---|---|
 | `ARCHITECTURE.md` | Understand the system being built; folder conventions |
-| `SKILL_GUIDE.md` | Skill structure, A-J build sequence, platform decision matrix |
-| `PLUGIN_GUIDE.md` | Plugin structure and patterns |
-| `PHASES_GUIDE.md` | How to write PHASES.md for generated skills |
-| `PROMPTS_GUIDE.md` | How to write PROMPTS.md for generated skills |
-| `AGENTIC_PATTERNS.md` | Reusable agentic workflow patterns to recommend |
-| `PROMPT_ENGINEERING.md` | Prompt design principles to bake into WORKFLOW.md |
-| `DISCOVERY_PIPELINE.md` | Requirements extraction guidance for research/discovery toolkits |
-| `MODEL_SELECTION.md` | Model guidance to include in CLAUDE.md if relevant |
-| `SOLUTION_DOC_TEMPLATE.md` | Template structure for client-facing deliverables |
-| `MEETING_NOTES_TEMPLATE.md` | Meeting notes format for `reference/meetings/` |
-| `PERMISSIONS_TEMPLATE_README.md` | How to merge permission layers into `settings.json` |
-| `TESTING_GUIDE.md` | Testing structure guidance when code involvement confirmed |
-| `CLAUDE_CODE_SKILLS_REFERENCE.md` | Frontmatter fields and discovery rules for skills |
+| `SKILL-GUIDE.md` | Skill structure, A-J build sequence, platform decision matrix |
+| `PLUGIN-GUIDE.md` | Plugin structure and patterns |
+| `PHASES-GUIDE.md` | How to write PHASES.md for generated skills |
+| `PROMPTS-GUIDE.md` | How to write PROMPTS.md for generated skills |
+| `AGENTIC-PATTERNS.md` | Reusable agentic workflow patterns to recommend |
+| `PROMPT-ENGINEERING.md` | Prompt design principles to bake into WORKFLOW.md |
+| `DISCOVERY-PIPELINE.md` | Requirements extraction guidance for research/discovery toolkits |
+| `MODEL-SELECTION.md` | Model guidance to include in CLAUDE.md if relevant |
+| `SOLUTION-DOC-TEMPLATE.md` | Template structure for client-facing deliverables |
+| `MEETING-NOTES-TEMPLATE.md` | Meeting notes format for `reference/meetings/` |
+| `PERMISSIONS-TEMPLATE-README.md` | How to merge permission layers into `settings.json` |
+| `TESTING-GUIDE.md` | Testing structure guidance when code involvement confirmed |
+| `CLAUDE-CODE-SKILLS-REFERENCE.md` | Frontmatter fields and discovery rules for skills |
 
 **Rule**: A generated toolkit should never be a blank skeleton. Every relevant `.meta/` resource should either be copied in, referenced in context docs, or explicitly deferred. If a resource is relevant and neither copied nor deferred, it was missed.
 
@@ -74,7 +74,7 @@ Ask these questions, one at a time, waiting for each answer before continuing:
 - Not sure yet
 
 *Branches to:*
-- Solo → lightweight path, Section B of SKILL_GUIDE sensibility, fewer confirmation gates
+- Solo → lightweight path, Section B of SKILL-GUIDE sensibility, fewer confirmation gates
 - Team/Client → full path with tracks, delivery platform, internal/client separation, handoff checklist
 
 **Q2: What is the primary output — what does "done" look like for one complete run of this toolkit?**
@@ -109,6 +109,18 @@ Free text. A sentence or two. This anchors all phase and success-criteria questi
 - Yes → ask for track names, generate per-track folder structure in docs/ and research/
 - No → single docs/ and research/ at root
 - Not sure → single structure with a note on how to expand to multi-track later
+
+**Q5b (conditional — ask only when Q1 = "client engagement" or "team" AND Q3 = "yes" to code):**
+**Is this an existing, already-built app — or greenfield?**
+- Existing app (fixing bugs, adding features, extending)
+- Greenfield (building from scratch)
+- Not sure yet
+
+*Branches to:*
+- Existing app → agile-story workflow path: suggest Story Intake as Phase 1, Codebase Exploration as Phase 2; flag that APP-CONTEXT.md and ARCHITECTURE.md will be generated; surface agile-specific Phase 4 questions
+- Greenfield with shared architecture/design → also generate APP-CONTEXT.md and ARCHITECTURE.md as empty templates: design decisions and architecture accumulate in them as meetings happen and docs are provided. The initial state is intentionally empty — value builds over time. Only generate if the user confirms they expect ongoing design discussions, architecture decisions, or accumulated context (not for one-off "help me with this code" interactions).
+- Greenfield ad-hoc / no shared architecture → standard workflow path, no reference files
+- Not sure → defer as stub
 
 ---
 
@@ -154,6 +166,45 @@ Based on what emerged in Phases 1-3, go deeper on anything that determines what 
 
 **Topics to always cover in Phase 4** (adapt the question to context — don't read these as a script):
 
+**Codebase Access Check (runs first, before technical questions, when Q3 = code involvement confirmed):**
+
+Ask: "Is the codebase accessible right now? If so, how?"
+- Local path on this machine
+- GitHub URL
+- Not accessible
+
+If local path provided:
+- Attempt `ls [path]` to verify Claude can read it
+- If readable: proceed to codebase scan (below)
+- If not readable: note it, continue with interview questions for tech details
+
+If GitHub URL provided:
+- Attempt WebFetch of the URL
+- If readable: proceed to codebase scan (below)
+- If not readable / auth required: note it, continue with interview questions
+
+If not accessible: skip scan, continue with interview questions as normal
+
+**Codebase scan (when accessible):**
+- Read `package.json` (or equivalent: `pyproject.toml`, `Gemfile`, `pom.xml`) in root and sub-repos
+- List top-level directory structure (`ls` to max depth 2)
+- Read `jest.config.*`, `vitest.config.*`, `cypress.config.*` if present
+- Read framework config files (`next.config.*`, `vite.config.*`, `tsconfig.json`) if present
+- Extract: package manager, test framework, tech stack, coverage thresholds
+- Use findings to skip or pre-answer the technical interview questions below
+
+After scan: ask only the questions the scan could NOT answer.
+
+**Accessibility scenarios to handle gracefully** (do not block on any of these — note and continue):
+- Code on a client laptop with no local path available (VDI, locked environment) → skip scan, use interview questions
+- Code in cloud infrastructure only (AWS, Azure) — no local repo → skip scan
+- Microservices across multiple repos — user may only have access to some → scan what is accessible, note gaps
+- Read-only access — user cannot clone locally, can only browse via web → offer GitHub URL path
+- Monorepo — only certain packages are relevant → ask which package(s) before scanning
+- Code accessible via VDI only — no direct path to Claude → skip scan, use interview questions
+
+---
+
 **Permissions / what the agent is allowed to do:**
 Ask what the toolkit's agent will need to access. Map answers to the permission templates in `.meta/`:
 - Needs to search the web, fetch documentation, call external APIs → include `settings.research.json`
@@ -162,26 +213,79 @@ Ask what the toolkit's agent will need to access. Map answers to the permission 
 - Needs none of the above → base template only (`settings.template.json`)
 - Not sure → defer as stub; generate with base template only and note in `.deferred/permissions.md`
 
-The final `settings.json` is produced by merging the base layer with any additional layers. See `.meta/PERMISSIONS_TEMPLATE_README.md` for merge rules.
+The final `settings.json` is produced by merging the base layer with any additional layers. See `.meta/PERMISSIONS-TEMPLATE-README.md` for merge rules.
 
 **Skills and plugins available:**
-Review what's in `.meta/skills/` and `.meta/plugins/`. For each:
-- Does this workflow pattern match something already built? → offer to include it
-- Does the user describe a need that maps to a plugin capability? → offer it
-- Not sure → skip; the user can add later via `/toolkit-advisor`
+Scan `.meta/plugins/` and `.meta/skills/` before asking. List what exists. For each plugin/skill:
+- Does the detected workflow type (from Phase 2) match this plugin's use case? → proactively offer it with a one-line description
+- Does the user describe a need that maps to this capability? → offer it
+- Not sure → skip; the user can add later
+
+For consulting/agile developer toolkits specifically, proactively surface the Agile Dev Loop bundle:
+- `ticket-parser` — extracts tasks, ACs, and checklist items from raw Jira/Linear/GitHub ticket text
+- `standup-summary` — converts implementation notes into a 3–4 sentence spoken stand-up update
+- `code-review-checklist` — generates a PR review checklist specific to the described change
+- `pr-description-writer` — generates a structured PR description from branch/commit info
+
+For consulting toolkits (client deliverables, analysis, communication), surface relevant plugins from:
+- `meeting-notes-writer`, `status-report-writer`, `email-drafter` — communication
+- `requirements-writer`, `loe-estimator`, `feedback-synthesizer` — consulting deliverables
+
+**For each selected plugin, ask the invocation type** — one question per plugin, after the user confirms they want it:
+
+> "How do you want to use [plugin-name]?
+>   1. On-demand command — generates a `/[plugin-name]` slash command you invoke when you need it
+>   2. Embedded in workflow — wired into a specific step in your WORKFLOW.md so it runs automatically at that point"
+
+Record the invocation type for Phase 7. Default to on-demand if the user isn't sure.
 
 **Output templates:**
 Does the toolkit produce repeatable artifacts (reports, summaries, solution docs)? If yes → offer to include output templates from `.meta/templates/`. If not yet — defer.
 
 **Agentic workflow patterns:**
-Does the workflow involve multi-agent orchestration, iterative loops, TDD, or backlog generation? If yes → reference the relevant pattern from `.meta/AGENTIC_PATTERNS.md` in the generated WORKFLOW.md so the user has it as a starting point.
+Does the workflow involve multi-agent orchestration, iterative loops, TDD, or backlog generation? If yes → reference the relevant pattern from `.meta/AGENTIC-PATTERNS.md` in the generated WORKFLOW.md so the user has it as a starting point.
 
 **Reference material for WORKFLOW.md:**
 Based on what the toolkit does, decide which `.meta/` reference docs to surface in the generated toolkit's WORKFLOW.md or CLAUDE.md:
-- Discovery/research heavy → pull from `DISCOVERY_PIPELINE.md`
-- Client deliverables → reference `SOLUTION_DOC_TEMPLATE.md`
-- Model selection matters → include relevant section from `MODEL_SELECTION.md`
-- Prompt engineering is core to the workflow → reference `PROMPT_ENGINEERING.md`
+- Discovery/research heavy → pull from `DISCOVERY-PIPELINE.md`
+- Client deliverables → reference `SOLUTION-DOC-TEMPLATE.md`
+- Model selection matters → include relevant section from `MODEL-SELECTION.md`
+- Prompt engineering is core to the workflow → reference `PROMPT-ENGINEERING.md`
+
+**For existing-app / agile workflows (when Q5b = "Existing app"):**
+- Story intake structure: does the team use Jira? What fields matter (tasks, ACs, checklist, story points)?
+- Branch and PR conventions: what is the branching strategy? PR to which branch? Reviewer requirements?
+- Testing requirements: what tier of tests is expected?
+  - Unit tests: most common starting point — ask about framework (Jest, pytest, etc.) and coverage threshold
+  - Integration tests: ask if the team writes them and in what scenarios
+  - E2E tests: ask if the team uses them (Playwright, Cypress, etc.) — often deferred
+  - Defer any tier not yet confirmed as a stub, but surface all three tiers so none are silently skipped
+- Pipeline/verification: is there a dev or staging pipeline the developer can verify against before merge?
+
+**Interaction type (for any toolkit with ongoing work or code — Q3 = yes, or any multi-session engagement):**
+
+Ask once for implementation, then separately for testing. They can be the same or different.
+
+```
+"How do you want Claude to work with you on implementation?
+  1. Mentorship — you write code, Claude coaches, explains tradeoffs, flags multi-file impacts
+  2. Pair Programmer — Claude generates and explains patterns as you co-create
+  3. Supervised Delegation — Claude executes, pauses at every key decision for your approval
+  4. Autonomous — Claude executes end-to-end, you review at the finish
+  5. Mixed — set a default per phase, switch on request"
+```
+
+Then, if testing was confirmed (any tier):
+```
+"For tests specifically — same mode, or different?
+  1. Same as implementation
+  2. Mentorship — you write tests, Claude coaches on structure and coverage
+  3. Pair Programmer — Claude writes tests and explains the pattern (why this mock, why this assertion)
+  4. Supervised Delegation — Claude writes tests, pauses at structural decisions
+  5. Autonomous — Claude writes all tests, you review at the end"
+```
+
+Record both in WORKFLOW.md under an "Interaction Types" section — one entry for implementation, one for testing, with activation phrases and how to switch mid-session. See `.meta/AGENTIC-PATTERNS.md` — "Interaction Types" section for full definitions.
 
 **Other topics that may surface** (illustrations, not a checklist):
 - How work is structured across the engagement (tracks, ownership)
@@ -228,7 +332,32 @@ If it looks like a default or placeholder name, ask:
 
 **Important**: Do this rename before any files are written. Once Phase 7 starts generating files, do not rename mid-generation.
 
-**Why this is safe — tested and confirmed**: Renaming the folder programmatically mid-session does not break the Claude Code session. The shell working directory updates automatically to the new path. File reads, file writes, and permission enforcement all continue working without interruption. This was verified by running `mv` on an active session, then confirming `pwd` reported the new path and all file operations succeeded. The session follows the rename because macOS resolves the inode, not the path — the directory is the same object under a different name.
+**Cloud-sync path detection — run before any rename:**
+
+Check if `pwd` contains any of the following:
+- `~/Library/CloudStorage/`
+- `~/OneDrive/`
+- `~/Google Drive/`
+- `~/Dropbox/`
+- `~/Box/`
+
+If a cloud-sync path is detected, warn the user before proceeding:
+> "⚠️ This folder appears to be inside a cloud-synced directory ([detected path]). `mv` will rename it correctly — OneDrive and other providers use inode-based tracking, so `mv` is a true rename, not a delete+create. However, OneDrive needs a moment to sync the rename to the server via a PATCH request. If your OAuth token expires before that PATCH completes, OneDrive may re-materialize the old folder name on next login.
+>
+> Recommendation: after generation completes, wait for the OneDrive sync icon to clear before closing this terminal session — then open a fresh Claude Code session in the new folder path."
+
+Do not rename silently in a cloud-sync path. Always surface this warning and let the user decide. Options:
+1. Rename and wait for sync to complete before closing the session (recommended)
+2. Skip the rename and continue with the current name
+3. Rename after generation, outside of Claude, once the session is closed
+
+**Never use `cp -r + rm -rf` on cloud-synced paths** — this creates new inodes, which sync clients interpret as delete+re-upload rather than a rename. It is actively harmful on OneDrive and other providers.
+
+**Why `mv` is safe — confirmed by research**: `mv` executes a `rename(2)` syscall that preserves inodes. OneDrive's local database updates the folder name in-place (same item ID, same inode, same server-side DriveItem ID) and propagates the rename to the server as an atomic PATCH. The "old folder reappears" issue occurs only when the OAuth token expires while the sync PATCH is still queued — not from `mv` itself. Waiting for sync to complete before closing the session prevents this.
+
+**Exception**: Google Drive in streaming mode (virtual folders) — folder renames from terminal are unreliable. If the user is in `~/Library/CloudStorage/` with Google Drive streaming, recommend renaming via Finder instead.
+
+**Why this is safe on local (non-cloud-synced) paths — tested and confirmed**: The shell working directory updates automatically to the new path. File reads, file writes, and permission enforcement all continue working without interruption. The session follows the rename because macOS resolves the inode, not the path.
 
 ---
 
@@ -243,8 +372,8 @@ Create all files. Reference PROMPTS.md for progress messaging format. Use the Me
 4. GETTING_STARTED.md
 5. workflow/WORKFLOW.md — embed relevant agentic patterns, prompt engineering principles, and discovery pipeline guidance as appropriate for this toolkit's workflow type
 6. workflow/CONFIG.md
-7. AI_BEHAVIOR_GUIDELINES.md (copy from `.meta/AI_BEHAVIOR_GUIDELINES.md`)
-8. .claude/settings.json — **always created.** Start with `settings.template.json` as the base. Merge in any additional permission layers confirmed in Phase 4 (research, developer, diagnostic). If none were confirmed, the file still gets created with the base layer only. See `.meta/PERMISSIONS_TEMPLATE_README.md` for merge rules.
+7. AI-BEHAVIOR-GUIDELINES.md (copy from `.meta/AI-BEHAVIOR-GUIDELINES.md`)
+8. .claude/settings.json — **always created.** Start with `settings.template.json` as the base. Merge in any additional permission layers confirmed in Phase 4 (research, developer, diagnostic). If none were confirmed, the file still gets created with the base layer only. See `.meta/PERMISSIONS-TEMPLATE-README.md` for merge rules.
 
 **Base skills — always copied from `.meta/base-skills/`:**
 9. .claude/skills/brief/
@@ -252,24 +381,29 @@ Create all files. Reference PROMPTS.md for progress messaging format. Use the Me
 11. .claude/skills/solution-writer/
 
 **Starter documents — empty templates with structure:**
-12. docs/ACTION_ITEMS.md
-13. docs/PROJECT_CONTEXT.md
-14. reference/meetings/MEETING_NOTES_SUMMARY.md — use `.meta/MEETING_NOTES_TEMPLATE.md` as the format reference
+12. docs/ACTION-ITEMS.md
+13. docs/PROJECT-CONTEXT.md
+14. reference/meetings/MEETING-NOTES-SUMMARY.md — use `.meta/MEETING-NOTES-TEMPLATE.md` as the format reference
 
 **Conditional — only if selected or confirmed during Phase 4:**
 15. Skills from `.meta/skills/` → copy selected ones to `skills/` at toolkit root
-16. Plugins from `.meta/plugins/` → copy selected ones to `plugins/` at toolkit root
+16. Plugins from `.meta/plugins/` → copy selected ones to `plugins/` at toolkit root. For each plugin, generate based on the invocation type confirmed in Phase 4:
+    - **On-demand**: copy plugin folder to `plugins/[name]/` AND generate a skill wrapper at `.claude/skills/[name]/SKILL.md`. The skill frontmatter must include a `description:` that triggers on the use case (e.g. "Use when you have a ticket to parse"). The skill body: load the plugin prompt, ask the user for required variables, run it.
+    - **Workflow-embedded**: copy plugin folder to `plugins/[name]/` AND add a reference at the relevant step in WORKFLOW.md: "At this step, load `plugins/[name]/prompts/[prompt].prompt.md`, fill in the variables, and run." Do not generate a skill wrapper.
+    - If invocation type was not confirmed: default to on-demand.
 17. Templates from `.meta/templates/` → copy selected ones to `templates/` at toolkit root
-18. Testing structure — if code involvement confirmed, use `.meta/TESTING_GUIDE.md` as reference
+18. Testing structure — if code involvement confirmed, use `.meta/TESTING-GUIDE.md` as reference
 19. Path-scoped rules, validation hooks — if requested
+20. `reference/[codebase-name]/APP-CONTEXT.md` — if toolkit targets an existing codebase (Q5b = "Existing app"): create as an empty template with sections: Feature Locations, Key Components, Route Map, Notes. Include a header comment: "Updated during stories as new areas are explored — load this before codebase work."
+21. `reference/[codebase-name]/ARCHITECTURE.md` — same condition as above: create as empty template with sections: State Management, Auth Pattern, API Communication, Data Flow, Team Conventions. Include header comment: "Updated when a pattern is understood deeply enough to be worth recording."
 
 **Deferred:**
-20. `.deferred/[topic].md` for any "not sure yet" answers — always include a reference to the relevant `.meta/` guide in the stub so the user knows where to look when expanding
+22. `.deferred/[topic].md` for any "not sure yet" answers — always include a reference to the relevant `.meta/` guide in the stub so the user knows where to look when expanding
 
 **Before closing Phase 7 — verify against Meta Library Map:**
 - Every conditional resource in the map is either included, explicitly skipped, or deferred
 - `.claude/settings.json` exists (always — even if only the base layer was needed)
-- WORKFLOW.md references any relevant patterns from `AGENTIC_PATTERNS.md` or `PROMPT_ENGINEERING.md`
+- WORKFLOW.md references any relevant patterns from `AGENTIC-PATTERNS.md` or `PROMPT-ENGINEERING.md`
 - CLAUDE.md provenance section lists everything active in this toolkit
 
 ---

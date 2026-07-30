@@ -598,7 +598,7 @@ AI: "Found invoice_data.xlsx (March). Threshold not specified — use 10%?"
 ✅ `"Edgar provided the source data format on 2026-05-15"`  
 ✅ `"Original prompt drafted by Edgar, revised during testing"`
 
-Apply this rule in: CLAUDE.md, ACTION_ITEMS.md, solution docs, planning docs, skill prompts, and any file another team member might read.
+Apply this rule in: CLAUDE.md, ACTION-ITEMS.md, solution docs, planning docs, skill prompts, and any file another team member might read.
 
 ---
 
@@ -652,7 +652,7 @@ Switch to a new session when:
 
 Before closing or abandoning a session, do the following:
 - Ask the session to recap what was accomplished
-- Ask it to update any relevant docs (ACTION_ITEMS, meeting notes, planning docs)
+- Ask it to update any relevant docs (ACTION-ITEMS, meeting notes, planning docs)
 - Ask it to generate a prompt for the next phase if work is continuing
 
 ### On Compaction

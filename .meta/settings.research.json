@@ -17,7 +17,16 @@
       "WebFetch(domain:www.google.com)",
       "WebFetch(domain:developer.mozilla.org)",
       "WebFetch(domain:stackoverflow.com)",
-      "WebFetch(domain:github.com)"
+      "WebFetch(domain:github.com)",
+
+      "WebFetch(domain:jestjs.io)",
+      "WebFetch(domain:testing-library.com)",
+      "WebFetch(domain:mui.com)",
+      "WebFetch(domain:reactrouter.com)",
+      "WebFetch(domain:expressjs.com)",
+      "WebFetch(domain:www.typescriptlang.org)",
+      "WebFetch(domain:vitejs.dev)",
+      "WebFetch(domain:nextjs.org)"
     ]
   }
 }

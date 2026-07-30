@@ -47,7 +47,7 @@ All current Claude models support text and image input (vision), multilingual ca
 
 ## Important: Effort Level
 
-Opus 4.8 and Sonnet 5 default to `high` effort in Claude Code and the API. Set `effort` explicitly if you need a different level. Lower effort = faster and cheaper; higher effort = more thorough reasoning. The `effort` parameter is available in skill frontmatter — see `CLAUDE_CODE_SKILLS_REFERENCE.md`.
+Opus 4.8 and Sonnet 5 default to `high` effort in Claude Code and the API. Set `effort` explicitly if you need a different level. Lower effort = faster and cheaper; higher effort = more thorough reasoning. The `effort` parameter is available in skill frontmatter — see `CLAUDE-CODE-SKILLS-REFERENCE.md`.
 
 ---
 

@@ -196,11 +196,11 @@ Generating...
 ✓ GETTING_STARTED.md
 ✓ workflow/WORKFLOW.md
 ✓ workflow/CONFIG.md
-✓ AI_BEHAVIOR_GUIDELINES.md
+✓ AI-BEHAVIOR-GUIDELINES.md
 ✓ /brief skill
-✓ docs/ACTION_ITEMS.md
-✓ docs/PROJECT_CONTEXT.md
-✓ reference/meetings/MEETING_NOTES_SUMMARY.md
+✓ docs/ACTION-ITEMS.md
+✓ docs/PROJECT-CONTEXT.md
+✓ reference/meetings/MEETING-NOTES-SUMMARY.md
 [if skills:] ✓ Skills: [names]
 [if plugins:] ✓ Plugins: [names]
 [if deferred:] ✓ Deferred stubs: [count] topics parked for later
@@ -238,7 +238,7 @@ NEXT STEPS:
   1. Close this session and open a new one in this folder
   2. Run /brief to orient your first real session
   3. Review workflow/WORKFLOW.md to verify the phase design
-  4. Fill in docs/PROJECT_CONTEXT.md and docs/ACTION_ITEMS.md
+  4. Fill in docs/PROJECT-CONTEXT.md and docs/ACTION-ITEMS.md
 
 ⚠️  Start a new session before running any skills. If this folder was renamed
     during generation, the current session's skill registry is anchored to the

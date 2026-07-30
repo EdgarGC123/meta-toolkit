@@ -209,7 +209,7 @@ To verify your skill is discoverable:
 Skills are read by future sessions that have no memory of when they were written. These things go stale and should never be hardcoded in a SKILL.md:
 
 - Specific meeting numbers or counts ("Meeting 7") — use "the most recent entry"
-- Specific dates ("as of 2026-05-28") — use "read docs/ACTION_ITEMS.md for current status"
+- Specific dates ("as of 2026-05-28") — use "read docs/ACTION-ITEMS.md for current status"
 - Specific blockers or decisions — these belong in `docs/`, not in skills
 - Model version names ("Sonnet 4.5") — use "the current model" unless a specific capability requires it
 - Personal names in forward-looking instructions ("Edgar will confirm") — use role names ("the developer")

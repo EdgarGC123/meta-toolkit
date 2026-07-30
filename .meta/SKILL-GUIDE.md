@@ -562,7 +562,7 @@ Skills and CLAUDE.md are read by future sessions that have no memory of when the
   Use instead: "the most recent entry", "check file for current count"
 
 - **Specific dates or week counts** ("as of 2026-05-28", "Week 2 of 4")
-  Use instead: "read docs/ACTION_ITEMS.md for current status"
+  Use instead: "read docs/ACTION-ITEMS.md for current status"
 
 - **Specific blockers or decisions in skill files**
   These belong in `docs/`, not in skills. Skills read files — they do not store state.

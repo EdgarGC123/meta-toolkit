@@ -49,7 +49,20 @@
       "Bash(mkdir *)",
       "Bash(cp *)",
       "Bash(mv *)",
-      "Bash(touch *)"
+      "Bash(touch *)",
+
+      "Bash(npm run*)",
+      "Bash(npm test*)",
+      "Bash(npm start*)",
+      "Bash(npm install*)",
+      "Bash(yarn run*)",
+      "Bash(yarn test*)",
+      "Bash(yarn start*)",
+      "Bash(yarn install*)",
+      "Bash(npx *)",
+      "Bash(node *)",
+      "Bash(tsc*)",
+      "Bash(ts-node*)"
     ]
   }
 }

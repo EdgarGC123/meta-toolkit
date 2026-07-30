@@ -37,10 +37,10 @@ my-custom-toolkit/               # YOUR toolkit
 │   ├── WORKFLOW.md              # YOUR phases
 │   └── CONFIG.md                # YOUR settings
 ├── docs/
-│   ├── ACTION_ITEMS.md          # Active tasks and blockers
-│   └── PROJECT_CONTEXT.md       # Client context
+│   ├── ACTION-ITEMS.md          # Active tasks and blockers
+│   └── PROJECT-CONTEXT.md       # Client context
 ├── reference/meetings/
-│   └── MEETING_NOTES_SUMMARY.md
+│   └── MEETING-NOTES-SUMMARY.md
 ├── .claude/skills/
 │   ├── brief/                   # /brief — session orientation
 │   ├── research/                # /research — technical research
@@ -89,7 +89,13 @@ User copies accelerator → runs `/start-here` → adaptive discovery conversati
 
 ### Plugins (Capabilities)
 
-**What**: Reusable capabilities you can plug into toolkits
+**What**: Reusable, prompt-based capabilities you can plug into toolkits
+
+**Invocation types** — set per plugin at generation time:
+- **On-demand**: generates a `.claude/skills/[name]/SKILL.md` wrapper so the plugin becomes a `/command` the user invokes when needed. Best for ad-hoc tasks.
+- **Workflow-embedded**: adds a reference at the relevant step in WORKFLOW.md. No skill wrapper. Best for recurring tasks that happen at a predictable point in the workflow.
+
+The plugin folder structure is identical either way — only the generated wrapper differs.
 
 **Examples**:
 - email-composer: Write emails in your style
@@ -435,11 +441,11 @@ toolkit-root/
         SKILL.md
         prompt.md
   docs/
-    ACTION_ITEMS.md                 # Active blockers, tasks, priorities (internal)
-    PROJECT_CONTEXT.md              # Client context, stakeholders, risks
+    ACTION-ITEMS.md                 # Active blockers, tasks, priorities (internal)
+    PROJECT-CONTEXT.md              # Client context, stakeholders, risks
   reference/
     meetings/
-      MEETING_NOTES_SUMMARY.md      # All meetings consolidated in one file
+      MEETING-NOTES-SUMMARY.md      # All meetings consolidated in one file
   research/                         # Raw external findings only — easily deletable
 ```
 
@@ -469,8 +475,8 @@ When an engagement pivots or expands scope, use subfolders within `docs/` and `r
 
 ```
 docs/
-  ACTION_ITEMS.md                   # Cross-cutting, stays at root
-  PROJECT_CONTEXT.md                # Cross-cutting, stays at root
+  ACTION-ITEMS.md                   # Cross-cutting, stays at root
+  PROJECT-CONTEXT.md                # Cross-cutting, stays at root
   ap_invoice_monitoring/            # Track 1
     TRACK_PLAN.md
     solution_planning/
@@ -485,7 +491,7 @@ research/
   finance_use_cases/
 ```
 
-**Rule**: Cross-cutting files (ACTION_ITEMS, PROJECT_CONTEXT) always stay at the root of `docs/`. Track-specific files always go in their subfolder.
+**Rule**: Cross-cutting files (ACTION-ITEMS, PROJECT-CONTEXT) always stay at the root of `docs/`. Track-specific files always go in their subfolder.
 
 ---
 
@@ -497,7 +503,7 @@ Every toolkit involves content at different confidentiality levels. The folder s
 |---|---|---|
 | Raw research findings | `research/` | No |
 | Internal planning notes | `docs/[track]/solution_planning/` | No |
-| Active tasks and blockers | `docs/ACTION_ITEMS.md` | No |
+| Active tasks and blockers | `docs/ACTION-ITEMS.md` | No |
 | Client-facing deliverables | `docs/[track]/solutions/` | Yes |
 | Meeting notes | `reference/meetings/` | No (unless extracted) |
 
@@ -538,11 +544,91 @@ Within solution docs, internal-only sections are flagged:
 
 ---
 
+## File Naming Convention
+
+All files in generated toolkits follow this standard:
+
+| File type | Convention | Examples |
+|---|---|---|
+| Regular files | `kebab-case.md` | `feature-notes.md`, `api-design.md` |
+| Landmark aggregate files (single authoritative references) | `ALL-CAPS-KEBAB.md` | `PROJECT-CONTEXT.md`, `ACTION-ITEMS.md`, `MEETING-NOTES-SUMMARY.md`, `APP-CONTEXT.md`, `ARCHITECTURE.md` |
+| Per-item files named after external IDs | Match the external system | `IDEA-123.md`, `PROJ-456.md` |
+| Generator meta files | Stay ALL-CAPS (they are landmark files in the generator sense) | `PHASES.md`, `SKILL.md`, `PROMPTS.md` |
+
+**Rule**: Landmark files are the single authoritative reference for their domain — there is exactly one per toolkit. Regular files are per-item or per-topic. The naming convention signals which kind of file it is at a glance.
+
+---
+
+## App-Context and Architecture Reference Files
+
+For toolkits targeting an existing codebase, two standard reference files accumulate knowledge across sessions:
+
+**`reference/[codebase-name]/APP-CONTEXT.md`** — navigational map ("where is X"):
+- Feature locations: what pages/components/routes exist and where they live
+- A new Claude session reading this file can immediately locate any feature without touching the repo
+- Updated during stories when a new area of the codebase is explored
+
+**`reference/[codebase-name]/ARCHITECTURE.md`** — patterns and conventions ("why and how"):
+- How the app is built: state management, auth pattern, API communication, data flow
+- Team conventions discovered during exploration
+- Updated when a pattern or convention is understood deeply enough to be worth recording
+
+These are separate files because they serve different questions:
+- APP-CONTEXT: "where is the save button component?"
+- ARCHITECTURE: "why does the save button use optimistic updates instead of waiting for the API?"
+
+Integration:
+- `/brief` loads these at session start (STEP 4 in the brief skill)
+- WORKFLOW.md for existing-app toolkits includes an explicit step: "update APP-CONTEXT.md with anything new learned during exploration"
+- Generated conditionally by `/start-here` when toolkit targets an existing codebase (Phase 7)
+
+---
+
+## Standard Agile Story Workflow
+
+For consulting/agile toolkits targeting an existing app, this is the standard phase structure:
+
+```
+Story Intake → Codebase Exploration → Implementation Plan → Implementation → Testing → Summary
+```
+
+Each phase has a defined success signal before proceeding to the next:
+
+1. **Story Intake**: Ticket parsed, ACs extracted and confirmed, out-of-scope identified
+2. **Codebase Exploration**: Relevant files located, patterns understood, APP-CONTEXT.md updated
+3. **Implementation Plan**: Plan confirmed in writing before any code is written — prevents wasted work
+4. **Implementation**: Code written per plan, no silent assumptions, stops at decision points
+5. **Testing**: Tests pass, coverage thresholds met, test tier confirmed (unit/integration/e2e)
+6. **Summary**: Stand-up summary generated, ACTION-ITEMS.md updated, ARCHITECTURE.md updated if new pattern learned
+
+Key rule: the implementation plan is confirmed before any code is written. An unconfirmed plan that turns out wrong wastes the implementation work.
+
+---
+
 ## Folder Rename Rule
 
 If a folder is renamed, update the CLAUDE.md Key Documentation section and context navigation table in the same session. File path references go stale immediately — treat them like code dependencies that must be updated together.
 
 This applies to: CLAUDE.md, `.claude/skills/brief/SKILL.md` (in the generated toolkit), and any file that contains explicit folder path references.
+
+### Cloud-Sync Rename Behavior (Verified)
+
+`mv` is safe and correct on cloud-synced paths. It executes a `rename(2)` syscall that preserves inodes. OneDrive (and other providers) use inode-based tracking — the rename is propagated to the server as an atomic PATCH, not as delete+re-upload.
+
+**The "old folder reappears" root cause**: If OneDrive's OAuth token expires while the rename PATCH is still queued but not yet sent to the server, the PATCH is dropped. On the next sync cycle, the server's stale state wins and OneDrive re-creates the folder at the old local name. This is a sync-timing issue, not a `mv` failure.
+
+**Do not use `cp -r + rm -rf`** as an alternative — it creates new inodes, which sync clients interpret as delete+re-upload. It is the wrong approach and actively harmful on cloud-sync paths.
+
+**Detection**: Check if `pwd` contains any of: `~/Library/CloudStorage/` (primary, macOS 12+), `~/OneDrive*/`, `~/Dropbox*/`, `~/Box*/`, `~/Google Drive*/`
+
+**Safe rename procedure on cloud-sync paths**:
+1. Use `mv` as normal
+2. Wait for the sync client's icon to clear (confirming the PATCH reached the server)
+3. Then close the session and open a fresh one in the new folder path
+
+**Exception**: Google Drive in streaming mode (virtual folders) — rename via Finder instead of terminal.
+
+**Implementation**: See Phase 6 of `.claude/skills/start-here/PHASES.md` for the cloud-path detection and user warning logic.
 
 ---
 
@@ -573,8 +659,8 @@ Context docs are not a one-time setup. They require ongoing maintenance to stay 
 These are reference patterns, not generated automatically. Create them when the engagement requires deliverable documentation.
 
 For templates, see:
-- `.meta/SOLUTION_DOC_TEMPLATE.md` - Standard structure for client-facing deliverables
-- `.meta/MEETING_NOTES_TEMPLATE.md` - Standard entry format for meeting consolidation
+- `.meta/SOLUTION-DOC-TEMPLATE.md` - Standard structure for client-facing deliverables
+- `.meta/MEETING-NOTES-TEMPLATE.md` - Standard entry format for meeting consolidation
 
 ---
 

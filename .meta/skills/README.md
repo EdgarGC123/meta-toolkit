@@ -20,7 +20,7 @@ After you've built a few toolkits, you'll notice workflow patterns that repeat. 
 
 When you're ready to create a reusable skill:
 
-1. See `.meta/SKILL_GUIDE.md` for detailed instructions
+1. See `.meta/SKILL-GUIDE.md` for detailed instructions
 2. Create `.meta/skills/your-skill-name/`
 3. Define phase structure and prompts
 4. `/start-here` will detect it automatically on the next generation

@@ -70,13 +70,13 @@ ai-toolkit-accelerator/
 │       └── start-here/           [The only executable skill on the generator]
 └── .meta/                        [All reference material — deleted after generation]
     ├── ARCHITECTURE.md
-    ├── AGENTIC_PATTERNS.md
-    ├── DISCOVERY_PIPELINE.md
-    ├── PROMPT_ENGINEERING.md
-    ├── MODEL_SELECTION.md
-    ├── SKILL_GUIDE.md
-    ├── SOLUTION_DOC_TEMPLATE.md
-    ├── AI_BEHAVIOR_GUIDELINES.md
+    ├── AGENTIC-PATTERNS.md
+    ├── DISCOVERY-PIPELINE.md
+    ├── PROMPT-ENGINEERING.md
+    ├── MODEL-SELECTION.md
+    ├── SKILL-GUIDE.md
+    ├── SOLUTION-DOC-TEMPLATE.md
+    ├── AI-BEHAVIOR-GUIDELINES.md
     ├── base-skills/              [Copied into every generated toolkit's .claude/skills/]
     │   ├── brief/                [→ /brief]
     │   ├── research/             [→ /research]
@@ -94,7 +94,7 @@ my-toolkit/
 ├── CLAUDE.md                     [Session guide — run /brief every session]
 ├── README.md                     [Explains YOUR toolkit]
 ├── GETTING_STARTED.md            [First-use guide]
-├── AI_BEHAVIOR_GUIDELINES.md     [Rules for all agents]
+├── AI-BEHAVIOR-GUIDELINES.md     [Rules for all agents]
 ├── workflow/
 │   ├── WORKFLOW.md               [YOUR phases with detailed guidance]
 │   └── CONFIG.md                 [YOUR settings]
@@ -155,7 +155,7 @@ These three skills work in sequence: `/brief` to orient, `/research` to investig
 - **CLAUDE.md** — session guide with provenance summary of what's active in this toolkit
 - **workflow/WORKFLOW.md** — your phases with detailed sub-steps and success criteria
 - **workflow/CONFIG.md** — toolkit settings
-- **AI_BEHAVIOR_GUIDELINES.md** — behavioral rules for all agents
+- **AI-BEHAVIOR-GUIDELINES.md** — behavioral rules for all agents
 - **README.md** and **GETTING_STARTED.md**
 - **docs/ACTION_ITEMS.md**, **docs/PROJECT_CONTEXT.md**, **reference/meetings/MEETING_NOTES_SUMMARY.md**
 - **.claude/skills/** — `/brief` (session orientation), `/research` (technical research), `/solution-writer` (planning + client docs)
@@ -224,9 +224,9 @@ This accelerator can generate toolkits for:
 
 Everything in `.meta/` is reference material that informs toolkit generation. None of it executes directly — it's read by Claude during generation and consulted when building or extending a toolkit. It gets deleted from the copy after generation; the original accelerator keeps it as your growing library.
 
-**Guides**: `ARCHITECTURE.md`, `SKILL_GUIDE.md`, `PLUGIN_GUIDE.md`, `PHASES_GUIDE.md`, `PROMPTS_GUIDE.md`, `TESTING_GUIDE.md`, `AGENTIC_PATTERNS.md`, `DISCOVERY_PIPELINE.md`, `PROMPT_ENGINEERING.md`, `MODEL_SELECTION.md`
+**Guides**: `ARCHITECTURE.md`, `SKILL-GUIDE.md`, `PLUGIN-GUIDE.md`, `PHASES-GUIDE.md`, `PROMPTS-GUIDE.md`, `TESTING-GUIDE.md`, `AGENTIC-PATTERNS.md`, `DISCOVERY-PIPELINE.md`, `PROMPT-ENGINEERING.md`, `MODEL-SELECTION.md`
 
-**Templates**: `SOLUTION_DOC_TEMPLATE.md`, `MEETING_NOTES_TEMPLATE.md`, `AI_BEHAVIOR_GUIDELINES.md` (copied into every generated toolkit)
+**Templates**: `SOLUTION-DOC-TEMPLATE.md`, `MEETING-NOTES-TEMPLATE.md`, `AI-BEHAVIOR-GUIDELINES.md` (copied into every generated toolkit)
 
 **Permission sets** — four modular layers that combine into a single `settings.json` for the generated toolkit:
 - `settings.template.json` — base layer, always included (file navigation, safe git operations, safety deny rules)
@@ -234,7 +234,7 @@ Everything in `.meta/` is reference material that informs toolkit generation. No
 - `settings.developer.json` — adds git write ops, Python/pip, Azure/AWS CLI, test runners (add when toolkit involves writing or deploying code)
 - `settings.diagnostic.json` — adds environment inspection tools, read-only cloud CLI commands (add when toolkit needs to audit infrastructure)
 
-The generation conversation asks what the toolkit needs access to and builds `settings.json` by merging the relevant layers. A solo personal workflow may need only the base. A full client engagement toolkit running code, research, and cloud deployments gets all four. See `.meta/PERMISSIONS_TEMPLATE_README.md` for merge rules.
+The generation conversation asks what the toolkit needs access to and builds `settings.json` by merging the relevant layers. A solo personal workflow may need only the base. A full client engagement toolkit running code, research, and cloud deployments gets all four. See `.meta/PERMISSIONS-TEMPLATE-README.md` for merge rules.
 
 **Accumulation folders** — grow these over time as you build toolkits:
 - `.meta/plugins/` — reusable domain-specific capabilities (processors, prompt sets for specific tools)
@@ -409,15 +409,15 @@ Your generated toolkit is ready when:
 
 - `DESIGN_PHILOSOPHY.md` — what's baked in and the reasoning behind each pattern
 - `.meta/ARCHITECTURE.md` — how the self-transforming generator works
-- `.meta/AGENTIC_PATTERNS.md` — reusable agentic workflow patterns
-- `.meta/PROMPT_ENGINEERING.md` — prompts as composable artifacts
+- `.meta/AGENTIC-PATTERNS.md` — reusable agentic workflow patterns
+- `.meta/PROMPT-ENGINEERING.md` — prompts as composable artifacts
 
 ### Creating Plugins and Skills
 
-- `.meta/PLUGIN_GUIDE.md` — plugin structure and integration
-- `.meta/SKILL_GUIDE.md` — skill structure, A-J build sequence, durability rules
-- `.meta/PHASES_GUIDE.md` — how to structure phase files
-- `.meta/PROMPTS_GUIDE.md` — effective prompt templates
+- `.meta/PLUGIN-GUIDE.md` — plugin structure and integration
+- `.meta/SKILL-GUIDE.md` — skill structure, A-J build sequence, durability rules
+- `.meta/PHASES-GUIDE.md` — how to structure phase files
+- `.meta/PROMPTS-GUIDE.md` — effective prompt templates
 
 ---
 
