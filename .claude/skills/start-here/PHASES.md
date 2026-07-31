@@ -454,11 +454,16 @@ Verify with `ls -la .git`:
 - If `.git` still exists: include this warning instead: "⚠️ Git detach incomplete — .git still exists. Run `rm -rf .git` manually, then `git init` to start fresh."
 
 **Step 2 — Delete scaffolding:**
-- `bootstrap.py` and `bootstrap.py.backup` (if present from older versions of the generator)
-- `.claude/skills/start-here/` (this skill — it has done its job)
-- `.meta/` directory (all guides, base-skills source templates, accumulation folders)
-- `START_HERE.md`
-- `DESIGN_PHILOSOPHY.md` (generator design rationale — not relevant to the generated toolkit)
+
+**Important**: Always use relative paths with `rm -rf`. Absolute paths with `rm -rf` are blocked by Claude Code's safety layer regardless of `settings.json`. All commands below use relative paths from the project root — confirm `pwd` is the toolkit root before running.
+
+```bash
+rm -f bootstrap.py bootstrap.py.backup
+rm -rf .claude/skills/start-here/
+rm -rf .meta/
+rm -f START_HERE.md
+rm -f DESIGN_PHILOSOPHY.md
+```
 
 The generated toolkit's `.claude/skills/` now contains only the base skills copied during generation (brief, research, solution-writer). The `.meta/` deletion does not affect them — they were already copied to their destination.
 
