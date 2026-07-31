@@ -161,6 +161,61 @@ To verify your skill is discoverable:
 
 ---
 
+## Rules Files (.claude/rules/)
+
+Rules files are a distinct mechanism from skills — they auto-load based on file path, not user invocation.
+
+### What they are
+
+`.claude/rules/*.md` files with `paths:` frontmatter. When Claude touches a file matching the path glob, the rule file loads automatically. Zero cost when the path doesn't match.
+
+### Structure
+
+```
+.claude/rules/
+├── conventions.md        # catch-all or broad rules
+├── frontend.md           # loads only when touching frontend files
+├── testing.md            # loads only when touching test files
+└── api.md                # loads only when touching API layer
+```
+
+### Required frontmatter
+
+```yaml
+---
+description: Short description of what these rules cover
+paths:
+  - "src/components/**"
+  - "src/pages/**"
+---
+```
+
+`paths:` accepts glob patterns. Multiple patterns load the file if any match.
+
+### When to use rules files vs. CLAUDE.md
+
+| Put in CLAUDE.md | Put in rules files |
+|---|---|
+| Toolkit purpose and key locations | Layer-specific conventions |
+| Skills and plugins available | Testing patterns and requirements |
+| Deferred stubs list | API conventions |
+| Provenance summary | Database access patterns |
+| Cross-cutting behavioral rules | File-type-specific formatting rules |
+
+**Rule of thumb**: If a convention only matters when touching a specific part of the codebase, it belongs in a path-scoped rule file, not CLAUDE.md.
+
+### CLAUDE.md 200-line discipline
+
+CLAUDE.md is injected as a user message at every session start. Beyond ~200 lines, adherence degrades. Use path-scoped rules files as the overflow valve — they only load when relevant.
+
+HTML comments in CLAUDE.md are free — stripped before injection, don't cost tokens. Use them for maintainer notes.
+
+### Auto-memory (Claude Code CLI)
+
+Claude Code automatically writes `~/.claude/projects/<project>/memory/MEMORY.md`. First 200 lines load every session. Topic files read on demand. This is free automatic context accumulation — use it intentionally for cross-session knowledge that doesn't belong in toolkit files.
+
+---
+
 ## Reference Skills vs Claude Code Skills
 
 ### Reference Skills (`.meta/skills/`)

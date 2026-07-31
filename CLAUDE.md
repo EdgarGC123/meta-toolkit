@@ -15,6 +15,7 @@ The AI Toolkit Generator is a scaffolding system. When you run `/start-here`, it
 | What | Where |
 |---|---|
 | Only executable skill | `.claude/skills/start-here/` |
+| Path-scoped rules (auto-load by file path) | `.claude/rules/meta-library.md` — loads when editing `.meta/**`; `.claude/rules/phases-skills.md` — loads when editing `.claude/skills/**` |
 | Generation phase logic and meta library map | `.claude/skills/start-here/PHASES.md` |
 | Toolkit-operational skills (source) | `.meta/base-skills/` — brief, research, solution-writer |
 | Architecture and guides | `.meta/ARCHITECTURE.md`, `DESIGN_PHILOSOPHY.md` |

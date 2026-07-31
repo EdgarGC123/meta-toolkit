@@ -262,6 +262,25 @@ Based on what the toolkit does, decide which `.meta/` reference docs to surface 
   - Defer any tier not yet confirmed as a stub, but surface all three tiers so none are silently skipped
 - Pipeline/verification: is there a dev or staging pipeline the developer can verify against before merge?
 
+**Path-scoped rules (for code toolkits — Q3 = yes):**
+
+Ask after the codebase access check, once the tech stack is known:
+
+```
+"Does your codebase have distinct layers with their own conventions —
+ for example, a frontend layer, API layer, testing setup, or database access?
+
+ If yes: I'll generate a starter rule file per layer in .claude/rules/. These
+ only load when Claude touches files in that layer — zero token cost otherwise.
+ You populate them as you explore the codebase.
+
+ 1. Yes — list the layers (e.g. 'frontend, api, testing')
+ 2. Not sure yet — generate one catch-all conventions.md I can split later
+ 3. No distinct layers / not applicable"
+```
+
+Record confirmed layers for Phase 7. If "not sure yet": generate single `conventions.md`. If "not applicable": skip rules entirely.
+
 **Interaction type (for any toolkit with ongoing work or code — Q3 = yes, or any multi-session engagement):**
 
 Ask once for implementation, then separately for testing. They can be the same or different.
@@ -365,9 +384,15 @@ Do not rename silently in a cloud-sync path. Always surface this warning and let
 
 Create all files. Reference PROMPTS.md for progress messaging format. Use the Meta Library Map to verify nothing was missed before closing.
 
+**CLAUDE.md discipline — applies to every generated toolkit:**
+Generated CLAUDE.md must stay under 200 lines. It is injected at every session start — everything in it pays a token cost every session. Keep it lean:
+- Include: toolkit purpose, key file locations, skills/plugins available, deferred stubs, provenance
+- Exclude: layer-specific conventions (→ rules files), phase instructions (→ WORKFLOW.md), architecture patterns (→ reference/ files)
+- HTML comments are free (stripped before injection) — use for maintainer notes
+
 **Always generated:**
 1. Directory structure (docs/, research/, reference/meetings/, .claude/skills/)
-2. CLAUDE.md (session guide with dynamic provenance paragraph)
+2. CLAUDE.md (session guide with dynamic provenance paragraph — keep under 200 lines per discipline above)
 3. README.md
 4. GETTING_STARTED.md
 5. workflow/WORKFLOW.md — embed relevant agentic patterns, prompt engineering principles, and discovery pipeline guidance as appropriate for this toolkit's workflow type
@@ -386,15 +411,20 @@ Create all files. Reference PROMPTS.md for progress messaging format. Use the Me
 14. reference/meetings/MEETING-NOTES-SUMMARY.md — use `.meta/MEETING-NOTES-TEMPLATE.md` as the format reference
 
 **Conditional — only if selected or confirmed during Phase 4:**
-15. Skills from `.meta/skills/` → copy selected ones to `skills/` at toolkit root
-16. Plugins from `.meta/plugins/` → copy selected ones to `plugins/` at toolkit root. For each plugin, generate based on the invocation type confirmed in Phase 4:
+15. `.claude/rules/` — generate based on rules answer from Phase 4:
+    - **Layers confirmed**: generate one `.claude/rules/[layer].md` per layer. Each file gets `paths:` frontmatter matching that layer's directories, section headers (Component Structure, Conventions, Patterns, etc.), and a header comment: "Populate as you explore — add conventions here when you discover patterns worth remembering." Do not pre-fill with assumptions.
+    - **Not sure yet**: generate a single `.claude/rules/conventions.md` with broad paths (`["src/**", "**/*.ts", "**/*.js"]` or equivalent) and a note explaining how to split into layer files when layers become clear.
+    - **Not applicable**: skip entirely.
+    - Example path globs by layer type: frontend → `["src/components/**", "src/pages/**"]`; api → `["src/api/**", "server/**"]`; testing → `["**/*.test.*", "**/*.spec.*", "tests/**"]`; database → `["src/db/**", "migrations/**"]`
+16. Skills from `.meta/skills/` → copy selected ones to `skills/` at toolkit root
+17. Plugins from `.meta/plugins/` → copy selected ones to `plugins/` at toolkit root. For each plugin, generate based on the invocation type confirmed in Phase 4:
     - **On-demand**: copy plugin folder to `plugins/[name]/` AND generate a skill wrapper at `.claude/skills/[name]/SKILL.md`. The skill frontmatter must include a `description:` that triggers on the use case (e.g. "Use when you have a ticket to parse"). The skill body: load the plugin prompt, ask the user for required variables, run it.
     - **Workflow-embedded**: copy plugin folder to `plugins/[name]/` AND add a reference at the relevant step in WORKFLOW.md: "At this step, load `plugins/[name]/prompts/[prompt].prompt.md`, fill in the variables, and run." Do not generate a skill wrapper.
     - If invocation type was not confirmed: default to on-demand.
-17. Templates from `.meta/templates/` → copy selected ones to `templates/` at toolkit root
-18. Testing structure — if code involvement confirmed, use `.meta/TESTING-GUIDE.md` as reference
-19. Path-scoped rules, validation hooks — if requested
-20. `reference/[codebase-name]/APP-CONTEXT.md` — if toolkit targets an existing codebase (Q5b = "Existing app"): create as an empty template with sections: Feature Locations, Key Components, Route Map, Notes. Include a header comment: "Updated during stories as new areas are explored — load this before codebase work."
+18. Templates from `.meta/templates/` → copy selected ones to `templates/` at toolkit root
+19. Testing structure — if code involvement confirmed, use `.meta/TESTING-GUIDE.md` as reference
+20. Validation hooks — if requested
+21. `reference/[codebase-name]/APP-CONTEXT.md` — if toolkit targets an existing codebase (Q5b = "Existing app"): create as an empty template with sections: Feature Locations, Key Components, Route Map, Notes. Include a header comment: "Updated during stories as new areas are explored — load this before codebase work."
 21. `reference/[codebase-name]/ARCHITECTURE.md` — same condition as above: create as empty template with sections: State Management, Auth Pattern, API Communication, Data Flow, Team Conventions. Include header comment: "Updated when a pattern is understood deeply enough to be worth recording."
 
 **Deferred:**
@@ -405,6 +435,7 @@ Create all files. Reference PROMPTS.md for progress messaging format. Use the Me
 - `.claude/settings.json` exists (always — even if only the base layer was needed)
 - WORKFLOW.md references any relevant patterns from `AGENTIC-PATTERNS.md` or `PROMPT-ENGINEERING.md`
 - CLAUDE.md provenance section lists everything active in this toolkit
+- CLAUDE.md is under 200 lines — if over, move layer-specific content to `.claude/rules/` files
 
 ---
 
