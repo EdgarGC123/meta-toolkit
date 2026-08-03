@@ -347,6 +347,5 @@ When using this skill:
 
 ---
 
-**Version**: 1.0  
 **Prompt Style**: Progress-oriented with structured reporting  
 **Key Feature**: Clear visibility into batch processing status

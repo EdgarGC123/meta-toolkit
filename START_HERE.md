@@ -74,5 +74,3 @@ After generation, all scaffolding is deleted: `.meta/`, `.claude/skills/start-he
 
 ---
 
-**Version**: 4.0
-**Updated**: 2026-07-03

@@ -21,11 +21,6 @@ Items identified from the audit that are deferred for future sessions.
 **Current state**: Interaction types are code-only. No equivalent for consulting workflows.
 **Revisit when**: There's a clear pattern from consulting toolkit usage where users want more explicit control over how Claude engages.
 
-### I9 — Version footer cleanup
-**Question**: Many `.meta/` files have version footers with no consistent meaning. A rubric has been defined in ARCHITECTURE.md (X.0 = structural, X.Y = content). Should existing footers be audited and either updated to match the rubric or removed entirely for consistency?
-**Current state**: Existing footers left in place. Rubric documented. New files don't need footers.
-**Revisit when**: There's a maintenance pass that warrants the cleanup.
-
 ---
 
 ## Features to Build

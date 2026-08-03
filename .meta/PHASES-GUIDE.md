@@ -306,13 +306,10 @@ Pattern is complete when:
 
 ---
 
-**Version**: 1.0
 **Pattern Type**: [e.g., Multi-step analysis, Iterative processing, etc.]
 **Complexity**: [Simple/Medium/Complex]
 ```
 
 ---
 
-**Version**: 1.1
-**Last Updated**: 2026-07-03
 **Purpose**: Guide for creating PHASES.md files in skills

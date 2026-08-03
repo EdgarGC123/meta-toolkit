@@ -564,18 +564,6 @@ Use it intentionally: if Claude derives something in a session that would be wor
 
 ---
 
-## Version Footer Convention
-
-Some `.meta/` landmark files include a version footer (`**Version**: X.Y`, `**Last Updated**: date`). These are optional and informational only — no tooling depends on them.
-
-When present, the versioning convention is:
-- `X.0` — structural change: sections added, removed, or significantly reorganized
-- `X.Y` — content update: corrections, additions, or clarifications within existing structure
-
-Not all files need version footers. When adding one, use the format: `**Version**: X.Y` / `**Last Updated**: YYYY-MM-DD`.
-
----
-
 ## File Naming Convention
 
 All files in generated toolkits follow this standard:

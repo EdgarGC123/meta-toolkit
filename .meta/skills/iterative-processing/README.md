@@ -187,7 +187,6 @@ When applying this pattern, ask:
 
 ---
 
-**Version**: 1.0  
 **Created**: 2026-05-22  
 **Applicable to**: Any workflow requiring consistent multi-item processing  
 **Type**: Non-code pattern (works with or without programming)  

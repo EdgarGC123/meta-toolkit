@@ -333,6 +333,4 @@ Does description mention code/programming?
 
 ---
 
-**Version**: 1.0  
-**Last Updated**: 2026-05-22  
 **Purpose**: Guide testing structure generation in toolkit generation

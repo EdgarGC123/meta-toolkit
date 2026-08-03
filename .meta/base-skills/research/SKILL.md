@@ -123,7 +123,6 @@ Use the project's existing subfolder structure. If none exists, create a logical
 ```markdown
 # [Topic] — Research Reference
 
-**Last Updated**: [date]
 **Confidence**: [High / Medium / Low]
 **Purpose**: [one sentence — what decision or task this supports]
 
@@ -240,6 +239,3 @@ This signals: run full Phase 1 query deconstruction, use WebSearch + WebFetch ac
 
 ---
 
-**Version**: 2.0
-**Last Updated**: 2026-07-03
-**Replaces**: /deep-research

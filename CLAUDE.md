@@ -59,11 +59,9 @@ If any folder in this generator is renamed, update path references in this file 
 
 ## What NOT to Do Here
 
-- Do not run `/brief` — there are no `docs/ACTION_ITEMS.md` or `docs/PROJECT_CONTEXT.md` here
+- Do not run `/brief` — there are no `docs/ACTION-ITEMS.md` or `docs/PROJECT-CONTEXT.md` here
 - Do not run `/research` or `/solution-writer` — those are toolkit-operational skills with no applicable context in the generator itself
 - Do not modify `.meta/` files in a generated toolkit copy — changes there affect only that copy and will be deleted with `.meta/` after generation
 
 ---
 
-**Version**: 2.0
-**Updated**: 2026-07-03

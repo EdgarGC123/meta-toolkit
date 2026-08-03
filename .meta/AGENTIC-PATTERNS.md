@@ -305,5 +305,3 @@ In generated WORKFLOW.md for code toolkits, add a "Code Workflow Interaction Typ
 
 ---
 
-**Version**: 1.2
-**Last Updated**: 2026-07-29

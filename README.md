@@ -82,9 +82,8 @@ ai-toolkit-accelerator/
     │   ├── research/             [→ /research]
     │   └── solution-writer/      [→ /solution-writer]
     ├── plugins/                  [Accumulate reusable capabilities here]
-    ├── skills/                   [Accumulate reusable workflow patterns here]
-    ├── templates/                [Accumulate output format templates here]
-    └── skills/                   [Reusable workflow patterns — includes iterative-processing starter]
+    ├── skills/                   [Reusable workflow patterns — includes iterative-processing starter]
+    └── templates/                [Accumulate output format templates here]
 ```
 
 ### After Generation (Your Toolkit)
@@ -99,11 +98,11 @@ my-toolkit/
 │   ├── WORKFLOW.md               [YOUR phases with detailed guidance]
 │   └── CONFIG.md                 [YOUR settings]
 ├── docs/
-│   ├── ACTION_ITEMS.md           [Active tasks and blockers]
-│   └── PROJECT_CONTEXT.md        [Client context and stakeholders]
+│   ├── ACTION-ITEMS.md           [Active tasks and blockers]
+│   └── PROJECT-CONTEXT.md        [Client context and stakeholders]
 ├── reference/
 │   └── meetings/
-│       └── MEETING_NOTES_SUMMARY.md
+│       └── MEETING-NOTES-SUMMARY.md
 ├── .claude/
 │   └── skills/
 │       ├── brief/                [/brief — session orientation]
@@ -127,7 +126,7 @@ my-toolkit/
 Every toolkit generated from this generator receives three skills, copied from `.meta/base-skills/` into the toolkit's `.claude/skills/` at generation time. These are toolkit-operational skills — they have no purpose on the generator itself.
 
 ### `/brief`
-Session orientation. Reads `docs/ACTION_ITEMS.md`, `docs/PROJECT_CONTEXT.md`, and the latest meeting notes, then gives a concise status summary before asking what to work on. Run at the start of every session.
+Session orientation. Reads `docs/ACTION-ITEMS.md`, `docs/PROJECT-CONTEXT.md`, and the latest meeting notes, then gives a concise status summary before asking what to work on. Run at the start of every session.
 
 ### `/research`
 Multi-phase technical research. Decomposes queries into multiple angles, fetches primary sources first, applies a four-perspective review (Researcher, Analyst, Contrarian, Synthesizer), verifies code against live sources, and saves findings to `research/` before summarizing.
@@ -382,7 +381,7 @@ Your generated toolkit is ready when:
 | Copy accelerator | 10 seconds |
 | Run `/start-here` discovery conversation | 15-30 minutes |
 | Review generated files | 5-10 minutes |
-| Fill in `PROJECT_CONTEXT.md` and `ACTION_ITEMS.md` | 10-20 minutes |
+| Fill in `PROJECT-CONTEXT.md` and `ACTION-ITEMS.md` | 10-20 minutes |
 | **Total to working toolkit** | **30-60 minutes** |
 
 **vs. building from scratch: 4-18 hours**
@@ -431,8 +430,6 @@ Your generated toolkit is ready when:
 
 ---
 
-**Version**: 4.0
 **Created**: 2026-05-21
-**Updated**: 2026-07-03
 **Platform**: Mac, Windows, Linux (Claude Code required)
 **Purpose**: Generate adaptive, expandable AI workflow toolkits for any use case

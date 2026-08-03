@@ -170,7 +170,6 @@ This skill can be applied to workflow phases by:
 
 ---
 
-**Version**: 1.0
 **Created**: [Date]
 **Applicable to**: [Types of workflows]
 ```
@@ -602,6 +601,4 @@ Everything else from Section A is optional depending on complexity.
 
 ---
 
-**Version**: 2.1
-**Last Updated**: 2026-07-03
 **Purpose**: Guide skill creation for toolkit accelerator

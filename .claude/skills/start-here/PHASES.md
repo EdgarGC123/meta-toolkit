@@ -507,7 +507,7 @@ When ready, describe the need in a new session. The process will:
 
 - See `workflow/WORKFLOW.md` for how this toolkit is structured and how phases connect
 - See `CLAUDE.md` for the full list of what was generated and what remains deferred
-- To add a new skill or plugin: describe the need in a new session — Claude will build it following the pattern of existing skills already in `.claude/skills/`. No guide file needed.
+- To extend this toolkit in any way (new skill, plugin, rule file, settings update, workflow phase, or anything else): describe the need in a new session. Claude will build it based on the existing toolkit structure and its training. No guide file is needed.
 ```
 
 Keep stub filenames short and descriptive: `testing.md`, `delivery-platform.md`, `track-structure.md`, `integrations.md` — whatever names the topic clearly.
@@ -544,5 +544,3 @@ The completion message should include:
 
 ---
 
-**Version**: 2.0
-**Last Updated**: 2026-07-03

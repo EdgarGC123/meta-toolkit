@@ -99,5 +99,3 @@ Raw artifacts (transcripts, legacy code, Slack)
 
 ---
 
-**Version**: 1.0
-**Last Updated**: 2026-07-03

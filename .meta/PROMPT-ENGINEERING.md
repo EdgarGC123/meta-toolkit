@@ -120,5 +120,3 @@ Fix: Commit prompts to the repo like code.
 
 ---
 
-**Version**: 1.0
-**Last Updated**: 2026-07-03

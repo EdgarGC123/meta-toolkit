@@ -446,7 +446,6 @@ When using this skill:
 
 ---
 
-**Version**: 1.0
 **Prompt Style**: [e.g., Structured progress updates, Conversational, Formal, etc.]
 ```
 
@@ -464,6 +463,4 @@ Don't update for one-off preferences - only when the PATTERN needs adjustment.
 
 ---
 
-**Version**: 1.1
-**Last Updated**: 2026-07-03
 **Purpose**: Guide for creating PROMPTS.md files in skills

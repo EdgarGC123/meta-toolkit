@@ -789,6 +789,4 @@ These guidelines can be relaxed when:
 
 ---
 
-**Version**: 2.3  
-**Last Updated**: 2026-07-03  
 **Applies To**: All toolkits generated from this generator

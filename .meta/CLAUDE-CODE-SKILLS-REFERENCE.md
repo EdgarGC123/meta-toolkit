@@ -280,5 +280,3 @@ https://code.claude.com/docs/en/slash-commands
 
 ---
 
-**Version**: 2.0
-**Updated**: 2026-07-03

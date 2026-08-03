@@ -185,7 +185,5 @@ If you are using it for something simpler — a personal workflow, a one-person 
 
 ---
 
-**Version**: 1.0
-**Last Updated**: 2026-07-03
 **Maintained by**: Generator contributors
 **Applies to**: All toolkits generated from this generator
