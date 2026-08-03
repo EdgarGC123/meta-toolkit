@@ -61,7 +61,7 @@ After generation, all scaffolding is deleted: `.meta/`, `.claude/skills/start-he
 ## After Generation
 
 - Run `/brief` at the start of every session
-- Use `/toolkit-advisor` to modify the toolkit as the engagement evolves
+- To modify the toolkit as the engagement evolves, describe the need in a new session
 - Describe any deferred topic when you're ready to expand it — the toolkit will grow to meet it
 
 ---

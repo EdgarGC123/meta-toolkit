@@ -27,9 +27,11 @@ When you're ready to create a reusable skill:
 
 ---
 
-## This Directory is Currently Empty
+## Current Skills
 
-That's intentional. Build your skills as you discover workflow patterns worth reusing.
+| Skill | What it does |
+|---|---|
+| `iterative-processing/` | Starter reference pattern for multi-step iterative workflows |
 
 **Workflow**:
 1. Generate toolkit → use it → notice repeated patterns

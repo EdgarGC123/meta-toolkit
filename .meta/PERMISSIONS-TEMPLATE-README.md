@@ -136,7 +136,7 @@ Add these directly to the toolkit's `.claude/settings.json` allow list.
 - `aws sts get-caller-identity`, `aws lambda list-functions` - same rationale for AWS
 - `pytest --collect-only` - needed both for running tests (developer) and for inspecting test structure without running (diagnostic)
 
-When merging both layers, the bootstrap script deduplicates by checking `if entry not in seen` before appending. No duplicates will appear in the final `settings.json`.
+When merging both layers, deduplicate by checking if an entry already exists before appending. No duplicates will appear in the final `settings.json`.
 
 ---
 
@@ -156,4 +156,4 @@ When adding a new permission to a template:
 - `settings.research.json` — Research layer
 - `settings.developer.json` — Developer layer
 - `settings.diagnostic.json` — Diagnostic layer
-- `PERMISSIONS_GUIDE.md` in individual toolkits — documents the merged result for that specific project
+- `.claude/PERMISSIONS-GUIDE.md` in individual toolkits — generated alongside `settings.json`; documents which permission layers were merged and why

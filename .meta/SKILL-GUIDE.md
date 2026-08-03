@@ -113,7 +113,7 @@ Your skill instructions here...
 | Type | Purpose | Location | Example |
 |------|---------|----------|---------|
 | **Reference Skill** | Pattern documentation | `skills/` | multi-step-analysis, iterative-processing |
-| **Claude Code Skill** | Executable command | `.claude/skills/` | start-here, toolkit-advisor |
+| **Claude Code Skill** | Executable command | `.claude/skills/` | start-here, brief, research, solution-writer |
 
 **Note**: A skill can be both types - reference docs in `skills/` and executable in `.claude/skills/`
 

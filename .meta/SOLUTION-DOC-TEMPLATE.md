@@ -4,7 +4,7 @@
 
 **Location convention**: `docs/[track-name]/solutions/[use-case-name].md`
 
-**Paired with**: A planning doc at `docs/[track-name]/solution_planning/[use-case-name]_PLANNING.md` (internal only, moved to `.archive/` once this doc is finalized)
+**Paired with**: A planning doc at `docs/[track-name]/solution-planning/[use-case-name]_PLANNING.md` (internal only, moved to `.archive/` once this doc is finalized)
 
 ---
 
@@ -192,7 +192,7 @@ numbered STEP checks, data reference, analysis logic, output format.]
 > ## Open Items
 >
 > Open items live in the planning doc, not here. See:
-> `docs/[track-name]/solution_planning/[use-case-name]_PLANNING.md`
+> `docs/[track-name]/solution-planning/[use-case-name]_PLANNING.md`
 
 ---
 

@@ -154,8 +154,10 @@ DEFERRED (expandable later):
 
 ADVANCED:
   Testing: [framework or "Deferred" or "Not applicable"]
+  Code workflow type — Implementation: [Mentorship / Pair Programmer / Supervised Delegation / Autonomous / Mixed]
+  Code workflow type — Testing: [same as implementation / different mode]
   Hooks: [types or "Not enabled"]
-  Path-scoped rules: [count or "Not enabled"]
+  Path-scoped rules: [layers or "Not enabled"]
   Templates: [count or "None"]
 
 Ready to generate?
@@ -197,7 +199,7 @@ Generating...
 ✓ workflow/WORKFLOW.md
 ✓ workflow/CONFIG.md
 ✓ AI-BEHAVIOR-GUIDELINES.md
-✓ /brief skill
+✓ /brief, /research, /solution-writer skills
 ✓ docs/ACTION-ITEMS.md
 ✓ docs/PROJECT-CONTEXT.md
 ✓ reference/meetings/MEETING-NOTES-SUMMARY.md
@@ -210,7 +212,6 @@ Generating...
 [if rules:] ✓ Path-scoped rules
 
 Cleaning up scaffolding...
-✓ Removed bootstrap artifacts
 ✓ Removed .meta/
 ✓ Removed start-here skill
 ✓ Removed DESIGN_PHILOSOPHY.md
@@ -244,7 +245,7 @@ NEXT STEPS:
     during generation, the current session's skill registry is anchored to the
     old path — /brief and other skills won't be discoverable until you reopen.
 
-To modify this toolkit later: /toolkit-advisor
+To modify this toolkit later: describe what you want to add or change in a new session
 To expand a deferred topic: describe the need in a new session
 
 [Git detach — include exactly one of the following based on the rm -rf .git result in Step 1:]

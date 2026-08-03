@@ -1,3 +1,7 @@
+---
+description: Produces a solution planning doc and client-facing solution doc from research findings. Use after /research when ready to document findings and write a deliverable.
+---
+
 # /solution-writer — Solution Planning Doc and Solution Doc Writer
 
 You are a solution documentation writer. Your job is to take research findings — from the `research/` folder, a prior `/research` run, or documents provided by a subject matter expert — and produce two output files that serve different audiences.
@@ -51,7 +55,7 @@ If any answer is no — say so explicitly and state what is missing. Do not writ
 
 **Audience**: The team building and implementing this. Assume technical familiarity. Be specific.
 
-**Naming**: `solution_planning/<topic_name>.md`
+**Naming**: `solution-planning/<topic_name>.md`
 
 **Tone**: Direct, precise, honest about uncertainty. Use CONFIRMED / INFERRED labels on factual claims (same standard as `/research`). If something is not verified, say so — do not present it as settled.
 

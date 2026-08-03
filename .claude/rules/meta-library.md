@@ -34,11 +34,21 @@ If any folder in `.meta/` is renamed, update all path references in the same ses
 ## Landmark Files in .meta/
 
 These are the authoritative references — one per topic, never duplicated:
-- `ARCHITECTURE.md` — system architecture and patterns
+- `ARCHITECTURE.md` — system architecture, conventions, and context management patterns
 - `AI-BEHAVIOR-GUIDELINES.md` — behavioral contract for all agents
-- `AGENTIC-PATTERNS.md` — reusable workflow patterns
-- `SKILL-GUIDE.md`, `PLUGIN-GUIDE.md`, `PHASES-GUIDE.md`, `PROMPTS-GUIDE.md` — builder guides
-- `CLAUDE-CODE-SKILLS-REFERENCE.md` — skill frontmatter and discovery rules
+- `AGENTIC-PATTERNS.md` — reusable workflow patterns and interaction types
+- `SKILL-GUIDE.md` — skill structure, A-J build sequence, platform decision matrix
+- `PLUGIN-GUIDE.md` — plugin structure and patterns
+- `PHASES-GUIDE.md` — how to write PHASES.md files for skills
+- `PROMPTS-GUIDE.md` — how to write PROMPTS.md files for skills
+- `CLAUDE-CODE-SKILLS-REFERENCE.md` — skill and rules file frontmatter, discovery rules
+- `DISCOVERY-PIPELINE.md` — requirements extraction from raw artifacts
+- `MODEL-SELECTION.md` — current model table and when-to-use rules
+- `PROMPT-ENGINEERING.md` — prompt design principles and composable artifact patterns
+- `TESTING-GUIDE.md` — conditional testing scaffold generation
+- `SOLUTION-DOC-TEMPLATE.md` — client-facing deliverable structure
+- `MEETING-NOTES-TEMPLATE.md` — meeting notes entry format
+- `PERMISSIONS-TEMPLATE-README.md` — permission layer system and merge rules
 
 ## Durability Rule
 

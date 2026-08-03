@@ -43,4 +43,4 @@ Read `PROMPTS.md` for the conversation templates.
 
 **Version**: 2.0
 **Type**: Meta-toolkit scaffolding (deleted after toolkit generation)
-**Lifecycle**: Deleted after generation. `/toolkit-advisor` handles modifications thereafter.
+**Lifecycle**: Deleted after generation. Modifications to the toolkit are made by describing the need in a new session.

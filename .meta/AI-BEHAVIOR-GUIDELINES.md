@@ -127,9 +127,11 @@ Would you like me to:
 
 ---
 
-### 4. Avoid Em Dashes
+### 4. Avoid Em Dashes in Generated User-Facing Content
 
-**Rule**: Do not use em dashes (—) in generated content. Use alternative punctuation.
+**Rule**: Do not use em dashes (—) in generated content that users will read, present, or deliver — documents, reports, emails, deliverables, and any output the user intends to use or share. Use alternative punctuation in those contexts.
+
+**Scope**: This rule applies to generated user-facing output only. Internal generator files, meta docs, and files written for future Claude sessions to read (CLAUDE.md, WORKFLOW.md, skill files, rule files) are not subject to this rule — em dashes are fine there for readability.
 
 **Alternatives**:
 - Use hyphens for ranges: `2020-2025` (not `2020—2025`)
@@ -500,13 +502,13 @@ Only proceed to Phase 2 if all checks pass.
 ❌ **Bad** (edits without confirming):
 ```
 User: "Update the planning doc"
-AI: [Opens docs/finance_use_cases/solution_planning/AP_PLANNING.md and edits it]
+AI: [Opens docs/finance_use_cases/solution-planning/AP_PLANNING.md and edits it]
 ```
 
 ✅ **Good** (confirms first):
 ```
 User: "Update the planning doc"
-AI: "I see two planning docs — docs/finance_use_cases/solution_planning/AP_PLANNING.md
+AI: "I see two planning docs — docs/finance_use_cases/solution-planning/AP_PLANNING.md
      and docs/ap_invoice_monitoring/TRACK_PLAN.md. Which one?"
 ```
 

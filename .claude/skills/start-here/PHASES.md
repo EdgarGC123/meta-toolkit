@@ -281,9 +281,11 @@ Ask after the codebase access check, once the tech stack is known:
 
 Record confirmed layers for Phase 7. If "not sure yet": generate single `conventions.md`. If "not applicable": skip rules entirely.
 
-**Interaction type (for any toolkit with ongoing work or code — Q3 = yes, or any multi-session engagement):**
+**Code workflow type (for code toolkits — Q3 = yes):**
 
-Ask once for implementation, then separately for testing. They can be the same or different.
+This covers how Claude handles implementation and testing work. Only ask for toolkits that involve writing, reviewing, or deploying code — these modes map to code workflows specifically, not to conversational or consulting work.
+
+Ask once for implementation, then separately for testing if testing was confirmed. They can be the same or different.
 
 ```
 "How do you want Claude to work with you on implementation?
@@ -394,11 +396,13 @@ Generated CLAUDE.md must stay under 200 lines. It is injected at every session s
 1. Directory structure (docs/, research/, reference/meetings/, .claude/skills/)
 2. CLAUDE.md (session guide with dynamic provenance paragraph — keep under 200 lines per discipline above)
 3. README.md
-4. GETTING_STARTED.md
+4. GETTING_STARTED.md — day-one operational guide (distinct from README which explains what the toolkit is). Include: run /brief first; how to invoke /research and /solution-writer; where WORKFLOW.md and CONFIG.md live; how to expand a deferred stub (describe the need in a new session); note that to add new skills later, describe the need in a session and Claude will build it following the pattern of existing skills; one-line note about auto-memory (~/.claude/projects/.../MEMORY.md)
 5. workflow/WORKFLOW.md — embed relevant agentic patterns, prompt engineering principles, and discovery pipeline guidance as appropriate for this toolkit's workflow type
 6. workflow/CONFIG.md
 7. AI-BEHAVIOR-GUIDELINES.md (copy from `.meta/AI-BEHAVIOR-GUIDELINES.md`)
 8. .claude/settings.json — **always created.** Start with `settings.template.json` as the base. Merge in any additional permission layers confirmed in Phase 4 (research, developer, diagnostic). If none were confirmed, the file still gets created with the base layer only. See `.meta/PERMISSIONS-TEMPLATE-README.md` for merge rules.
+8b. .claude/PERMISSIONS-GUIDE.md — always generated alongside settings.json. Documents: which permission layers were included and why, what each layer allows, and which layer to edit when adding new permissions. One paragraph per included layer.
+8c. .gitignore — always generated. Minimum contents: `settings.local.json` and `.DS_Store`. Add framework-specific entries if tech stack was confirmed (node_modules/, __pycache__/, .env, dist/, build/, etc.).
 
 **Base skills — always copied from `.meta/base-skills/`:**
 9. .claude/skills/brief/
@@ -425,10 +429,10 @@ Generated CLAUDE.md must stay under 200 lines. It is injected at every session s
 19. Testing structure — if code involvement confirmed, use `.meta/TESTING-GUIDE.md` as reference
 20. Validation hooks — if requested
 21. `reference/[codebase-name]/APP-CONTEXT.md` — if toolkit targets an existing codebase (Q5b = "Existing app"): create as an empty template with sections: Feature Locations, Key Components, Route Map, Notes. Include a header comment: "Updated during stories as new areas are explored — load this before codebase work."
-21. `reference/[codebase-name]/ARCHITECTURE.md` — same condition as above: create as empty template with sections: State Management, Auth Pattern, API Communication, Data Flow, Team Conventions. Include header comment: "Updated when a pattern is understood deeply enough to be worth recording."
+22. `reference/[codebase-name]/ARCHITECTURE.md` — same condition as above: create as empty template with sections: State Management, Auth Pattern, API Communication, Data Flow, Team Conventions. Include header comment: "Updated when a pattern is understood deeply enough to be worth recording."
 
 **Deferred:**
-22. `.deferred/[topic].md` for any "not sure yet" answers — always include a reference to the relevant `.meta/` guide in the stub so the user knows where to look when expanding
+23. `.deferred/[topic].md` for any "not sure yet" answers — the stub's Reference section should point to the generated toolkit's own docs (workflow/WORKFLOW.md, CLAUDE.md) not to `.meta/` guides, which are deleted after generation
 
 **Before closing Phase 7 — verify against Meta Library Map:**
 - Every conditional resource in the map is either included, explicitly skipped, or deferred
@@ -458,7 +462,6 @@ Verify with `ls -la .git`:
 **Important**: Always use relative paths with `rm -rf`. Absolute paths with `rm -rf` are blocked by Claude Code's safety layer regardless of `settings.json`. All commands below use relative paths from the project root — confirm `pwd` is the toolkit root before running.
 
 ```bash
-rm -f bootstrap.py bootstrap.py.backup
 rm -rf .claude/skills/start-here/
 rm -rf .meta/
 rm -f START_HERE.md
@@ -502,8 +505,9 @@ When ready, describe the need in a new session. The process will:
 
 ## Reference
 
-- See `DESIGN_PHILOSOPHY.md` in the AI Toolkit Generator for design rationale
-- See `.meta/` guides in the generator if still available
+- See `workflow/WORKFLOW.md` for how this toolkit is structured and how phases connect
+- See `CLAUDE.md` for the full list of what was generated and what remains deferred
+- To add a new skill or plugin: describe the need in a new session — Claude will build it following the pattern of existing skills already in `.claude/skills/`. No guide file needed.
 ```
 
 Keep stub filenames short and descriptive: `testing.md`, `delivery-platform.md`, `track-structure.md`, `integrations.md` — whatever names the topic clearly.
@@ -523,7 +527,7 @@ If a user returns with a deferred topic — "we do have unit tests now, here's t
 5. Integrate into the existing toolkit (update WORKFLOW.md, CLAUDE.md provenance section, any affected skills)
 6. Delete the stub once complete
 
-This is the same process whether the user is starting from the original accelerator or working from a generated toolkit that still has `.meta/` available via `/toolkit-advisor`.
+This is the same process whether the user is starting immediately after generation or returning to a deferred topic in a later session.
 
 ---
 

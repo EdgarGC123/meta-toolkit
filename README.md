@@ -110,7 +110,6 @@ my-toolkit/
 │       ├── research/             [/research — technical research]
 │       └── solution-writer/      [/solution-writer — planning + client docs]
 ├── skills/
-│   ├── toolkit-advisor/          [For modifying toolkit later]
 │   └── [selected skills]/        [Copied from .meta/skills/ at generation]
 ├── plugins/                      [Copied from .meta/plugins/ if selected]
 ├── templates/                    [Copied from .meta/templates/ if requested]
@@ -156,10 +155,10 @@ These three skills work in sequence: `/brief` to orient, `/research` to investig
 - **workflow/WORKFLOW.md** — your phases with detailed sub-steps and success criteria
 - **workflow/CONFIG.md** — toolkit settings
 - **AI-BEHAVIOR-GUIDELINES.md** — behavioral rules for all agents
-- **README.md** and **GETTING_STARTED.md**
-- **docs/ACTION_ITEMS.md**, **docs/PROJECT_CONTEXT.md**, **reference/meetings/MEETING_NOTES_SUMMARY.md**
+- **README.md** — explains the toolkit and what was generated
+- **GETTING_STARTED.md** — day-one operational guide: run `/brief` first, how to use `/research` and `/solution-writer`, where WORKFLOW.md lives, how to expand a deferred stub, how to add new skills (describe the need in a session)
+- **docs/ACTION-ITEMS.md**, **docs/PROJECT-CONTEXT.md**, **reference/meetings/MEETING-NOTES-SUMMARY.md**
 - **.claude/skills/** — `/brief` (session orientation), `/research` (technical research), `/solution-writer` (planning + client docs)
-- **skills/toolkit-advisor/** — for modifying the toolkit as it evolves
 
 ### Conditionally (based on discovery answers)
 
@@ -306,7 +305,7 @@ cd my-toolkit
 ### 2. Expand as the Engagement Evolves
 
 The toolkit grows with you:
-- New requirement surfaces → describe it, `/toolkit-advisor` integrates it
+- New requirement surfaces → describe it in a new session, the toolkit adds the component
 - Deferred stub becomes real → describe the need, the toolkit adds the component
 - Reusable pattern emerges → extract as skill, add to the generator
 

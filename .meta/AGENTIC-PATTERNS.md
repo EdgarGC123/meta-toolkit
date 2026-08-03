@@ -233,9 +233,11 @@ the first story.
 
 ---
 
-## Interaction Types
+## Code Workflow Interaction Types
 
-For any toolkit, Claude can operate in four distinct interaction types. These govern the working relationship style — how the human and Claude work together — and are distinct from the behavioral rules in `AI-BEHAVIOR-GUIDELINES.md` (which govern how Claude acts regardless of mode).
+For code toolkits, Claude can operate in four distinct interaction types. These govern the working relationship style during implementation and testing work. They are distinct from the behavioral rules in `AI-BEHAVIOR-GUIDELINES.md` (which govern how Claude acts regardless of mode).
+
+Note: these modes are specific to code workflows. For non-code consulting work, the primary interaction is conversational and these modes don't apply.
 
 Define the default in WORKFLOW.md and document the activation phrases so the user can switch on request.
 
@@ -275,9 +277,9 @@ Activation phrase: "just do it" or "autonomous mode"
 
 ---
 
-### Surfacing Interaction Types During Generation
+### Surfacing Code Workflow Interaction Types During Generation
 
-Ask the interaction type question twice for code toolkits — once for implementation, once for testing. They can be the same or different, and setting them separately is worth surfacing explicitly.
+Ask the interaction type question for code toolkits only (Q3 = yes), twice — once for implementation, once for testing. They can be the same or different, and setting them separately is worth surfacing explicitly.
 
 **For implementation:**
 ```
@@ -299,7 +301,7 @@ Ask the interaction type question twice for code toolkits — once for implement
   5. Autonomous — Claude writes all tests, you review at the end"
 ```
 
-In generated WORKFLOW.md, add an "Interaction Types" section with one entry for implementation and one for testing, the activation phrases for each, and how to switch mid-session.
+In generated WORKFLOW.md for code toolkits, add a "Code Workflow Interaction Types" section with one entry for implementation and one for testing, the activation phrases for each, and how to switch mid-session.
 
 ---
 

@@ -23,9 +23,8 @@ ai-toolkit-accelerator/          # Meta-toolkit (scaffolding)
     │   ├── research/            # → /research
     │   └── solution-writer/     # → /solution-writer
     ├── plugins/                 # Accumulated reusable capabilities
-    ├── skills/                  # Accumulated reusable workflow patterns
-    ├── templates/               # Accumulated output format templates
-    └── skills/                  # Reusable workflow patterns (iterative-processing starter included)
+    ├── skills/                  # Reusable workflow patterns (iterative-processing starter included)
+    └── templates/               # Accumulated output format templates
 ```
 
 **After `/start-here`**:
@@ -310,40 +309,11 @@ User might need:
 
 ---
 
-## File Generation
+## How Generation Works
 
-### WORKFLOW.md Generation
+Files are generated inline by Claude following the phase-by-phase instructions in `.claude/skills/start-here/PHASES.md`. There is no script — the generator is the conversation. Phase 7 defines what gets created, in what order, and with what content. Phase 8 deletes scaffolding.
 
-```python
-def generate_workflow(config):
-    # Header with toolkit info
-    # Phase sections from config['phases']
-    # Plugin references
-    # Skill references
-    # AI prompt examples
-```
-
-### CONFIG.md Generation
-
-```python
-def generate_config(config):
-    # Output settings from config
-    # Phase toggles from config['phases']
-    # Plugin settings for selected plugins
-    # Personal context fields
-```
-
-### README.md Generation
-
-```python
-def generate_readme(config):
-    # Toolkit name & description
-    # Quick start instructions
-    # Workflow summary
-    # Plugin list
-    # Skill list
-    # No "how to build" content
-```
+Each generated file is written directly into the toolkit folder during the conversation. Discovery answers from Phases 1-4 determine which conditional files are included and what content goes into CLAUDE.md, WORKFLOW.md, and CONFIG.md.
 
 ---
 
@@ -432,10 +402,11 @@ The following structure reflects what works in practice for an AI-assisted engag
 toolkit-root/
   CLAUDE.md                         # Session guide — always present, updated continuously
   .gitignore                        # Always: settings.local.json, .DS_Store at minimum
+  .gitignore                        # Always: settings.local.json, .DS_Store at minimum
   .claude/
     settings.json                   # Merged from permission templates
     settings.local.json             # Machine-specific paths only — never committed
-    PERMISSIONS_GUIDE.md            # Documents what is in settings.json and why
+    PERMISSIONS-GUIDE.md            # Documents which permission layers were merged and why
     skills/
       brief/                        # Session initialization skill — always included
         SKILL.md
@@ -464,7 +435,7 @@ These are not generated at toolkit creation time. They get created when the work
   solutions/                        # Client-facing deliverables — created when needed
     [use-case-name].md              # One file per deliverable
   docs/[track-name]/
-    solution_planning/              # Internal pre-work per deliverable — created when needed
+    solution-planning/              # Internal pre-work per deliverable — created when needed
 ```
 
 ---
@@ -479,11 +450,11 @@ docs/
   PROJECT-CONTEXT.md                # Cross-cutting, stays at root
   ap_invoice_monitoring/            # Track 1
     TRACK_PLAN.md
-    solution_planning/
+    solution-planning/
     solutions/
   finance_use_cases/                # Track 2
     TRACK_PLAN.md
-    solution_planning/
+    solution-planning/
     solutions/
 
 research/
@@ -502,7 +473,7 @@ Every toolkit involves content at different confidentiality levels. The folder s
 | Content type | Location | Shared with client? |
 |---|---|---|
 | Raw research findings | `research/` | No |
-| Internal planning notes | `docs/[track]/solution_planning/` | No |
+| Internal planning notes | `docs/[track]/solution-planning/` | No |
 | Active tasks and blockers | `docs/ACTION-ITEMS.md` | No |
 | Client-facing deliverables | `docs/[track]/solutions/` | Yes |
 | Meeting notes | `reference/meetings/` | No (unless extracted) |
@@ -513,7 +484,7 @@ Within solution docs, internal-only sections are flagged:
 > ⚠️ Internal only - remove before client delivery
 ```
 
-**The delivery flow**: `research/` → `solution_planning/` → `solutions/` (client-ready)
+**The delivery flow**: `research/` → `solution-planning/` → `solutions/` (client-ready)
 
 ---
 
@@ -532,7 +503,7 @@ Within solution docs, internal-only sections are flagged:
 - Files you are unsure about (if unsure, ask)
 - Duplicates of files that are already current elsewhere
 
-**The `solution_planning/` graduation rule**: Once a solution doc in `solutions/` is marked client-ready, the corresponding planning doc in `solution_planning/` moves to `.archive/[track-name]/`. The planning work is done; the deliverable is the record.
+**The `solution-planning/` graduation rule**: Once a solution doc in `solutions/` is marked client-ready, the corresponding planning doc in `solution-planning/` moves to `.archive/[track-name]/`. The planning work is done; the deliverable is the record.
 
 **Structure**:
 ```
@@ -590,6 +561,18 @@ Rule files generated by `/start-here` are starters — clearly marked with secti
 Claude Code automatically writes `~/.claude/projects/<project>/memory/MEMORY.md`. First 200 lines load every session; topic files read on demand. This is free automatic context accumulation.
 
 Use it intentionally: if Claude derives something in a session that would be worth knowing next time, write it to the memory file before the session closes. The `/brief` skill notes this as available — it does not manage the file itself.
+
+---
+
+## Version Footer Convention
+
+Some `.meta/` landmark files include a version footer (`**Version**: X.Y`, `**Last Updated**: date`). These are optional and informational only — no tooling depends on them.
+
+When present, the versioning convention is:
+- `X.0` — structural change: sections added, removed, or significantly reorganized
+- `X.Y` — content update: corrections, additions, or clarifications within existing structure
+
+Not all files need version footers. When adding one, use the format: `**Version**: X.Y` / `**Last Updated**: YYYY-MM-DD`.
 
 ---
 
