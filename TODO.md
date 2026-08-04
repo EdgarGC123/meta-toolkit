@@ -44,6 +44,12 @@ Items identified from the audit that are deferred for future sessions.
 3. Phase 7 generates hook config and starter scripts
 4. Update Phase 6 confirmation summary to show hooks configuration
 
+### Validate iterative-processing skill (low priority)
+**What**: The `iterative-processing` skill in `.meta/skills/` was created in May 2026 citing "official Claude Code batch processing patterns" but has no research file backing it and no URL citations. A prior session may have researched it and cleaned up after itself.
+**Why**: Confirm the pattern is still accurate and hasn't drifted. Enrich with sourced examples if the research surfaces anything useful.
+**How**: Run `/research` on Claude Code batch processing patterns and Tool Use best practices, compare against what's in the skill, update if needed.
+**Priority**: Low — the skill reads as solid and is not blocking anything.
+
 ---
 
 ## Enhancements
