@@ -35,6 +35,17 @@ If any folder in this generator is renamed, update path references in this file 
 
 ---
 
+## Shell Command Conventions
+
+**Always use relative paths** when running shell commands in this repo. Claude Code's safety layer blocks `rm -rf` on absolute paths regardless of `settings.json`. All destructive commands must use paths relative to the project root.
+
+Good: `rm -rf .meta/` `rm -f FUTURE-WORK.md` `mv old-name new-name`
+Blocked: `rm -rf /Users/edgar/.../some-folder`
+
+**Confirm `pwd` before any destructive operation** — relative paths only work correctly when you are in the project root.
+
+---
+
 ## Working on the Generator
 
 **Adding a new base skill** (one that ships into every generated toolkit):

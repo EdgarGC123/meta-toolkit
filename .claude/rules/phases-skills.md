@@ -6,6 +6,12 @@ paths:
 
 # Phases and Skills Rules
 
+## Shell Command Rule
+
+Always use **relative paths** in any shell commands written into PHASES.md or skill files. Claude Code's safety layer blocks `rm -rf` on absolute paths regardless of `settings.json`. All destructive commands must use paths relative to the project root (e.g. `rm -rf .meta/` not `rm -rf /Users/edgar/.../`).
+
+---
+
 ## PHASES.md Structure Requirements
 
 Every phase must have:
