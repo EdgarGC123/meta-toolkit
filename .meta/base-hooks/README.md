@@ -28,17 +28,34 @@ Hooks are configured in `settings.json` under a `"hooks"` key. They fire based o
 
 ```
 .meta/base-hooks/
-  README.md                 — this file
-  HOOKS-REFERENCE.md        — all 30 hook events, organized by category
-  settings.hooks.json       — ready-to-merge settings layer (3 Tier 1 hooks)
+  README.md                     — this file
+  HOOKS-REFERENCE.md            — all 30 hook events, organized by category
+  settings.hooks.json           — shared settings layer (3 team hooks: SessionStart, Stop, PreToolUse)
+  settings.local.example.json   — local settings example (Notification hook — machine-specific, not shared)
   scripts/
-    session-start.sh        — ★ SessionStart: warm-start context injection
-    session-close-check.sh  — ★ Stop: doc-update reminder on session close
-    guard-destructive.sh    — ★ PreToolUse: block dangerous rm/force-push
-    notify.sh               — Notification: desktop alert when Claude goes idle
+    session-start.sh            — ★ SessionStart: warm-start context injection
+    session-close-check.sh      — ★ Stop: doc-update reminder on session close
+    guard-destructive.sh        — ★ PreToolUse: block dangerous rm/force-push
+    notify.sh                   — ★ Notification: desktop alert when Claude goes idle
 ```
 
-The ★ scripts are the Tier 1 baseline — configure these three and you have the highest-value hook setup for any consulting or agile toolkit.
+All four ★ scripts are Tier 1 — highest value for consulting and agile toolkits. They split across two settings files by design:
+
+- **`settings.hooks.json`** (3 hooks) — merges into `.claude/settings.json`, committed to the repo, shared with the team
+- **`settings.local.example.json`** (1 hook) — copied to `.claude/settings.local.json`, gitignored, machine-specific
+
+The Notification hook lives in `settings.local.json` because desktop alert behavior is personal — terminal escape sequences vary by emulator, and not every team member wants the same notification setup. It would be wrong to commit this to the shared settings file.
+
+## Why Two Settings Files
+
+`settings.json` is committed to the repo. Anything in it applies to everyone on the team. Use it for:
+- Hook behavior that should be consistent across the team (context loading, destructive command guards, doc-update reminders)
+
+`settings.local.json` is gitignored and machine-specific. Use it for:
+- Personal preferences (notification style, alert sounds)
+- Machine-specific paths
+- Hooks you want to test before rolling out to the team
+- `"disableAllHooks": true` when you need to pause everything temporarily
 
 ---
 
@@ -124,8 +141,15 @@ Add to the conditional generation list:
     - Copy confirmed scripts from .meta/base-hooks/scripts/ to .claude/hooks/
     - Run chmod +x on all copied scripts
     - Merge .meta/base-hooks/settings.hooks.json into .claude/settings.json
-    - Add to GETTING_STARTED.md: "Hooks are active. To disable: add disableAllHooks: true to .claude/settings.local.json"
+    - Copy .meta/base-hooks/settings.local.example.json to .claude/settings.local.example.json
+      (the example file for the Notification hook — user copies and renames to settings.local.json)
+    - Add to GETTING_STARTED.md: "Hooks are active. To disable all: add disableAllHooks: true
+      to .claude/settings.local.json. For the Notification hook, copy
+      .claude/settings.local.example.json to .claude/settings.local.json."
 ```
+
+Note: if a `settings.local.json` already exists in the generated toolkit (from prior local setup), merge
+the Notification hook entry into it rather than overwriting.
 
 ### PHASES.md — Phase 6 confirmation summary addition
 

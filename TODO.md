@@ -83,6 +83,21 @@ Current stub exists but is intentionally minimal. Planned full version: richer f
 ### E7 — action-item-writer plugin
 Converts meeting notes or discussion into a clean ACTION-ITEMS.md update. Pairs naturally with meeting-notes-writer. Decide scope when building E6.
 
+### settings.local.json cleanup — generator repo
+**What**: `settings.local.json` in this generator has accumulated a mix of machine-specific paths (correct — stays local) and general permissions that drifted in (WebFetch domains, git commands, etc.). General permissions should move to `settings.json` so they survive cloning. Session artifacts (mv commands, one-off sqlite3 lookups) should be removed entirely.
+**Why deferred**: Works fine as-is; cleanup is low risk but touches permissions which warrants care.
+**Revisit when**: Next time permissions need updating anyway.
+
+### settings.local.json.example — generator toolkit (general)
+**What**: A sample `settings.local.json` file for the generator repo showing what belongs there vs `settings.json`. Currently doesn't exist.
+**Why deferred**: Unclear what would go in it beyond machine-specific paths, which are too personal to template usefully.
+**Revisit when**: There's a concrete use case beyond hooks (which have their own file).
+
+### settings.local.json.example — generated toolkit (for sharing)
+**What**: A sample file generated into toolkits that shows a new developer what to put in their local settings when joining a project. Not hook-specific — general pattern for machine-specific permissions.
+**Why deferred**: Genuinely useful but premature — needs the generator to be wired to produce it, and needs documentation on what belongs there. Would be one of several example files in a shared toolkit.
+**Revisit when**: First real team handoff of a generated toolkit surfaces the need.
+
 ### E8 — Delete .gitignore during Phase 8 cleanup
 Phase 8 removes `.git/` but does not remove `.gitignore`. After git detach, `.gitignore` is an orphaned file with no purpose — there is no git repo for it to configure. Add it to the Phase 8 scaffolding deletion list alongside `START_HERE.md` and `DESIGN_PHILOSOPHY.md`.
 **What needs doing**: Add `rm -f .gitignore` to the Phase 8 cleanup step in `.claude/skills/start-here/PHASES.md`.

@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "description": "Example local settings for hooks — copy to .claude/settings.local.json and uncomment what you want. This file is gitignored and machine-specific. The Notification hook lives here (not in settings.json) because desktop notification behavior is personal and should not be shared with the team.",
+  "hooks": {
+    "Notification": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PROJECT_DIR}/.claude/hooks/notify.sh",
+            "async": true
+          }
+        ]
+      }
+    ]
+  }
+}
