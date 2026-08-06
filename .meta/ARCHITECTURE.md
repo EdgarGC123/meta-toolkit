@@ -21,7 +21,9 @@ ai-toolkit-accelerator/          # Meta-toolkit (scaffolding)
     ├── base-skills/             # Copied into every generated toolkit's .claude/skills/
     │   ├── brief/               # → /brief
     │   ├── research/            # → /research
-    │   └── solution-writer/     # → /solution-writer
+    │   ├── solution-writer/     # → /solution-writer
+    │   └── add-checkpoint/      # → /add-checkpoint
+    ├── base-hooks/              # Hook templates — not yet wired into generation
     ├── plugins/                 # Accumulated reusable capabilities
     ├── skills/                  # Reusable workflow patterns (iterative-processing starter included)
     └── templates/               # Accumulated output format templates
@@ -294,7 +296,11 @@ User might need:
 - Examples: multi-step-analysis, iterative-processing
 
 **`.meta/base-skills/`** = Toolkit operational skills (source templates)
-- Skills that belong in every generated toolkit: `/brief`, `/research`, `/solution-writer`
+- Skills that belong in every generated toolkit: `/brief`, `/research`, `/solution-writer`, `/add-checkpoint`
+
+**`.meta/base-hooks/`** = Lifecycle hook templates (not yet wired into generation)
+- Starter scripts, settings layer, and full reference for all 30 hook events
+- Not generated into toolkits yet — see `README.md` in that directory for generator wiring instructions when ready to enable
 - Not useful on the generator itself — they read project files that don't exist here
 - Copied into a generated toolkit's `.claude/skills/` automatically at generation time
 - After copying, they become live `/skill-name` commands in the generated toolkit

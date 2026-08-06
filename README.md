@@ -82,6 +82,7 @@ ai-toolkit-accelerator/
     │   ├── research/             [→ /research]
     │   ├── solution-writer/      [→ /solution-writer]
     │   └── add-checkpoint/       [→ /add-checkpoint]
+    ├── base-hooks/               [Hook templates — not yet wired into generation]
     ├── plugins/                  [Accumulate reusable capabilities here]
     ├── skills/                   [Reusable workflow patterns — includes iterative-processing starter]
     └── templates/                [Accumulate output format templates here]
