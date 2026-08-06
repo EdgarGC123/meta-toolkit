@@ -34,7 +34,15 @@ Items identified from the audit that are deferred for future sessions.
 3. Add Phase 7 item to generate `.claude/agents/[name].md` starters for each confirmed role
 4. Update Meta Library Map to include agents as a conditional resource
 
-### Lifecycle Hooks Discovery and Documentation (G1)
+### Lifecycle Hooks Discovery and Documentation (G1) — BLOCKED
+
+**Current blocker**: Token expiry workflow makes `Stop` hooks unreliable. The common pattern is: token expires mid-session → Ctrl+C → re-authenticate → `claude --continue`. This means `Stop` never fires on the previous session, but `SessionStart` fires correctly on resume. The most useful hook (doc-update reminder on session close) is exactly the one that gets skipped most often.
+
+**Workaround in place**: `/add-checkpoint` as a manual skill covers the same ground intentionally — run it at meaningful pause points rather than depending on a hook at shutdown.
+
+**Revisit when**: Session stability improves (longer token lifetime, or a reliable way to checkpoint before expiry).
+
+**When unblocked, implement**:
 **What**: Claude Code supports lifecycle hooks — shell scripts that fire automatically at specific moments: before a tool runs (`PreToolUse`), after a tool runs (`PostToolUse`), when the session ends (`Stop`), at session start (`SessionStart`), etc. Phase 4 has no question about hooks, but Phase 7 item 20 conditionally generates them with "if requested" — a condition that can never be satisfied because the question is never asked.
 **Why this matters**: Hooks are one of the most powerful and underused Claude Code features. Examples of what they can do: auto-update ACTION-ITEMS.md before every session close, block dangerous shell commands before they run, auto-format code after edits, trigger a doc-update reminder when stopping. For a well-built toolkit, hooks replace manual discipline with automation. This is worth researching deeply before implementing — the patterns and best practices for consulting/agile workflows specifically haven't been documented yet.
 **Research first**: Run a research session on Claude Code hooks — what events fire, what the hook receives as input, how exit codes work (exit 2 blocks, exit 1 doesn't), common patterns from the community, and which hook types would have the most impact for the toolkit types we generate.
@@ -74,6 +82,10 @@ Current stub exists but is intentionally minimal. Planned full version: richer f
 
 ### E7 — action-item-writer plugin
 Converts meeting notes or discussion into a clean ACTION-ITEMS.md update. Pairs naturally with meeting-notes-writer. Decide scope when building E6.
+
+### E8 — Delete .gitignore during Phase 8 cleanup
+Phase 8 removes `.git/` but does not remove `.gitignore`. After git detach, `.gitignore` is an orphaned file with no purpose — there is no git repo for it to configure. Add it to the Phase 8 scaffolding deletion list alongside `START_HERE.md` and `DESIGN_PHILOSOPHY.md`.
+**What needs doing**: Add `rm -f .gitignore` to the Phase 8 cleanup step in `.claude/skills/start-here/PHASES.md`.
 
 ---
 

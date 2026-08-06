@@ -38,7 +38,7 @@ The process opens with a few discovery questions — who this is for, what "done
 - `workflow/CONFIG.md` — toolkit settings
 - `AI-BEHAVIOR-GUIDELINES.md` — behavioral rules for all agents
 - `README.md` and `GETTING_STARTED.md`
-- `.claude/skills/` — `/brief` (session orientation), `/research` (technical research), `/solution-writer` (planning + client docs)
+- `.claude/skills/` — `/brief` (session orientation), `/research` (technical research), `/solution-writer` (planning + client docs), `/add-checkpoint` (knowledge persistence)
 - `docs/ACTION_ITEMS.md`, `docs/PROJECT_CONTEXT.md`, `reference/meetings/MEETING_NOTES_SUMMARY.md`
 
 ### Conditionally included (based on your answers)

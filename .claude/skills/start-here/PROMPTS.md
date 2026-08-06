@@ -199,7 +199,7 @@ Generating...
 ✓ workflow/WORKFLOW.md
 ✓ workflow/CONFIG.md
 ✓ AI-BEHAVIOR-GUIDELINES.md
-✓ /brief, /research, /solution-writer skills
+✓ /brief, /research, /solution-writer, /add-checkpoint skills
 ✓ docs/ACTION-ITEMS.md
 ✓ docs/PROJECT-CONTEXT.md
 ✓ reference/meetings/MEETING-NOTES-SUMMARY.md

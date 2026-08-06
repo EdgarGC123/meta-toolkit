@@ -33,6 +33,15 @@ When you're ready to create a reusable skill:
 |---|---|
 | `iterative-processing/` | Starter reference pattern for multi-step iterative workflows |
 
+## Base Skills (invokable via Claude Code)
+
+| Skill | Location | What it does |
+|---|---|---|
+| `brief` | `.meta/base-skills/brief/` | Session initialization — reads current state and orients the session |
+| `research` | `.meta/base-skills/research/` | Targeted technical research with sourced findings |
+| `solution-writer` | `.meta/base-skills/solution-writer/` | Produces solution planning doc (internal) and solution doc (client-facing) from research findings |
+| `add-checkpoint` | `.meta/base-skills/add-checkpoint/` | Knowledge persistence — updates all reference files with session findings |
+
 **Workflow**:
 1. Generate toolkit → use it → notice repeated patterns
 2. Extract workflow pattern as skill

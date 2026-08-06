@@ -16,6 +16,7 @@ Before generating anything, understand what the generator provides. Every file i
 | `/brief` skill | `.meta/base-skills/brief/` | `.claude/skills/brief/` |
 | `/research` skill | `.meta/base-skills/research/` | `.claude/skills/research/` |
 | `/solution-writer` skill | `.meta/base-skills/solution-writer/` | `.claude/skills/solution-writer/` |
+| `/add-checkpoint` skill | `.meta/base-skills/add-checkpoint/` | `.claude/skills/add-checkpoint/` |
 
 ### Conditionally included — copy based on discovery answers
 | Resource | Source | Condition |
@@ -396,7 +397,7 @@ Generated CLAUDE.md must stay under 200 lines. It is injected at every session s
 1. Directory structure (docs/, research/, reference/meetings/, .claude/skills/)
 2. CLAUDE.md (session guide with dynamic provenance paragraph — keep under 200 lines per discipline above)
 3. README.md
-4. GETTING_STARTED.md — day-one operational guide (distinct from README which explains what the toolkit is). Include: run /brief first; how to invoke /research and /solution-writer; where WORKFLOW.md and CONFIG.md live; how to expand a deferred stub (describe the need in a new session); note that to add new skills later, describe the need in a session and Claude will build it following the pattern of existing skills; one-line note about auto-memory (~/.claude/projects/.../MEMORY.md)
+4. GETTING_STARTED.md — day-one operational guide (distinct from README which explains what the toolkit is). Include: run /brief first; how to invoke /research, /solution-writer, and /add-checkpoint; where WORKFLOW.md and CONFIG.md live; how to expand a deferred stub (describe the need in a new session); note that to add new skills later, describe the need in a session and Claude will build it following the pattern of existing skills; one-line note about auto-memory (~/.claude/projects/.../MEMORY.md)
 5. workflow/WORKFLOW.md — embed relevant agentic patterns, prompt engineering principles, and discovery pipeline guidance as appropriate for this toolkit's workflow type
 6. workflow/CONFIG.md
 7. AI-BEHAVIOR-GUIDELINES.md (copy from `.meta/AI-BEHAVIOR-GUIDELINES.md`)
@@ -408,6 +409,7 @@ Generated CLAUDE.md must stay under 200 lines. It is injected at every session s
 9. .claude/skills/brief/
 10. .claude/skills/research/
 11. .claude/skills/solution-writer/
+12. .claude/skills/add-checkpoint/
 
 **Starter documents — empty templates with structure:**
 12. docs/ACTION-ITEMS.md

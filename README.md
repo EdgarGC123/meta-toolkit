@@ -80,7 +80,8 @@ ai-toolkit-accelerator/
     ├── base-skills/              [Copied into every generated toolkit's .claude/skills/]
     │   ├── brief/                [→ /brief]
     │   ├── research/             [→ /research]
-    │   └── solution-writer/      [→ /solution-writer]
+    │   ├── solution-writer/      [→ /solution-writer]
+    │   └── add-checkpoint/       [→ /add-checkpoint]
     ├── plugins/                  [Accumulate reusable capabilities here]
     ├── skills/                   [Reusable workflow patterns — includes iterative-processing starter]
     └── templates/                [Accumulate output format templates here]
@@ -107,7 +108,8 @@ my-toolkit/
 │   └── skills/
 │       ├── brief/                [/brief — session orientation]
 │       ├── research/             [/research — technical research]
-│       └── solution-writer/      [/solution-writer — planning + client docs]
+│       ├── solution-writer/      [/solution-writer — planning + client docs]
+│       └── add-checkpoint/       [/add-checkpoint — knowledge persistence]
 ├── skills/
 │   └── [selected skills]/        [Copied from .meta/skills/ at generation]
 ├── plugins/                      [Copied from .meta/plugins/ if selected]
@@ -123,7 +125,7 @@ my-toolkit/
 
 ## Skills Baked Into Every Generated Toolkit
 
-Every toolkit generated from this generator receives three skills, copied from `.meta/base-skills/` into the toolkit's `.claude/skills/` at generation time. These are toolkit-operational skills — they have no purpose on the generator itself.
+Every toolkit generated from this generator receives four skills, copied from `.meta/base-skills/` into the toolkit's `.claude/skills/` at generation time. These are toolkit-operational skills — they have no purpose on the generator itself.
 
 ### `/brief`
 Session orientation. Reads `docs/ACTION-ITEMS.md`, `docs/PROJECT-CONTEXT.md`, and the latest meeting notes, then gives a concise status summary before asking what to work on. Run at the start of every session.
@@ -134,7 +136,10 @@ Multi-phase technical research. Decomposes queries into multiple angles, fetches
 ### `/solution-writer`
 Produces two output files: a solution planning doc (internal) and a solution doc (client-facing). Strict audience separation enforced — the client never sees internal debate.
 
-These three skills work in sequence: `/brief` to orient, `/research` to investigate, `/solution-writer` to document.
+### `/add-checkpoint`
+Knowledge persistence. Reviews the current session and updates all relevant toolkit reference files — codebase maps, architecture notes, project context, action items — so the next session starts warm. Run whenever meaningful progress has been made or before closing a session with important findings.
+
+These four skills form a complete session loop: `/brief` to orient at the start, `/research` to investigate, `/solution-writer` to document, `/add-checkpoint` to persist knowledge before closing.
 
 ---
 
@@ -157,7 +162,7 @@ These three skills work in sequence: `/brief` to orient, `/research` to investig
 - **README.md** — explains the toolkit and what was generated
 - **GETTING_STARTED.md** — day-one operational guide: run `/brief` first, how to use `/research` and `/solution-writer`, where WORKFLOW.md lives, how to expand a deferred stub, how to add new skills (describe the need in a session)
 - **docs/ACTION-ITEMS.md**, **docs/PROJECT-CONTEXT.md**, **reference/meetings/MEETING-NOTES-SUMMARY.md**
-- **.claude/skills/** — `/brief` (session orientation), `/research` (technical research), `/solution-writer` (planning + client docs)
+- **.claude/skills/** — `/brief` (session orientation), `/research` (technical research), `/solution-writer` (planning + client docs), `/add-checkpoint` (knowledge persistence)
 
 ### Conditionally (based on discovery answers)
 
@@ -242,7 +247,7 @@ The generation conversation asks what the toolkit needs access to and builds `se
 
 ### `.claude/` — The Execution Layer
 
-The folder Claude Code watches automatically. Skills here are executable as `/skill-name` commands. On the generator itself, only one skill lives here: `/start-here`. The other operational skills (`/brief`, `/research`, `/solution-writer`) live in `.meta/base-skills/` and get copied into every generated toolkit's `.claude/skills/` at generation time — they're toolkit tools, not generator tools.
+The folder Claude Code watches automatically. Skills here are executable as `/skill-name` commands. On the generator itself, only one skill lives here: `/start-here`. The other operational skills (`/brief`, `/research`, `/solution-writer`, `/add-checkpoint`) live in `.meta/base-skills/` and get copied into every generated toolkit's `.claude/skills/` at generation time — they're toolkit tools, not generator tools.
 
 ---
 

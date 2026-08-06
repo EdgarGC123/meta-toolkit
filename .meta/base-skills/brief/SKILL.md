@@ -61,3 +61,4 @@ BEHAVIOR NOTES
 - Scale conservatively on smaller context models — shorter is better than longer.
 - If the developer asks a follow-up question after the summary, answer it in full, then return to brief mode.
 - Auto-memory: Claude Code writes `~/.claude/projects/<project>/memory/MEMORY.md` automatically. First 200 lines load every session. Use it intentionally for cross-session knowledge that doesn't belong in toolkit files.
+- Complement: `/add-checkpoint` is the end-of-session counterpart — it writes new knowledge back into the reference files that /brief loads. Run it before closing a session with meaningful findings.
