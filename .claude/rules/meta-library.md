@@ -49,6 +49,7 @@ These are the authoritative references — one per topic, never duplicated:
 - `SOLUTION-DOC-TEMPLATE.md` — client-facing deliverable structure
 - `MEETING-NOTES-TEMPLATE.md` — meeting notes entry format
 - `PERMISSIONS-TEMPLATE-README.md` — permission layer system and merge rules
+- `BEDROCK-COST-GUIDE.md` — Bedrock setup, caching mechanics, cost patterns, hybrid model workflow
 
 ## Durability Rule
 

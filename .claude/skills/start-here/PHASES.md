@@ -40,6 +40,7 @@ Before generating anything, understand what the generator provides. Every file i
 | `PROMPT-ENGINEERING.md` | Prompt design principles to bake into WORKFLOW.md |
 | `DISCOVERY-PIPELINE.md` | Requirements extraction guidance for research/discovery toolkits |
 | `MODEL-SELECTION.md` | Model guidance to include in CLAUDE.md if relevant |
+| `BEDROCK-COST-GUIDE.md` | Bedrock setup, caching mechanics, cost patterns, hybrid model workflow |
 | `SOLUTION-DOC-TEMPLATE.md` | Template structure for client-facing deliverables |
 | `MEETING-NOTES-TEMPLATE.md` | Meeting notes format for `reference/meetings/` |
 | `PERMISSIONS-TEMPLATE-README.md` | How to merge permission layers into `settings.json` |

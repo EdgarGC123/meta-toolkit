@@ -83,6 +83,16 @@ Current stub exists but is intentionally minimal. Planned full version: richer f
 ### E7 — action-item-writer plugin
 Converts meeting notes or discussion into a clean ACTION-ITEMS.md update. Pairs naturally with meeting-notes-writer. Decide scope when building E6.
 
+### Verify Bedrock/model claims from Gemini research session
+**Context file**: `.meta/BEDROCK-COST-GUIDE.md` — items marked INFERRED need verification
+**What to verify**:
+1. **Mantle endpoint** — Is `CLAUDE_CODE_USE_MANTLE=1` a real env var? Does the Mantle endpoint exist as described? Check official AWS Bedrock docs.
+2. **"Mythos" model tier** — Confirmed real by user. Restricted to vetted national security/critical infrastructure partners due to extreme cybersecurity capabilities — not publicly accessible. Fable 5 is the public top tier. Verify official docs for tier structure and update MODEL-SELECTION.md once confirmed.
+3. **Project Glasswing** — Gemini claims this is a restricted access program for Mythos. Verify.
+4. **Context length surcharge** — Gemini describes a 2x billing multiplier beyond 200K tokens. Verify against official pricing docs.
+5. **Current Bedrock pricing** — Numbers in BEDROCK-COST-GUIDE.md are from Gemini (Aug 2026). Verify against https://platform.claude.com/docs/en/docs/about-claude/models/overview and AWS Bedrock pricing page before using for budget planning.
+**How**: Run `/research` targeting official Anthropic and AWS docs on each item.
+
 ### settings.local.json cleanup — generator repo
 **What**: `settings.local.json` in this generator has accumulated a mix of machine-specific paths (correct — stays local) and general permissions that drifted in (WebFetch domains, git commands, etc.). General permissions should move to `settings.json` so they survive cloning. Session artifacts (mv commands, one-off sqlite3 lookups) should be removed entirely.
 **Why deferred**: Works fine as-is; cleanup is low risk but touches permissions which warrants care.

@@ -187,6 +187,33 @@ Skills load only when relevant — they do not bloat the context window when not
 
 ---
 
+## Pattern 6: Big Model Plans, Small Model Executes
+
+Use when: A task has two distinct phases — complex architectural planning followed by repetitive or well-scoped execution. Using a single expensive model for both phases wastes money on the execution steps that don't need deep reasoning.
+
+```
+Phase 1 — Planning (Fable 5 or Opus 4.8):
+  Large model reads full context, thinks deeply
+  → Produces static output: ARCHITECTURE.md, implementation-plan.md, step-by-step tasks
+  → Session ends — cache for the planning model is no longer needed
+
+Phase 2 — Execution (Sonnet 5 or Haiku 4.5):
+  Fresh session with smaller model
+  → Reads the static output files from Phase 1 (caches them once on first read)
+  → Executes each step cheaply using the cached plan as context
+  → Cache re-use means 90% discount on repeated reads of the same plan
+```
+
+**Why it works**: Model switching mid-session invalidates the cache and triggers a re-write at premium cost. By segmenting work into clean sessions — one per model tier — each session only pays one write cost and benefits from cheap reads throughout.
+
+**Output format matters**: The planning model's output should be self-contained static markdown that the execution model can read without needing the planning conversation. Write decisions, not reasoning. "Use PostgreSQL — rationale: team has expertise, see ARCHITECTURE.md" not "we discussed many options and decided..."
+
+**Cost impact**: For a 100K-token codebase context, a single planning session followed by 10 execution steps can cost 10x less than running all 11 steps on the planning-tier model.
+
+**See also**: `.meta/BEDROCK-COST-GUIDE.md` for caching mechanics and model pricing reference.
+
+---
+
 ## Session Memory Patterns
 
 ### The Problem
