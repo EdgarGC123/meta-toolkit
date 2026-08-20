@@ -50,6 +50,7 @@ These are the authoritative references — one per topic, never duplicated:
 - `MEETING-NOTES-TEMPLATE.md` — meeting notes entry format
 - `PERMISSIONS-TEMPLATE-README.md` — permission layer system and merge rules
 - `BEDROCK-COST-GUIDE.md` — Bedrock setup, caching mechanics, cost patterns, hybrid model workflow
+- `MODEL-BEHAVIOR-RULES.md` — How Claude should behave based on model tier (Haiku/Sonnet/Opus/Fable)
 
 ## Durability Rule
 

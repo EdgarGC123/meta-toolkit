@@ -41,6 +41,7 @@ Before generating anything, understand what the generator provides. Every file i
 | `DISCOVERY-PIPELINE.md` | Requirements extraction guidance for research/discovery toolkits |
 | `MODEL-SELECTION.md` | Model guidance to include in CLAUDE.md if relevant |
 | `BEDROCK-COST-GUIDE.md` | Bedrock setup, caching mechanics, cost patterns, hybrid model workflow |
+| `MODEL-BEHAVIOR-RULES.md` | Model-tier-aware behavior rules for Claude (Haiku/Sonnet/Opus/Fable) |
 | `SOLUTION-DOC-TEMPLATE.md` | Template structure for client-facing deliverables |
 | `MEETING-NOTES-TEMPLATE.md` | Meeting notes format for `reference/meetings/` |
 | `PERMISSIONS-TEMPLATE-README.md` | How to merge permission layers into `settings.json` |

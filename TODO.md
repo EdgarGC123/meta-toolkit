@@ -83,6 +83,11 @@ Current stub exists but is intentionally minimal. Planned full version: richer f
 ### E7 — action-item-writer plugin
 Converts meeting notes or discussion into a clean ACTION-ITEMS.md update. Pairs naturally with meeting-notes-writer. Decide scope when building E6.
 
+### Promote MODEL-BEHAVIOR-RULES.md to AI-BEHAVIOR-GUIDELINES.md
+**What**: `.meta/MODEL-BEHAVIOR-RULES.md` defines how Claude should behave based on its model tier (Haiku/Sonnet/Opus/Fable). It is currently a standalone file, not yet in the behavioral guidelines.
+**Why deferred**: New pattern — needs validation through real toolkit usage before being treated as an established guideline.
+**When ready**: After at least one full toolkit generation + usage cycle confirms the tier rules are accurate and helpful. Then merge as Guideline 14 in `AI-BEHAVIOR-GUIDELINES.md` and wire into generated toolkit CLAUDE.md.
+
 ### Verify Bedrock/model claims from Gemini research session
 **Context file**: `.meta/BEDROCK-COST-GUIDE.md` — items marked INFERRED need verification
 **What to verify**:
