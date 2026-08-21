@@ -17,15 +17,18 @@ The AI Toolkit Generator is a scaffolding system. When you run `/start-here`, it
 | Only executable skill | `.claude/skills/start-here/` |
 | Path-scoped rules (auto-load by file path) | `.claude/rules/meta-library.md` — loads when editing `.meta/**`; `.claude/rules/phases-skills.md` — loads when editing `.claude/skills/**` |
 | Generation phase logic and meta library map | `.claude/skills/start-here/PHASES.md` |
-| Toolkit-operational skills (source) | `.meta/base-skills/` — brief, research, solution-writer |
+| Toolkit-operational skills (source) | `.meta/base-skills/` — brief, research, solution-writer, add-checkpoint |
+| Lifecycle hook templates (not yet wired into generation) | `.meta/base-hooks/` — starter scripts, settings layers, full 30-event reference |
 | Architecture and guides | `.meta/ARCHITECTURE.md`, `DESIGN_PHILOSOPHY.md` |
 | Behavioral rules shipped to all toolkits | `.meta/AI-BEHAVIOR-GUIDELINES.md` |
+| Model-tier behavior rules (new — not yet in guidelines) | `.meta/MODEL-BEHAVIOR-RULES.md` |
+| Bedrock setup, caching, cost patterns, hybrid workflow | `.meta/BEDROCK-COST-GUIDE.md` |
 | Permission layer templates | `.meta/settings.template.json`, `settings.research.json`, `settings.developer.json`, `settings.diagnostic.json` — merged into `.claude/settings.json` at generation time based on what the toolkit needs |
 | Permission merge guide | `.meta/PERMISSIONS-TEMPLATE-README.md` |
 | Accumulation library | `.meta/plugins/`, `.meta/skills/`, `.meta/templates/` |
 | Skill pattern reference | `.meta/skills/iterative-processing/` |
 | Builder guides (skill, plugin, phases, prompts) | `.meta/SKILL-GUIDE.md`, `.meta/PLUGIN-GUIDE.md`, `.meta/PHASES-GUIDE.md`, `.meta/PROMPTS-GUIDE.md` |
-| Generation reference docs | `.meta/AGENTIC-PATTERNS.md`, `.meta/PROMPT-ENGINEERING.md`, `.meta/DISCOVERY-PIPELINE.md`, `.meta/MODEL-SELECTION.md` |
+| Generation reference docs | `.meta/AGENTIC-PATTERNS.md`, `.meta/PROMPT-ENGINEERING.md`, `.meta/DISCOVERY-PIPELINE.md`, `.meta/MODEL-SELECTION.md`, `.meta/CLAUDE-CODE-SKILLS-REFERENCE.md` |
 
 ---
 

@@ -228,7 +228,9 @@ This accelerator can generate toolkits for:
 
 Everything in `.meta/` is reference material that informs toolkit generation. None of it executes directly — it's read by Claude during generation and consulted when building or extending a toolkit. It gets deleted from the copy after generation; the original accelerator keeps it as your growing library.
 
-**Guides**: `ARCHITECTURE.md`, `SKILL-GUIDE.md`, `PLUGIN-GUIDE.md`, `PHASES-GUIDE.md`, `PROMPTS-GUIDE.md`, `TESTING-GUIDE.md`, `AGENTIC-PATTERNS.md`, `DISCOVERY-PIPELINE.md`, `PROMPT-ENGINEERING.md`, `MODEL-SELECTION.md`
+**Guides**: `ARCHITECTURE.md`, `SKILL-GUIDE.md`, `PLUGIN-GUIDE.md`, `PHASES-GUIDE.md`, `PROMPTS-GUIDE.md`, `TESTING-GUIDE.md`, `AGENTIC-PATTERNS.md`, `DISCOVERY-PIPELINE.md`, `PROMPT-ENGINEERING.md`, `MODEL-SELECTION.md`, `CLAUDE-CODE-SKILLS-REFERENCE.md`, `PERMISSIONS-TEMPLATE-README.md`
+
+**Cost and model guidance**: `BEDROCK-COST-GUIDE.md` (Bedrock setup, caching, hybrid workflow strategy), `MODEL-BEHAVIOR-RULES.md` (how Claude should behave per model tier — new, not yet in guidelines)
 
 **Templates**: `SOLUTION-DOC-TEMPLATE.md`, `MEETING-NOTES-TEMPLATE.md`, `AI-BEHAVIOR-GUIDELINES.md` (copied into every generated toolkit)
 
@@ -241,10 +243,12 @@ Everything in `.meta/` is reference material that informs toolkit generation. No
 The generation conversation asks what the toolkit needs access to and builds `settings.json` by merging the relevant layers. A solo personal workflow may need only the base. A full client engagement toolkit running code, research, and cloud deployments gets all four. See `.meta/PERMISSIONS-TEMPLATE-README.md` for merge rules.
 
 **Accumulation folders** — grow these over time as you build toolkits:
-- `.meta/plugins/` — reusable domain-specific capabilities (processors, prompt sets for specific tools)
-- `.meta/skills/` — reusable workflow patterns extracted from past engagements
-- `.meta/templates/` — output format templates for consistent deliverables
+- `.meta/plugins/` — reusable domain-specific capabilities (10 built: 3 full, 7 starters; 13 ideas in README)
 - `.meta/skills/` — reusable workflow patterns (includes `iterative-processing` as a starter reference)
+- `.meta/templates/` — output format templates for consistent deliverables
+
+**Hook templates** (not yet wired into generation):
+- `.meta/base-hooks/` — lifecycle hook starter scripts, settings layers, and full 30-event reference (README.md inside explains generator wiring when ready)
 
 ### `.claude/` — The Execution Layer
 
@@ -413,8 +417,11 @@ Your generated toolkit is ready when:
 
 - `DESIGN_PHILOSOPHY.md` — what's baked in and the reasoning behind each pattern
 - `.meta/ARCHITECTURE.md` — how the self-transforming generator works
-- `.meta/AGENTIC-PATTERNS.md` — reusable agentic workflow patterns
+- `.meta/AGENTIC-PATTERNS.md` — reusable agentic workflow patterns (includes Big Model Plans / Small Model Executes)
 - `.meta/PROMPT-ENGINEERING.md` — prompts as composable artifacts
+- `.meta/BEDROCK-COST-GUIDE.md` — Bedrock setup, caching mechanics, cost optimization, hybrid model workflow
+- `.meta/MODEL-SELECTION.md` — model tier reference and tactical usage guide
+- `.meta/MODEL-BEHAVIOR-RULES.md` — how Claude should behave per model tier (new — validate before promoting to guidelines)
 
 ### Creating Plugins and Skills
 
