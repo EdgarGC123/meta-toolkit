@@ -17,8 +17,54 @@ export CLAUDE_CODE_USE_BEDROCK=1
 export AWS_REGION=us-east-1         # or your preferred region
 ```
 
-**IAM Policy (minimum required)**:
-Create a dedicated IAM User or Role for Claude Code with only `bedrock:InvokeModel` permissions. Never run Claude Code with root account or `AdministratorAccess`. Claude Code executes shell commands on your machine and has access to your local environment variables — scoping its IAM permissions is a real security control.
+**IAM Policy (minimum required)**
+
+**CORRECTION (2026-08-06)**: A previous version of this guide said `bedrock:InvokeModel` alone was sufficient. **It is not — Claude Code will fail to run.** Six actions across two statements are required.
+
+**CONFIRMED** — sourced from https://code.claude.com/docs/en/amazon-bedrock
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AllowModelAndInferenceProfileAccess",
+      "Effect": "Allow",
+      "Action": [
+        "bedrock:InvokeModel",
+        "bedrock:InvokeModelWithResponseStream",
+        "bedrock:ListInferenceProfiles",
+        "bedrock:GetInferenceProfile"
+      ],
+      "Resource": [
+        "arn:aws:bedrock:*:*:inference-profile/*",
+        "arn:aws:bedrock:*:*:application-inference-profile/*",
+        "arn:aws:bedrock:*:*:foundation-model/*"
+      ]
+    },
+    {
+      "Sid": "AllowMarketplaceSubscription",
+      "Effect": "Allow",
+      "Action": [
+        "aws-marketplace:ViewSubscriptions",
+        "aws-marketplace:Subscribe"
+      ],
+      "Resource": "*",
+      "Condition": {
+        "StringEquals": {
+          "aws:CalledViaLast": "bedrock.amazonaws.com"
+        }
+      }
+    }
+  ]
+}
+```
+
+Create a dedicated IAM User or Role for Claude Code with this policy. Never run Claude Code with a root account or `AdministratorAccess` — Claude Code executes shell commands on your machine and has access to your local environment variables, so scoping its IAM permissions is a real security control.
+
+**Interactive setup path (easier)**: Select **3rd-party platform → Amazon Bedrock** at login, or run `/setup-bedrock`. It detects credentials, resolves the region, verifies invokable models, pins them, and writes to the `env` block of `~/.claude/settings.json`.
+
+**`AWS_REGION` is optional** as of v2.1.172. Resolution order: `AWS_REGION` → `AWS_DEFAULT_REGION` → active AWS profile's `region` → `us-east-1`. Set it only to override.
 
 **No idle cost**: As long as you are not making API calls, Bedrock costs exactly $0. There are no standing infrastructure charges for direct API usage (unlike Knowledge Bases, which provision an OpenSearch instance even at zero traffic).
 
@@ -124,20 +170,52 @@ Claimed env var: `CLAUDE_CODE_USE_MANTLE=1`
 
 **CONFIRMED** — sourced from official AWS and Anthropic docs
 
-- AWS Bedrock does not train AI models on your prompts or source code
-- Data processed through Bedrock API falls under AWS enterprise-grade terms
-- Once a request is processed, the code is no longer in active GPU memory
-- AWS internal system logs may temporarily retain API inputs/outputs — avoid hardcoding secrets in files Claude will read
+- Data handling for Bedrock is governed by Amazon Bedrock terms
+- Anthropic states Bedrock runs "with zero operator access (Anthropic personnel have no access to the inference infrastructure)"
+- Avoid hardcoding secrets in files Claude will read
 
-**Sensitive file protection**: Claude Code supports a `.claudeignore` file (similar to `.gitignore`) to prevent it from reading specified files. Use this for files containing API keys, credentials, or proprietary data you don't want sent to the API.
+**UNVERIFIABLE — removed**: earlier versions of this guide claimed "once a request is processed, the code is no longer in active GPU memory." No Anthropic or AWS doc describes the cache storage substrate. Do not make claims about GPU memory. Use the sourced statements above instead.
+
+### Sensitive file protection — `.claudeignore` DOES NOT EXIST
+
+**CORRECTION (2026-08-06)**: A previous version of this guide instructed users to create a `.claudeignore` file to prevent Claude from reading sensitive files. **That file has no effect.** Zero matches in the Claude Code settings reference. Anyone who followed that guidance believed secrets were protected while nothing was blocking access.
+
+**The real mechanism** is `permissions.deny` with `Read()` glob rules in `.claude/settings.json`:
+
+```json
+{
+  "permissions": {
+    "deny": [
+      "Read(./.env)",
+      "Read(./.env.*)",
+      "Read(./secrets/**)",
+      "Read(./**/credentials.json)"
+    ]
+  }
+}
+```
+
+For enforcement that cannot be overridden by project or user settings, place the deny rules in `managed-settings.json` with `allowManagedPermissionRulesOnly`.
+
+Note: deny rules are evaluated before allow rules, so a `Read(/**)` allow does not override a specific `Read(./.env)` deny.
 
 ---
 
-## Context Length Surcharge
+## Context Length Pricing — Flat, No Surcharge
 
-**INFERRED — needs verification**
+**CONFIRMED** — https://platform.claude.com/docs/en/about-claude/pricing
 
-Gemini describes a 2x billing multiplier for tokens beyond 200K in a single prompt on models with 1M context windows. If accurate, this makes prompt caching even more critical for large-context work.
+There is **no** pricing multiplier for large contexts. Verbatim from the pricing page:
+
+> "Claude 4.6 and later models and Claude Mythos Preview include the full 1M token context window at standard pricing. (A 900k-token request is billed at the same per-token rate as a 9k-token request.) Prompt caching and batch processing discounts apply at standard rates across the full context window."
+
+**CORRECTION (2026-08-06)**: An earlier version of this guide carried a claim of a ~2x billing multiplier for tokens beyond 200K. That claim was **fabricated** — refuted independently by two research passes against the official pricing page. It likely originated as a garbled memory of the retired Sonnet 4.x 1M-context beta premium. Anyone using it for estimates would have inflated large-context costs by up to 2x.
+
+### The real large-context cost lever: tokenizer generation
+
+**CONFIRMED**: Models from 4.7 onward use a tokenizer that produces roughly **30% more tokens for the same text**. This affects Opus 4.7 / 4.8 / 5, Fable 5, and Sonnet 5. Sonnet 4.6 and earlier do not have it.
+
+Practical consequence: Sonnet 5 at $2/MTok input vs Sonnet 4.6 at $3/MTok is **not** a 33% saving. The token count for identical input is higher on Sonnet 5, which erodes much of the per-token advantage. Any naive cross-generation cost comparison is invalid — compare cost per *task*, not cost per token.
 
 ---
 

@@ -151,8 +151,9 @@ model: sonnet
 You are a research specialist. Search primary sources first...
 ```
 
-Key fields:
-- `tools` — explicitly list what this agent can use; unlisted tools are denied
+Most-used fields (of 17 total — see the full field table below):
+- `name` and `description` are the only **required** fields
+- `tools` — exact tool names only; unlisted tools are denied. Argument specifiers like `Bash(pytest *)` are **invalid here**
 - `model` — can be set independently (e.g., use Haiku for cheap classification agents)
 - `description` — how Claude decides when to delegate to this agent; write it as the sentence a user would say
 
@@ -160,12 +161,82 @@ Built-in subagents include `Explore` (read-only codebase search), `Plan` (resear
 
 ### Tool Scoping via Subagents
 
-Scope tools at the subagent level rather than through settings.json alone:
-- A research subagent: `tools: Read, WebSearch, WebFetch` — no write access
-- A planning subagent: `tools: Read, Grep, Glob` — read-only, no editing
-- A QE subagent: `tools: Read, Bash(pytest *), Bash(npm test *)` — test runner only
+**CORRECTION (2026-08-06)**: An earlier version of this section showed `tools: Read, Bash(pytest *), Bash(npm test *)`. **That syntax is invalid.** The `tools` field accepts only exact tool names, `mcp__<server>` patterns, and `Agent(...)`. Argument-style specifiers like `Bash(pytest *)` cannot be resolved, and an unresolvable entry causes the subagent to **refuse to launch**.
 
-This provides explicit guardrails and prevents agents from doing things outside their intended scope.
+Valid tool scoping — exact names only:
+- A research subagent: `tools: Read, WebSearch, WebFetch` — no write access ✅
+- A planning subagent: `tools: Read, Grep, Glob` — read-only, no editing ✅
+- A QE subagent: `tools: Read, Bash` — then constrain Bash separately (see below) ✅
+
+**To scope Bash to specific commands**, you cannot do it in `tools`. Two documented approaches:
+
+**Option A — `permissions` in settings.json** (simpler):
+```json
+{
+  "permissions": {
+    "allow": ["Bash(pytest *)", "Bash(npm test *)"],
+    "deny": ["Bash(rm -rf *)"]
+  }
+}
+```
+
+**Option B — frontmatter `PreToolUse` hook** (agent-scoped, what the docs recommend):
+```yaml
+---
+name: qe-agent
+description: Runs the test suite and reports failures. Use when tests need to be executed.
+tools: Read, Bash
+hooks:
+  PreToolUse:
+    - matcher: "Bash"
+      hooks:
+        - type: command
+          command: "./scripts/allow-test-commands-only.sh"
+---
+```
+The hook script inspects the command and exits `2` to block anything that isn't a test invocation.
+
+### Subagent Frontmatter — Full Field Set
+
+**CONFIRMED** — 17 fields exist; only `name` and `description` are required. Fields relevant to toolkit generation:
+
+| Field | Purpose |
+|---|---|
+| `name` | **Required.** Identifier used for delegation |
+| `description` | **Required.** How Claude decides when to delegate — write it as the sentence a user would say |
+| `tools` | Exact tool names only (see correction above) |
+| `disallowedTools` | **camelCase** for agents. Note: skills use kebab-case `disallowed-tools` — the two differ |
+| `model` | Pin a model independently of the parent session |
+| `effort` | Reasoning effort for this agent |
+| `skills` | Preloads full skill content into the agent |
+| `permissionMode` | Permission behavior (there is no `permissions` field on agents) |
+| `memory` | Agent-scoped memory |
+| `maxTurns` | Turn cap |
+| `isolation` | Run in an isolated worktree |
+| `mcpServers` | Scope MCP servers to this agent |
+| `hooks` | Agent-scoped lifecycle hooks |
+
+### Critical Constraint: `AskUserQuestion` Is Always Stripped
+
+**CONFIRMED**: `AskUserQuestion` is removed from every subagent unconditionally. A subagent **cannot** ask the user anything.
+
+**Implication for generated agent files**: never write "ask the user if unclear" into a subagent body. It cannot comply. Instead, instruct it to state its assumption explicitly and return, letting the parent session surface the question.
+
+Also: background subagents (the default) receive only a 19-tool built-in allowlist. The same agent definition resolves to a different tool set in foreground vs background.
+
+### When an Agent File Is Warranted vs. a Forked Skill
+
+A skill with `context: fork` and an `agent:` field already runs in its own subagent context. For a role that is fundamentally a **procedure**, a forked skill is less machinery than a new agent file.
+
+Create an agent file when the role needs an **identity**: its own system prompt, restricted tools, a pinned model, agent-scoped memory, hooks, or scoped MCP servers. Otherwise prefer a forked skill.
+
+### Cost Reality
+
+**CONFIRMED**: Agents consume roughly **4x** the tokens of a chat turn; multi-agent patterns roughly **15x**. Token usage alone explains ~80% of performance variance.
+
+The published +90.2% multi-agent improvement is on **breadth-first research**. Anthropic explicitly cautions that coding has "fewer truly parallelizable tasks" and that shared-context work "is not a good fit" for multi-agent delegation.
+
+This provides explicit guardrails and prevents agents from doing things outside their intended scope — but delegation is not free, and for coding work it often is not faster.
 
 ### Hooks as Scripts, Not LLM Calls
 
