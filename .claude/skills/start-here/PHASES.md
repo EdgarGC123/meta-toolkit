@@ -58,7 +58,15 @@ Before starting, silently verify:
 - Working directory contains the generator structure (`.meta/`, `.claude/skills/start-here/`)
 - If not: hard stop — "This skill must be run from the ai-toolkit-accelerator directory."
 
-**Git detach runs in Phase 8, not here.** Background subagents cannot request approval for destructive operations — rm -rf .git would fail silently in a forked context. The removal runs inline in the main conversation during Phase 8 cleanup. The generator runs in `auto` mode (`defaultMode: auto` in `.claude/settings.json`) so cleanup commands execute without prompting the user.
+**Git detach runs in Phase 8, not here.** Background subagents cannot request approval for destructive operations — rm -rf .git would fail silently in a forked context. The removal runs inline in the main conversation during Phase 8 cleanup.
+
+**Expect approval prompts during Phase 8 — CORRECTED 2026-08-06.** An earlier version of this file claimed the generator "runs in `auto` mode so cleanup commands execute without prompting." That was false on two counts:
+1. `defaultMode` was set at the wrong nesting level (top-level instead of `permissions.defaultMode`) and was therefore **ignored entirely**. Now fixed to `permissions.defaultMode: "acceptEdits"`.
+2. `"auto"` is **not honored from project settings** regardless of nesting. On Amazon Bedrock the built-in default is Manual.
+
+`acceptEdits` covers `rm`, `mv`, `cp`, `mkdir`, `touch`, `sed` **inside the working directory**, which handles most of Phase 8. But `.git` and `.claude` are **protected directories** — allow rules cannot pre-approve protected-path writes, because the safety check runs before allow rules are evaluated. So `rm -rf .git` and `rm -rf .claude/skills/start-here/` **will prompt**.
+
+Tell the user to expect two approval prompts during cleanup rather than presenting cleanup as fully automatic. See `research/permission-matching.md`.
 
 Announce in one line: "Starting toolkit generation. I'll ask a short set of discovery questions, then go deeper based on what you share."
 

@@ -4,10 +4,8 @@
   "permissions": {
     "allow": [
       "Read(/**)",
+      "Read(//**)",
       "Edit(/**)",
-      "Write(/**)",
-      "Edit(.git/**)",
-      "Edit(.claude/**)",
       "Bash(ls *)",
       "Bash(find *)",
       "Bash(grep *)",
@@ -78,12 +76,11 @@
     "deny": [
       "Bash(sudo *)",
       "Bash(rm -rf /)",
-      "Bash(rm -rf /*)",
       "Bash(rm -rf ~)",
       "Bash(rm -rf ~/*)",
       "Bash(rm -rf /System*)",
       "Bash(rm -rf /Library*)"
-    ]
-  },
-  "defaultMode": "auto"
+    ],
+    "defaultMode": "acceptEdits"
+  }
 }

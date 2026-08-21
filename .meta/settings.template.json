@@ -5,7 +5,6 @@
     "allow": [
       "Read(/**)",
       "Edit(/**)",
-      "Write(/**)",
       "Bash(ls *)",
       "Bash(find *)",
       "Bash(grep *)",
@@ -65,7 +64,6 @@
       "Bash(sudo *)",
       "Bash(su *)",
       "Bash(rm -rf /)",
-      "Bash(rm -rf /*)",
       "Bash(rm -rf ~)",
       "Bash(rm -rf ~/*)",
       "Bash(rm -rf /System*)",
@@ -99,7 +97,7 @@
       "Bash(launchctl *)",
       "Bash(systemctl *)",
       "Bash(service *)"
-    ]
-  },
-  "defaultMode": "auto"
+    ],
+    "defaultMode": "acceptEdits"
+  }
 }
