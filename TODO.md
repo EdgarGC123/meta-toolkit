@@ -98,10 +98,32 @@ Converts meeting notes or discussion into a clean ACTION-ITEMS.md update. Pairs 
 5. **Current Bedrock pricing** — Numbers in BEDROCK-COST-GUIDE.md are from Gemini (Aug 2026). Verify against https://platform.claude.com/docs/en/docs/about-claude/models/overview and AWS Bedrock pricing page before using for budget planning.
 **How**: Run `/research` targeting official Anthropic and AWS docs on each item.
 
-### settings.local.json cleanup — generator repo
-**What**: `settings.local.json` in this generator has accumulated a mix of machine-specific paths (correct — stays local) and general permissions that drifted in (WebFetch domains, git commands, etc.). General permissions should move to `settings.json` so they survive cloning. Session artifacts (mv commands, one-off sqlite3 lookups) should be removed entirely.
-**Why deferred**: Works fine as-is; cleanup is low risk but touches permissions which warrants care.
-**Revisit when**: Next time permissions need updating anyway.
+### Permission pattern matching — why prompts fire despite allow rules
+**Status**: Investigation needed. The original cleanup task (moving general permissions to `settings.json`) is **DONE** — completed in commit f53fe43. What remains is a deeper unresolved issue.
+
+**The problem**: Permissions that appear to be allowed in `settings.json` still trigger approval prompts. There is a layer above `settings.json` evaluating patterns differently than the file implies.
+
+**Two confirmed instances**:
+1. `Bash(rm -rf *)` is in the allow list, but `rm -rf` on an **absolute path** is blocked regardless. Relative paths work. (Verified by direct testing — see CLAUDE.md "Shell Command Conventions")
+2. `Read(/**)` is in the allow list, but reading external absolute paths still prompted — and Claude Code auto-wrote `Read(//Users/edgar.galvancuesta/**)` into `settings.local.json` when approved.
+
+**Double-slash hypothesis — TESTED AND WEAKENED**: The theory was that Claude Code normalizes absolute paths with a leading `//`, so the hand-written `Read(/**)` would never match. **Test result**: reading `/etc/hosts` (absolute path, outside the project, not covered by any `settings.local.json` entry) succeeded **without prompting**. So `Read(/**)` does match absolute paths. Confirmed via `git log -S` that `Read(/**)` has been in `settings.json` since the initial commit — meaning it was present when Claude Code auto-added the redundant local entries anyway.
+
+**So the puzzle is unresolved**: `Read(/**)` works, yet Claude Code still auto-added `Read(//Users/edgar.galvancuesta/**)` and friends at some point. Something other than simple pattern matching is at play.
+
+**Untested angle — symlink resolution**: This repo is reachable via two paths that resolve to the same location:
+- `/Users/edgar.galvancuesta/Desktop/slalom_code/ai-toolkit-accelerator` (symlink)
+- `/Users/edgar.galvancuesta/Library/CloudStorage/OneDrive-Slalom/Desktop/slalom_code/ai-toolkit-accelerator` (real path)
+
+Note that one of the auto-added entries is specifically `Read(//Users/edgar.galvancuesta/Library/CloudStorage/**)` — the real path, not the symlink. Permission matching may operate on resolved real paths while the session's CWD is the symlink, causing in-project reads to look external.
+
+**Research in progress**: `research/permission-matching.md` — investigating documented matching semantics, the destructive-command safety layer, double-slash meaning, and symlink handling.
+
+**Do not remove the entries in `settings.local.json`** — they are auto-generated evidence of what actually gets blocked. They look redundant against `Read(/**)` but that redundancy is the symptom, not clutter. Removing them likely reintroduces the prompts and loses the data.
+
+**Why this matters**: Every unexplained prompt interrupts autonomous work. For generated toolkits especially, users will hit these and assume the permission templates are broken. Understanding the real matching behavior means the permission layer templates in `.meta/` can be written correctly instead of defensively.
+
+**Related**: This may also explain other prompt behavior we attributed to Claude Code's "safety layer." Some of it may just be pattern mismatches.
 
 ### settings.local.json.example — generator toolkit (general)
 **What**: A sample `settings.local.json` file for the generator repo showing what belongs there vs `settings.json`. Currently doesn't exist.

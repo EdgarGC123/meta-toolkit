@@ -47,6 +47,14 @@ All current Claude models support text and image input (vision), multilingual ca
 
 ## Tactical Usage Guide
 
+> ### ⚠️ STUB — This section is unvalidated
+>
+> The guidance below was written from assumptions and from a Google Gemini conversation, **not from verified research**. Specifically unverified: the effort-level cost table, fast mode behavior, and the cache invalidation claims.
+>
+> Pending research: `research/model-settings-cost.md` and `research/model-tiers-capabilities.md`. Rewrite this section once those land.
+>
+> The "When to use each tier" table and hybrid workflow pattern are directionally reasonable but should be confirmed. Do not cite the cost numbers below in budget planning until verified.
+
 ### When to use each tier
 
 | Situation | Use |

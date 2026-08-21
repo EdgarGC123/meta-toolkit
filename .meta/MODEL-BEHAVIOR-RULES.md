@@ -1,10 +1,26 @@
 # Model-Tier-Aware Behavior Rules
 
+> ## ⚠️ STUB — UNVALIDATED CONTENT
+>
+> **Do not treat this file as authoritative. Do not build on it or ship it into generated toolkits yet.**
+>
+> This file was written as a **planning placeholder** from assumptions about how model tiers differ — not from research. The tier tables, do/don't lists, and worked example are best guesses, not validated findings.
+>
+> **Known gaps**: Anthropic does not publish per-tier failure modes. The specific claims here about where Haiku fails, where Sonnet falls short of Opus, and what Fable adds over Opus are all **unverified inference**.
+>
+> **Before this file can be trusted**:
+> 1. Research must validate or correct the tier capability boundaries → `research/model-tiers-capabilities.md`
+> 2. Research must confirm the settings/cost mechanics referenced → `research/model-settings-cost.md`
+> 3. This file must then be rewritten based on findings
+> 4. Only then: promote into `AI-BEHAVIOR-GUIDELINES.md` and wire into generation
+>
+> **TODO reference**: "Promote MODEL-BEHAVIOR-RULES.md to AI-BEHAVIOR-GUIDELINES.md"
+
+---
+
 **Purpose**: How Claude should behave based on which model tier it is running on. These rules exist because the right output type varies by model capability — a smaller model doing planning-tier work produces low-quality results; a larger model doing execution-tier work wastes money. Both are failures.
 
-Claude Code exposes the current model in session context. These rules apply to all toolkits generated from this generator.
-
-**Status**: New pattern — not yet merged into `AI-BEHAVIOR-GUIDELINES.md`. Validate through real toolkit usage before promoting to the guidelines file. Reference: `TODO.md` for promotion task.
+Claude Code exposes the current model in session context. These rules are intended to apply to all toolkits generated from this generator — once validated.
 
 ---
 
