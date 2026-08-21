@@ -41,12 +41,25 @@ If any folder in this generator is renamed, update path references in this file 
 
 ## Shell Command Conventions
 
-**Always use relative paths** when running shell commands in this repo. Claude Code's safety layer blocks `rm -rf` on absolute paths regardless of `settings.json`. All destructive commands must use paths relative to the project root.
+**Always use relative paths** when running shell commands in this repo.
 
 Good: `rm -rf .meta/` `rm -f FUTURE-WORK.md` `mv old-name new-name`
 Blocked: `rm -rf /Users/edgar/.../some-folder`
 
 **Confirm `pwd` before any destructive operation** — relative paths only work correctly when you are in the project root.
+
+### Why absolute-path `rm -rf` is blocked — CORRECTED 2026-08-06
+
+An earlier version of this file claimed "Claude Code's safety layer blocks `rm -rf` on absolute paths regardless of `settings.json`." **That was wrong.** It was an inference from observed behavior, never verified.
+
+The real cause is **this repo's own deny rule**: `Bash(rm -rf /*)` in `.claude/settings.json`. Deny beats allow unconditionally, and in `rm -rf /*` the `*` has no preceding space — so there is no word boundary and the pattern matches **every** absolute path, not just `/`.
+
+Proved by A/B test:
+- `rm -rf /tmp/x` → denied
+- `rm -rf relative/x` → allowed
+- `rm -f /tmp/x` → **allowed** ← the discriminator. A generic absolute-path safety layer would have blocked this too. It didn't.
+
+Relative paths remain the right convention, but now for an accurate reason: the deny rule only matches absolute paths. See `research/permission-matching.md` for the full mechanism and `TODO.md` for the pending decision on whether to fix the rule.
 
 ---
 

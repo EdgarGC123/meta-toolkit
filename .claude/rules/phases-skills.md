@@ -8,7 +8,9 @@ paths:
 
 ## Shell Command Rule
 
-Always use **relative paths** in any shell commands written into PHASES.md or skill files. Claude Code's safety layer blocks `rm -rf` on absolute paths regardless of `settings.json`. All destructive commands must use paths relative to the project root (e.g. `rm -rf .meta/` not `rm -rf /Users/edgar/.../`).
+Always use **relative paths** in any shell commands written into PHASES.md or skill files. Destructive commands must use paths relative to the project root (e.g. `rm -rf .meta/` not `rm -rf /Users/edgar/.../`).
+
+**Corrected reason (2026-08-06)**: this was previously attributed to "Claude Code's safety layer." It is actually this repo's own deny rule `Bash(rm -rf /*)` — the `*` has no preceding space, so it matches every absolute path rather than just `/`. Verified: `rm -f /tmp/x` is allowed, which rules out a generic absolute-path safety layer. See `research/permission-matching.md`.
 
 ---
 
