@@ -12,16 +12,19 @@ Model selection is about matching the task to the right capability tier — not 
 
 ## Current Claude Model Reference
 
-**CONFIRMED** — sourced from https://platform.claude.com/docs/en/docs/about-claude/models/overview
+**CONFIRMED** — sourced from official Anthropic model docs. Verify before budget planning — pricing and availability change.
 
-| Model | API ID | Context | Best for |
+| Model | Tier | Context | Best for |
 |---|---|---|---|
-| **Claude Fable 5** | `claude-fable-5` | 1M tokens | Long-running agents, highest-capability tasks requiring sustained reasoning |
-| **Claude Opus 4.8** | `claude-opus-4-8` | 1M tokens | Complex agentic coding, enterprise work, multi-step reasoning |
-| **Claude Sonnet 5** | `claude-sonnet-5` | 1M tokens | Best balance of speed and intelligence — default for most tasks |
-| **Claude Haiku 4.5** | `claude-haiku-4-5-20251001` | 200k tokens | Fastest with near-frontier intelligence — high-volume, simple tasks |
+| **Claude Fable 5** | Extended autonomous | 1M tokens | Long autonomous runs, very large context, multi-session coordination |
+| **Claude Opus 5** | Deep reasoning | 1M (Bedrock: select `[1m]` variant or you get 200K) | Complex analysis, architectural decisions, extended sessions |
+| **Claude Sonnet 5** | Execution | 1M tokens | Day-to-day work, story implementation, interactive development. $2/$10 per MTok — now permanent |
+| **Claude Haiku 4.5** | Read-and-summarize | 200K tokens | Repetitive single-file tasks, codebase mapping, extraction. No `effort` parameter. Feb 2025 knowledge cutoff. |
 
-All current Claude models support text and image input (vision), multilingual capabilities, and are available via Claude API, AWS Bedrock, Google Cloud, and Microsoft Foundry.
+**Legacy**: Opus 4.8, Sonnet 4.6 — use current generation for new work.
+**Restricted**: Mythos 5 — invitation-only via Project Glasswing (defensive cybersecurity). Not for standard use.
+
+All current models support vision and multilingual. Available via Claude API, AWS Bedrock, Google Cloud, Microsoft Foundry.
 
 ---
 
@@ -29,89 +32,96 @@ All current Claude models support text and image input (vision), multilingual ca
 
 **Default**: Claude Sonnet 5 for most tasks.
 
-**Use Fable 5 when**:
-- The task is a long-running agentic workflow requiring sustained, high-quality reasoning across many steps
-- Maximum capability is the priority regardless of cost
-
-**Use Opus 4.8 when**:
-- The task requires complex multi-step reasoning or agentic coding
-- Output quality matters more than latency
-- Enterprise or production workload where reliability is critical
+Ask: **"How long before I need to course-correct this?"** — that determines tier more reliably than task difficulty.
 
 **Use Haiku 4.5 when**:
-- The task is simple and high-volume (classification, labeling, formatting, extraction)
-- Speed and cost efficiency matter more than depth
-- Note: Haiku 4.5 has a 200k token context window — not 1M
+- The task is repetitive and well-scoped — same operation applied to many individual items
+- Ideal: reading/summarizing files one at a time, extraction, classification, codebase mapping
+- Hard limits: no `effort` parameter, 200K context, Feb 2025 knowledge cutoff, no planning mode
+
+**Use Sonnet 5 when**:
+- Regular human check-ins, implementing defined stories, interactive development
+- Default for most day-to-day work
+
+**Use Opus 5 when**:
+- The session will run for a while without supervision, OR the task requires connecting non-obvious dots across a large system
+- Complex analysis, architectural decisions, full feature implementation end-to-end
+- Note: Opus 5 completes features fully — it does not leave stubs unless that's appropriate
+
+**Use Fable 5 when**:
+- Multi-hour autonomous runs, very large context, sessions that need to sustain quality without human checkpoints
+- Not for supervised coding — Opus 5 matched Fable on SWE-bench Pro at ~60% of cost for supervised work
 
 ---
 
 ## Tactical Usage Guide
 
-> ### ⚠️ STUB — This section is unvalidated
->
-> The guidance below was written from assumptions and from a Google Gemini conversation, **not from verified research**. Specifically unverified: the effort-level cost table, fast mode behavior, and the cache invalidation claims.
->
-> Pending research: `research/model-settings-cost.md` and `research/model-tiers-capabilities.md`. Rewrite this section once those land.
->
-> The "When to use each tier" table and hybrid workflow pattern are directionally reasonable but should be confirmed. Do not cite the cost numbers below in budget planning until verified.
+**Validated** against `research/model-settings-cost.md` and `research/model-tiers-capabilities.md`.
 
-### When to use each tier
+### Lead with these levers — they outrank model selection
 
-| Situation | Use |
+Anthropic's measured performance improvements, in descending impact:
+
+| Lever | Measured gain |
 |---|---|
-| Writing code, fixing bugs, implementing a story | Sonnet |
-| Designing a system, planning an epic, architectural decisions | Opus |
-| Simple extraction, formatting, boilerplate generation | Haiku |
-| Multi-session autonomous work, very large repo analysis | Fable |
-| Everything else | Sonnet (default) |
+| Prompt caching | 2.5–3.7x cost reduction |
+| Prompt quality audit | 14% performance + 5 accuracy points |
+| Batch processing | 50% cost reduction |
+| Effort level tuning | "Often a better lever than switching models" (not quantified per level) |
+| Model selection | Real, but lower impact than the above |
 
-### The hybrid workflow — save cost, maintain quality
+**Concrete implication**: a stale prompt cost 36% more on a newer, better model for zero accuracy gain. Fix the prompt before upgrading the model.
 
-The most cost-efficient pattern for complex work:
+### Effort levels — the most under-used lever
 
-1. **Opus session** — define architecture, produce handoff docs (ARCHITECTURE.md, implementation plan, story breakdown with ACs)
-2. **Close the Opus session** — cache expires, no ongoing cost
-3. **Sonnet session** — reads the static handoff docs, executes the plan cheaply
-
-Switching models mid-session invalidates the cache and forces a re-write at premium cost. Segmenting into clean sessions avoids this.
-
-See `.meta/BEDROCK-COST-GUIDE.md` — "Model Cost Reference" and "Caching Mechanics" for the math behind this.
-
-### Configurations that affect cost
-
-**Effort level** (`--effort` or `effort:` in skill frontmatter)
+**CONFIRMED** — affects all token spend (text, tool calls, and thinking)
 
 | Level | Effect | When to use |
 |---|---|---|
-| `low` | Minimal reasoning, fastest, cheapest | Simple lookups, formatting, boilerplate |
+| `low` | Minimal reasoning, fewest tool calls, cheapest | Simple lookups, formatting, extraction |
 | `medium` | Standard reasoning | Most tasks |
-| `high` | Extended thinking enabled, default for Opus/Sonnet in Claude Code | Complex reasoning, architecture, debugging |
-| `xhigh` | Deeper extended thinking | Hard problems requiring sustained multi-step reasoning |
-| `max` | Maximum thinking budget | Most demanding tasks — use sparingly |
+| `high` | Default for Opus and Sonnet in Claude Code | Complex reasoning, debugging, architecture |
+| `xhigh` | Deeper extended thinking | Hard multi-step problems |
+| `max` | Maximum thinking budget | Most demanding — use sparingly |
 
-Extended thinking tokens are billed as output tokens. Higher effort = more thinking tokens = higher cost. Opus and Sonnet default to `high` in Claude Code — set explicitly lower for tasks that don't need it.
+Effort affects *all* token spend, including how many tool calls the model makes. At `low` effort Claude combines operations; at `high` it's more thorough. Default is `high` for Opus and Sonnet in Claude Code. Set it lower explicitly when you don't need it.
 
-**Fast mode** (Claude Code)
+Effort is available in skill frontmatter: `effort: medium`. See `CLAUDE-CODE-SKILLS-REFERENCE.md`.
 
-Fast mode uses Claude Opus with faster output generation. Toggle with `/fast`. Available on Opus 5/4.8. Check current pricing before relying on cost estimates — fast mode billing depends on which model is actually invoked.
+**Bedrock note**: `fast` mode is **Anthropic API only** — not available on Bedrock, Google Cloud, Foundry, or Claude Platform on AWS.
 
-**Model switching mid-session**
+### Prompt caching
 
-Each model switch invalidates the prompt cache — you pay a full re-write at the new model's write premium rate. For long sessions, minimize switches. If switching is necessary, do it at a natural break point (end of a phase, after a commit) not mid-task.
+The single biggest lever. First request with large context: cache write (premium cost). Subsequent requests reusing the same prefix: cache read (~10% of standard input cost).
 
-**Prompt caching**
+- **5-minute TTL** (default): resets on every cache hit. Break-even: **one** cache read.
+- **1-hour TTL** (opt-in): `ENABLE_PROMPT_CACHING_1H=1` in Claude Code. Costs 2x write premium (vs 1.25x for 5-min). Break-even: **two** reads.
+- Cache is model-specific. A new session on the same model still hits cache for the same content.
 
-The single biggest cost lever. First request with large context pays a write premium; subsequent requests pay ~10% of standard input cost. Cache expires on inactivity (5-minute default, 1-hour extended). See `.meta/BEDROCK-COST-GUIDE.md` for full details.
+See `.meta/BEDROCK-COST-GUIDE.md` for full caching mechanics.
 
-### Mythos
+### Segmenting work across models
 
-Real model, not publicly accessible. Restricted to vetted national security and critical infrastructure partners due to extreme cybersecurity capabilities. Fable 5 is the publicly accessible top tier for standard toolkit usage.
+When work genuinely exceeds one context window, or when you need to hand off routine execution to a cheaper model:
+
+1. Use Opus/Sonnet to produce a **durable artifact** — a plan, an APP-CONTEXT.md, an architecture doc. Write it to a file, not just a conversation.
+2. Start a new session on the cheaper model. It reads the artifact and caches it.
+
+**Why this works**: the artifact survives session death, token expiry, switching machines, and days passing. The conversation does not. The cost benefit is real but secondary to the durability benefit.
+
+**INFERRED — not yet empirically verified**: switching models invalidates the prompt cache. If true, you avoid re-caching the full prior conversation by segmenting — but you still pay a cache write on the artifact in the new session. The net saving depends on how large the prior context was. See `research/model-settings-cost.md`.
+
+**When segmenting does NOT help**: if the work fits in one context and you'd otherwise pay for plan + handoff + execution, a single Opus session at lower effort usually comes out ahead.
+
+### Context window on Bedrock — Opus note
+
+On Bedrock, Opus models default to a 200K window and auto-compact at that boundary unless you explicitly select the `[1m]` variant. Use `/model opus[1m]` or equivalent to get the 1M window.
 
 ---
 
 ## Important: Effort Level
 
-Opus 4.8 and Sonnet 5 default to `high` effort in Claude Code and the API. Set `effort` explicitly if you need a different level. Lower effort = faster and cheaper; higher effort = more thorough reasoning. The `effort` parameter is available in skill frontmatter — see `CLAUDE-CODE-SKILLS-REFERENCE.md`.
+Opus 5 and Sonnet 5 default to `high` effort in Claude Code and the API. Haiku 4.5 has **no effort parameter**. Set `effort` explicitly when the task doesn't warrant the default. Lower effort = fewer thinking tokens and fewer tool calls = faster and cheaper. The `effort` parameter is available in skill frontmatter — see `CLAUDE-CODE-SKILLS-REFERENCE.md`.
 
 ---
 

@@ -1,6 +1,6 @@
 # Iterative Processing - AI Prompt Templates
 
-**Source**: Official Claude Code batch processing and progress reporting patterns
+**Source**: Derived from general LLM workflow practices. Not sourced from a specific Claude Code document — see research/batch-processing-patterns.md for corrections to the progress-reporting cadences and batch-size bands.
 
 These templates guide how to apply the iterative processing pattern with clear progress tracking and error handling.
 

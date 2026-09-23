@@ -2,7 +2,7 @@
 
 **Pattern**: Process multiple items consistently with accumulation and review
 
-**Source**: Based on official Claude Code batch processing patterns and Tool Use best practices
+**Source**: Pattern derived from general LLM batch processing practices. "Official Claude Code batch processing patterns" does not exist as a document — this skill was written from training knowledge. Core loop structure is sound; see `research/batch-processing-patterns.md` for sourced validation and corrections.
 
 ---
 

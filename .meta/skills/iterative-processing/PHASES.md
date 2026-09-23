@@ -1,6 +1,6 @@
 # Iterative Processing - Pattern Structure
 
-**Source**: Official Claude Code batch processing patterns
+**Source**: Derived from general LLM batch processing practices. Not sourced from a specific Claude Code document.
 
 **Note on Phase Count**: This pattern has 4 main phases. The core loop (Load → Process → Validate → Accumulate) repeats for each item, but the phases themselves represent the overall structure. Don't add unnecessary phases - this pattern is intentionally simple.
 
